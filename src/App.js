@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import AppClasses from './App.module.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className={AppClasses.App}>
-      <header className={AppClasses.AppHeader}>
-        <img src={logo} className={AppClasses.AppLogo} alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className={AppClasses.AppLink}
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import AppCSS from './App.module.css';
+
+// import Button from 'react-bootstrap/Button';
+// import Jumbotron from 'react-bootstrap/Jumbotron';
+// import Modal from 'react-bootstrap/Modal';
+
+import Header from './components/Header';
+import Tools from './containers/Tools/Tools';
+
+class App extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      show: false,
+    };
+  }
+  
+  handleClose = () => {
+    this.setState({ show: false });
+  }
+
+  handleShow = () => {
+    this.setState({ show: true });
+  }
+
+  render() {
+    return (
+      <div id="App" className={AppCSS.App}>
+        <Header />
+        <Tools />
+      </div>
+    );
+  }
 }
 
 export default App;
