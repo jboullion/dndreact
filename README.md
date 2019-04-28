@@ -23,6 +23,9 @@ Build Production App with `npm run build`
 
 [5e JSON database](https://github.com/adrpadua/5e-database)
 
+[MySQL](https://www.mysql.com/)
+
+
 
 #### Special Thanks
 
