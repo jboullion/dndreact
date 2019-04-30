@@ -1,0 +1,13 @@
+
+#header .navbarBrand       { font-size: 1.5rem; line-height: 30px; }
+#header .navbarBrand img   { margin-right: 10px; }
+
+#header .navItem           { margin: 0 0 0 10px; }
+#header .navItem .navLink { letter-spacing: 1px;  }
+
+#header .navbarCollapse    { flex-grow: inherit; }
+
+@media (max-width: 768px)           { 
+	#header .navItem               { margin: 15px 0 0 0; }
+	#header .navItem .navLink     { padding: 3px 0; }
+}
