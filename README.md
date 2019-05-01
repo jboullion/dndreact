@@ -19,6 +19,7 @@ Build Production App with `npm run build`
 [Bootswatch](https://bootswatch.com/sketchy/)
 
 [Font Awesome](https://fontawesome.com/)
+[FontAwesome React](https://github.com/FortAwesome/react-fontawesome/tree/development)
 Font Awesome (FA) Pro is used in this application. FA Pro is a paid resource and I have not included it in this repo. To make full use of FA Pro in this application please purchase an FA Pro license.
 
 [5e JSON database](https://github.com/adrpadua/5e-database)

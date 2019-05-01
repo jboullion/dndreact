@@ -2,34 +2,38 @@ import React, { Component } from 'react';
 
 import AppCSS from './App.module.css';
 
-// import Button from 'react-bootstrap/Button';
-// import Jumbotron from 'react-bootstrap/Jumbotron';
-// import Modal from 'react-bootstrap/Modal';
-
 import Header from './components/Header';
 import Tools from './containers/Tools/Tools';
+import AccountModal from './components/AccountModal';
+import SigninModal from './components/SigninModal';
+
 
 class App extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      show: false,
+      accountShow: false,
+      signinShow: false,
     };
   }
   
-  handleClose = () => {
-    this.setState({ show: false });
+  //Toggle our create account modal
+  toggleAccount = () => {
+    this.setState({ accountShow: !this.state.accountShow });
   }
 
-  handleShow = () => {
-    this.setState({ show: true });
+  //Toggle our sign in modal
+  toggleSignin = () => {
+    this.setState({ signinShow: !this.state.signinShow });
   }
 
   render() {
     return (
       <div id="App" className={AppCSS.App}>
-        <Header />
+        <Header toggleAccount={this.toggleAccount} toggleSignin={this.toggleSignin} />
         <Tools />
+        <AccountModal show={this.state.accountShow} toggleAccount={this.toggleAccount} />
+        <SigninModal show={this.state.signinShow} toggleSignin={this.toggleSignin} />
       </div>
     );
   }
