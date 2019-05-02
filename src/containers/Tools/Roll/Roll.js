@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Die from './Die';
+
+import Dice from './Dice';
 
 import { getRandomInt, numericSort } from '../../../functions'
 
@@ -40,6 +41,9 @@ class Roll extends Component {
 
 	//Update the number of dice to roll.
 	updateDieNumber = (event, value) => {
+		//prevent numbers greater than 999. Lol who rolls 999 dice?...it's fun!
+		if(event.target.value > 999) return;
+
 		const dieIndex = this.state.dice.findIndex(d => {
 			return d.value === value;
 		});
@@ -122,7 +126,7 @@ class Roll extends Component {
 
 				<Row>
 					{this.state.dice.map(die => {
-						return <Die key={die.value} die={die} rollDice={this.rollDice} updateDieNumber={this.updateDieNumber}/>
+						return <Dice key={die.value} die={die} rollDice={this.rollDice} updateDieNumber={this.updateDieNumber}/>
 					})}
 				</Row>
 

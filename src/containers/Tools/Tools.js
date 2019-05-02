@@ -9,10 +9,21 @@ import Character from './Character/Character';
 
 
 class Tools extends Component {
+
+	constructor(props, context) {
+		super(props, context);
+
+		this.state = {
+			character: {
+
+			}
+		}
+	}
+
 	render() {
 		return (
 				<div id="Tools">
-					<Tabs justify defaultActiveKey="roll">
+					<Tabs justify defaultActiveKey="character">
 						<Tab eventKey="character" title="Character">
 							<Character />
 						</Tab>
