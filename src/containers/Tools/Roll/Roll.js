@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Die from './Die';
 
 import { getRandomInt, numericSort } from '../../../functions'
 
@@ -6,13 +7,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD4,faDiceD6,faDiceD8,faDiceD10,faDiceD12,faDiceD20 } from '@fortawesome/pro-solid-svg-icons'
 
-// import ToolsCSS from './Tools.module.css';
+import RollCSS from './Roll.module.css';
 
 class Roll extends Component {
 	constructor(props, context) {
@@ -23,12 +21,12 @@ class Roll extends Component {
 			recentTotal: 0,
 			recentResults: [],
 			dice: [ 
-				{ value: 4, num: 1, component: faDiceD4	},
-				{ value: 6, num: 1, component: faDiceD6 },
-				{ value: 8, num: 1, component: faDiceD8 },
-				{ value: 10, num: 1, component: faDiceD10 },
+				{ value: 20, num: 1, component: faDiceD20 },
 				{ value: 12, num: 1, component: faDiceD12 },
-				{ value: 20, num: 1, component: faDiceD20 }
+				{ value: 10, num: 1, component: faDiceD10 },
+				{ value: 8, num: 1, component: faDiceD8 },
+				{ value: 6, num: 1, component: faDiceD6 },
+				{ value: 4, num: 1, component: faDiceD4	}
 			]
 		}
 	}
@@ -43,7 +41,7 @@ class Roll extends Component {
 	//Update the number of dice to roll.
 	updateDieNumber = (event, value) => {
 		const dieIndex = this.state.dice.findIndex(d => {
-			return d.value == value;
+			return d.value === value;
 		});
 
 		//get a copy of the die we want to update
@@ -68,7 +66,7 @@ class Roll extends Component {
 	rollDice = (die) => {
 		let total = 0;
 		let results = [];
-	
+
 		//Get our results
 		for(let d = 0; d < die.num; d++){
 			let result = getRandomInt(die.value);
@@ -117,29 +115,14 @@ class Roll extends Component {
 				</Row>
 
 				<Row>
-					<Col id="dice-results">
-						{this.displayResults()} <strong>{this.state.recentTotal}</strong>
+					<Col className={RollCSS.results}>
+						{this.displayResults()} <strong className={RollCSS.total}>{this.state.recentTotal}</strong>
 					</Col>
 				</Row>
 
 				<Row>
 					{this.state.dice.map(die => {
-						return <Col md={6} lg={4} key={die.value}>
-									<div className="roll-wrapper">
-										<Form.Group>
-											<InputGroup className="mb-3">
-												<InputGroup.Prepend>
-													<InputGroup.Text className="bg-primary text-white">d{die.value}</InputGroup.Text>
-													<InputGroup.Text className="bg-primary text-white"><FontAwesomeIcon icon={die.component} /></InputGroup.Text>
-												</InputGroup.Prepend>
-												<input type="number" maxLength="2" className="dice-num form-control" value={die.num} onChange={(event) => this.updateDieNumber(event, die.value)} />
-												<InputGroup.Append>
-													<Button variant="primary" onClick={() => this.rollDice(die)}>Roll</Button>
-												</InputGroup.Append>
-											</InputGroup>
-										</Form.Group>
-									</div>
-								</Col>
+						return <Die key={die.value} die={die} rollDice={this.rollDice} updateDieNumber={this.updateDieNumber}/>
 					})}
 				</Row>
 

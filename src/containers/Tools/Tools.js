@@ -5,6 +5,7 @@ import Tabs from 'react-bootstrap/Tabs';
 // import ToolsCSS from './Tools.module.css';
 
 import Roll from './Roll/Roll';
+import Character from './Character/Character';
 
 
 class Tools extends Component {
@@ -13,7 +14,7 @@ class Tools extends Component {
 				<div id="Tools">
 					<Tabs justify defaultActiveKey="roll">
 						<Tab eventKey="character" title="Character">
-							<h2>Tab Character</h2>
+							<Character />
 						</Tab>
 						<Tab eventKey="spells" title="Spells">
 							<h2>Tab Spells</h2>

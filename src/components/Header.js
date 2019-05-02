@@ -6,11 +6,13 @@ import Button from 'react-bootstrap/Button';
 
 import HeaderCSS from './Header.module.css';
 
+import logo from '../img/logo.svg';
+
 const header = (props) => {
 	return <Navbar collapseOnSelect expand="sm" bg="primary" variant="dark" id={HeaderCSS.header} className="mb-1">
 				<Container className={HeaderCSS.container}>
 					<Navbar.Brand className={HeaderCSS.navbarBrand}>
-						<img src="/img/logo.svg" width="30" height="30" className="d-inline-block align-top" alt="D and D Tools" />
+						<img src={logo} width="30" height="30" className="d-inline-block align-top" alt="D and D Tools" />
 						D&amp;D Tools
 					</Navbar.Brand>
 					
