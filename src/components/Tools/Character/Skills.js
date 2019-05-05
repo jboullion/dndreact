@@ -1,13 +1,37 @@
 import React from 'react';
 
+import Table from 'react-bootstrap/Table';
+import Card from 'react-bootstrap/Card';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
 
 const skills = (props) => {
+	const state = {
+		skills: [
+			{
+				name: 'Acrobatics',
+				stat: 'Dex',
+				bonus: -4,
+				prof: false,
+				adv: false,
+			},
+			{
+				name: 'Animal Handling',
+				stat: 'Wis',
+				bonus: -4,
+				prof: false,
+				adv: false,
+			}
+		]
+	}
+
 	return <div className="mb-4 tab-pane" id="character-skills">
-				<div className="card w-100">
-					<div className="card-body">
+				<Card className="w-100">
+					<Card.Body>
 						<legend>Skills</legend>
 
-						<table className="table table-hover">
+						<Table striped bordered>
 							<thead>
 								<tr className="table-dark">
 									<th scope="col">Name</th>
@@ -19,26 +43,23 @@ const skills = (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr className="table-active">
-									<th scope="row">Acrobatics</th>
-									<td>Dex</td>
-									<td className="text-center">+3</td>
-									<td className="text-center"><i className="fas fa-check-circle"></i></td>
-									<td className="text-center"></td>
-									<td className="text-center"><i className="fas fa-fw fa-dice-d20"></i></td>
-								</tr>
-								<tr className="table-active">
-									<th scope="row">Animal Handling</th>
-									<td>Wis</td>
-									<td className="text-center">+3</td>
-									<td className="text-center"></td>
-									<td className="text-center"><i className="fas fa-check-circle"></i></td>
-									<td className="text-center"><i className="fas fa-fw fa-dice-d20"></i></td>
-								</tr>
+								{state.skills.map(function(skill, index){
+
+									return <tr className="table-active">
+												<th scope="row">{skill.name}</th>
+												<td>{skill.stat}</td>
+												<td className="text-center">{skill.bonus>0?'+':''}{skill.bonus}</td>
+												<td className="text-center"><FontAwesomeIcon icon={faCheckCircle} /></td>
+												<td className="text-center"><FontAwesomeIcon icon={faCheckCircle} /></td>
+												<td className="text-center"><FontAwesomeIcon icon={faDiceD20} /></td>
+											</tr>;
+
+								})}
+
 							</tbody>
-						</table> 
-					</div>
-				</div>
+						</Table> 
+					</Card.Body>
+				</Card>
 			</div>;
 }
 

@@ -1,13 +1,66 @@
 import React from 'react';
 
+import FormControl from 'react-bootstrap/FormControl';
+import Table from 'react-bootstrap/Table';
+import Card from 'react-bootstrap/Card';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
 
 const stats = (props) => {
+	const state = {
+		stats: [
+			{
+				name: 'Strength',
+				shortname: 'Str',
+				value: 16,
+				bonus: -4,
+				prof: false,
+			},
+			{
+				name: 'Dexterity',
+				shortname: 'Dex',
+				value: 16,
+				bonus: 4,
+				prof: false,
+			},
+			{
+				name: 'Constitution',
+				shortname: 'Con',
+				value: 16,
+				bonus: 4,
+				prof: false,
+			},
+			{
+				name: 'Intellegence',
+				shortname: 'Int',
+				value: 16,
+				bonus: 4,
+				prof: false,
+			},
+			{
+				name: 'Wisdom',
+				shortname: 'Wis',
+				value: 16,
+				bonus: 4,
+				prof: false,
+			},
+			{
+				name: 'Charisma',
+				shortname: 'Cha',
+				value: 16,
+				bonus: 4,
+				prof: false,
+			},
+		]
+	}
+
 	return <div className=" mb-4 tab-pane" id="character-stats">
-				<div className="card w-100">
-					<div className="card-body">
+				<Card className="w-100">
+					<Card.Body>
 						<legend>Stats and Abilities</legend>
 						
-						<table className="table table-hover">
+						<Table striped bordered>
 							<thead>
 								<tr className="table-dark">
 									<th>Name</th>
@@ -18,52 +71,20 @@ const stats = (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr className="table-active">
-									<th scope="row">Str</th>
-									<td className="text-center">16</td>
-									<td className="text-center">+6</td>
-									<td className="text-center"><i className="fas fa-check-circle"></i></td>
-									<td className="text-center"><i className="fas fa-fw fa-dice-d20"></i></td>
-								</tr>
-								<tr className="table-active">
-									<th scope="row">Dex</th>
-									<td className="text-center">16</td>
-									<td className="text-center">+3</td>
-									<td className="text-center"></td>
-									<td className="text-center"><i className="fas fa-fw fa-dice-d20"></i></td>
-								</tr>
-								<tr className="table-active">
-									<th scope="row">Con</th>
-									<td className="text-center">16</td>
-									<td className="text-center">+6</td>
-									<td className="text-center"><i className="fas fa-check-circle"></i></td>
-									<td className="text-center"><i className="fas fa-fw fa-dice-d20"></i></td>
-								</tr>
-								<tr className="table-active">
-									<th scope="row">Int</th>
-									<td className="text-center">16</td>
-									<td className="text-center">+3</td>
-									<td className="text-center"></td>
-									<td className="text-center"><i className="fas fa-fw fa-dice-d20"></i></td>
-								</tr>
-								<tr className="table-active">
-									<th scope="row">Wis</th>
-									<td className="text-center">16</td>
-									<td className="text-center">+3</td>
-									<td className="text-center"></td>
-									<td className="text-center"><i className="fas fa-fw fa-dice-d20"></i></td>
-								</tr>
-								<tr className="table-active">
-									<th scope="row">Cha</th>
-									<td className="text-center">16</td>
-									<td className="text-center">+3</td>
-									<td className="text-center"></td>
-									<td className="text-center"><i className="fas fa-fw fa-dice-d20"></i></td>
-								</tr>
+								{state.stats.map(function(stat, index){
+									
+									return <tr className="table-active">
+												<th scope="row"><span className="d-none d-sm-block">{stat.name}</span><span className="d-block d-sm-none">{stat.shortname}</span></th>
+												<td className="text-center" style={{width: '100px'}}><FormControl type="number" defaultValue={stat.value} /></td>
+												<td className="text-center">{stat.bonus>0?'+':''}{stat.bonus}</td>
+												<td className="text-center"><FontAwesomeIcon icon={faCheckCircle} /></td>
+												<td className="text-center"><FontAwesomeIcon icon={faDiceD20} /></td>
+											</tr>;
+								})}
 							</tbody>
-						</table> 
-					</div>
-				</div>
+						</Table>
+					</Card.Body>
+				</Card>
 			</div>;
 }
 

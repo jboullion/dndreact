@@ -1,11 +1,16 @@
 import React from 'react';
 
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import FormControl from 'react-bootstrap/FormControl';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Card from 'react-bootstrap/Card';
 
 const equipment = (props) => {
-	return <div className="mb-4 tab-pane" id="character-equipment">
+	return <div className="mb-5 tab-pane" id="character-equipment">
 
-				<div className="card w-100">
-					<div className="card-body">
+				<Card className="w-100">
+					<Card.Body>
 						<legend>Equipment</legend>
 
 						<table className="table table-hover">
@@ -94,8 +99,8 @@ const equipment = (props) => {
 							</tbody>
 						</table>
 
-					</div>
-				</div>
+					</Card.Body>
+				</Card>
 
 			</div>;
 

@@ -43,20 +43,20 @@ class Character extends Component {
 			<Container id="Character">
 				<Important />
 				
-				<Tabs justify defaultActiveKey="info">
-					<Tab eventKey="info" title="info">
+				<Tabs justify defaultActiveKey="info" >
+					<Tab eventKey="info" title="Information" className="mt-2">
 						<Info />
 					</Tab>
-					<Tab eventKey="stats" title="stats">
+					<Tab eventKey="stats" title="Stats" className="mt-2">
 						<Stats />
 					</Tab>
-					<Tab eventKey="skills" title="skills">
+					<Tab eventKey="skills" title="Skills" className="mt-2">
 						<Skills />
 					</Tab>
-					<Tab eventKey="equipment" title="equipment">
+					<Tab eventKey="equipment" title="Equipment" className="mt-2">
 						<Equipment />
 					</Tab>
-					<Tab eventKey="inventory" title="inventory">
+					<Tab eventKey="inventory" title="Inventory" className="mt-2">
 						<Inventory />
 					</Tab>
 				</Tabs>
