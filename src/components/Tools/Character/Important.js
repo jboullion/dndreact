@@ -29,7 +29,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 */
 
 const important = (props) => {
-	return <Row className="mb-4">
+	return <Row className="my-4">
 				<Col xs={6} lg={3} className="mb-3">
 					<InputGroup>
 						<InputGroup.Prepend>
