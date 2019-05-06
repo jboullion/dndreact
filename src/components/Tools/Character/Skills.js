@@ -45,7 +45,7 @@ const skills = (props) => {
 							<tbody>
 								{state.skills.map(function(skill, index){
 
-									return <tr className="table-active">
+									return <tr className="table-active" key={index}>
 												<th scope="row">{skill.name}</th>
 												<td>{skill.stat}</td>
 												<td className="text-center">{skill.bonus>0?'+':''}{skill.bonus}</td>

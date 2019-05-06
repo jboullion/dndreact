@@ -58,7 +58,7 @@ const stats = (props) => {
 	return <div className=" mb-4 tab-pane" id="character-stats">
 				<Card className="w-100">
 					<Card.Body>
-						<legend>Stats and Abilities</legend>
+						<legend>Stats</legend>
 						
 						<Table striped bordered>
 							<thead>
@@ -73,7 +73,7 @@ const stats = (props) => {
 							<tbody>
 								{state.stats.map(function(stat, index){
 									
-									return <tr className="table-active">
+									return <tr className="table-active"  key={index}>
 												<th scope="row"><span className="d-none d-sm-block">{stat.name}</span><span className="d-block d-sm-none">{stat.shortname}</span></th>
 												<td className="text-center" style={{width: '100px'}}><FormControl type="number" defaultValue={stat.value} /></td>
 												<td className="text-center">{stat.bonus>0?'+':''}{stat.bonus}</td>

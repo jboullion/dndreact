@@ -1,19 +1,84 @@
 import React from 'react';
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import FormControl from 'react-bootstrap/FormControl';
-import InputGroup from 'react-bootstrap/InputGroup';
+import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
+
 const equipment = (props) => {
+	const state = {
+		equipment: {
+			weapons: [
+				{
+					name: 'Warhammer',
+					hit: 6,
+					damage: [
+						{
+							num: 4,
+							dam: 8
+						},
+						{
+							num: 2,
+							dam: 4
+						},
+					],
+					range: 80,
+					type: 'Blunt'
+				}
+			],
+			armor: [
+				{
+					name: 'Chainmail',
+					type: 'Heavy',
+					ac: 16
+				}
+			],
+			money: [
+				{
+					name: 'Copper',
+					initial: 'cp',
+					value: 1
+				},
+				{
+					name: 'Silver',
+					initial: 'sp',
+					value: 2
+				},
+				{
+					name: 'Electrum ',
+					initial: 'ep',
+					value: 3
+				},
+				{
+					name: 'Gold',
+					initial: 'gp',
+					value: 4
+				},
+				{
+					name: 'Platinum',
+					initial: 'pp',
+					value: 5
+				},
+			],
+			gems: [
+				{
+					name: 'Ruby',
+					number: 10,
+					value: 1,
+					money: 'gp'
+				},
+			]
+		}
+	}
+
 	return <div className="mb-5 tab-pane" id="character-equipment">
 
 				<Card className="w-100">
 					<Card.Body>
-						<legend>Equipment</legend>
+						<legend>Equipment (Wearing)</legend>
 
-						<table className="table table-hover">
+						<Table striped bordered>
 							<thead>
 								<tr className="table-dark">
 									<th>Weapon</th>
@@ -24,24 +89,26 @@ const equipment = (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr className="">
-									<td>Warhammer</td>
-									<td>+6 </td>
-									<td>1d8+4</td>
-									<td>5</td>
-									<td>Blunt</td>
-								</tr>
-								<tr className="">
-									<td>Light Crossbow</td>
-									<td>+6 </td>
-									<td>1d8+4</td>
-									<td>80/320</td>
-									<td>Piercing</td>
-								</tr>
-							</tbody>
-						</table>
+								{state.equipment.weapons.map(function(weapon, index){
 
-						<table className="table table-hover">
+									return <tr key={index}>
+												<th scope="row">{weapon.name}</th>
+												<td>{weapon.hit>0?'+':''}{weapon.hit}</td>
+												<td className="text-center">{
+													weapon.damage.map(function(damage, index){
+														return damage.num+'d'+damage.dam;
+													})
+												}</td>
+												<td className="text-center"><FontAwesomeIcon icon={faCheckCircle} /></td>
+												<td className="text-center"><FontAwesomeIcon icon={faCheckCircle} /></td>
+												<td className="text-center"><FontAwesomeIcon icon={faDiceD20} /></td>
+											</tr>;
+
+								})}
+							</tbody>
+						</Table>
+
+						<Table striped bordered>
 							<thead>
 								<tr className="table-dark">
 									<th>Armor</th>
@@ -50,20 +117,19 @@ const equipment = (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr className="">
-									<td>Chainmail</td>
-									<td>Heavy</td>
-									<td>16</td>
-								</tr>
-								<tr className="">
-									<td>Shield</td>
-									<td>Shield</td>
-									<td>+2</td>
-								</tr>
-							</tbody>
-						</table>
+								{state.equipment.armor.map(function(armor, index){
 
-						<table className="table table-hover">
+									return <tr key={index}>
+												<th>{armor.name}</th>
+												<td>{armor.type}</td>
+												<td>{armor.ac}</td>
+											</tr>;
+
+								})}
+							</tbody>
+						</Table>
+
+						<Table striped bordered>
 							<thead>
 								<tr className="table-dark">
 									<th>Money</th>
@@ -71,18 +137,18 @@ const equipment = (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr className="">
-									<th>Gold (gp)</th>
-									<td>15</td>
-								</tr>
-								<tr className="">
-									<th>Silver (sp)</th>
-									<td>1</td>
-								</tr>
-							</tbody>
-						</table>
+								{state.equipment.money.map(function(money, index){
 
-						<table className="table table-hover">
+									return <tr className="" key={index}>
+												<th>{money.name} ({money.initial})</th>
+												<td>{money.value}</td>
+											</tr>;
+
+								})}
+							</tbody>
+						</Table>
+
+						<Table striped bordered>
 							<thead>
 								<tr className="table-dark">
 									<th>Gems</th>
@@ -91,13 +157,17 @@ const equipment = (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr className="">
-									<th>Ruby</th>
-									<td>1</td>
-									<td>100gp</td>
-								</tr>
+								{state.equipment.gems.map(function(gem, index){
+
+									return <tr className="" key={index}>
+												<th>{gem.name}</th>
+												<td>{gem.number}</td>
+												<td>{gem.value}{gem.money}</td>
+											</tr>;
+
+								})}
 							</tbody>
-						</table>
+						</Table>
 
 					</Card.Body>
 				</Card>
