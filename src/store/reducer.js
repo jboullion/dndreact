@@ -46,6 +46,30 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+	switch(action.type){
+		case 'UPDATE_STAT':
+			//copy needed stat
+			const stat = {
+				...state.stats[action.payload.index]
+			};
+
+			//update our die with the value of our input
+			stat.value = action.payload.value;
+
+			//copy our state dice
+			const stats = [...state.stats];
+
+			//update the stats at the correct index
+			stats[action.payload.index] = stat;
+
+			return {
+				...state,
+				stats: stats
+			}
+		default:
+
+	}
+
 	return state;
 }
 

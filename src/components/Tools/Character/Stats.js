@@ -29,7 +29,7 @@ const stats = (props) => {
 									
 									return <tr className="table-active"  key={index}>
 												<th scope="row"><span className="d-none d-sm-block">{stat.name}</span><span className="d-block d-sm-none">{stat.shortname}</span></th>
-												<td className="text-center" style={{width: '100px'}}><FormControl type="number" defaultValue={stat.value} /></td>
+												<td className="text-center" style={{width: '100px'}}><FormControl type="number" value={stat.value} onChange={(e) => props.incrementStat(e.target.value,index)} /></td>
 												<td className="text-center">{stat.bonus>0?'+':''}{stat.bonus}</td>
 												<td className="text-center"><FontAwesomeIcon icon={faCheckCircle} /></td>
 												<td className="text-center"><FontAwesomeIcon icon={faDiceD20} /></td>
@@ -42,10 +42,16 @@ const stats = (props) => {
 			</div>;
 }
 
-const mapStateToProps = store => {
+const mapStateToProps = state => {
 	return {
-		stats: store.stats
+		stats: state.stats
 	};
 }
 
-export default connect(mapStateToProps)(stats);
+const mapDispatchToProps = dispatch => {
+	return {
+		incrementStat: (value, index) => dispatch({type: 'UPDATE_STAT', payload: {value, index}})
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(stats);
