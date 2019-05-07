@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
 import FormControl from 'react-bootstrap/FormControl';
 import Table from 'react-bootstrap/Table';
@@ -8,53 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
 
 const stats = (props) => {
-	const state = {
-		stats: [
-			{
-				name: 'Strength',
-				shortname: 'Str',
-				value: 16,
-				bonus: -4,
-				prof: false,
-			},
-			{
-				name: 'Dexterity',
-				shortname: 'Dex',
-				value: 16,
-				bonus: 4,
-				prof: false,
-			},
-			{
-				name: 'Constitution',
-				shortname: 'Con',
-				value: 16,
-				bonus: 4,
-				prof: false,
-			},
-			{
-				name: 'Intellegence',
-				shortname: 'Int',
-				value: 16,
-				bonus: 4,
-				prof: false,
-			},
-			{
-				name: 'Wisdom',
-				shortname: 'Wis',
-				value: 16,
-				bonus: 4,
-				prof: false,
-			},
-			{
-				name: 'Charisma',
-				shortname: 'Cha',
-				value: 16,
-				bonus: 4,
-				prof: false,
-			},
-		]
-	}
-
 	return <div className=" mb-4 tab-pane" id="character-stats">
 				<Card className="w-100">
 					<Card.Body>
@@ -71,7 +25,7 @@ const stats = (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								{state.stats.map(function(stat, index){
+								{props.stats.map(function(stat, index){
 									
 									return <tr className="table-active"  key={index}>
 												<th scope="row"><span className="d-none d-sm-block">{stat.name}</span><span className="d-block d-sm-none">{stat.shortname}</span></th>
@@ -88,4 +42,10 @@ const stats = (props) => {
 			</div>;
 }
 
-export default stats;
+const mapStateToProps = store => {
+	return {
+		stats: store.stats
+	};
+}
+
+export default connect(mapStateToProps)(stats);

@@ -1,38 +1,21 @@
 import React from 'react';
 
+import Table from 'react-bootstrap/Table';
+import Card from 'react-bootstrap/Card';
 
 const inventory = (props) => {
+
 	return <div className="mb-4 tab-pane" id="character-inventory">
-				<div className="card w-100">
-					<div className="card-body">
-						<legend>Inventory <span></span></legend>
 
-						<table className="table table-hover">
+				<Card className="w-100">
+					<Card.Body>
+						<legend>Inventory</legend>
+
+						<Table striped bordered>
 							<thead>
 								<tr className="table-dark">
-									<th scope="col">Name</th>
-									<th className="text-center" scope="col">#</th>
-									<th className="text-center" scope="col">Cost</th>
-									<th className="text-center" scope="col">Weight</th>
-									<th className="text-center" scope="col">Total</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">Warhammer</th>
-									<td className="text-center">2</td>
-									<td className="text-center">5gp</td>
-									<td className="text-center">4</td>
-									<td className="text-center">8</td>
-								</tr>
-							</tbody>
-						</table> 
-
-						<table className="table table-hover">
-							<thead>
-								<tr className="table-dark">
-									<th scope="col" colspan="4">Encumberance</th>
-									<th scope="col" colspan="2">(185)</th>
+									<th scope="col" colSpan="4">Encumberance</th>
+									<th scope="col" colSpan="2">({})</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -45,10 +28,39 @@ const inventory = (props) => {
 									<td className="table-danger-">270</td>
 								</tr>
 							</tbody>
-						</table> 
-						
-					</div>
-				</div>
+						</Table>
+
+						<Table striped bordered>
+							<thead>
+								<tr className="table-dark">
+									<th scope="col">Name</th>
+									<th className="text-center" scope="col">#</th>
+									<th className="text-center" scope="col">Cost</th>
+									<th className="text-center" scope="col">Weight</th>
+									<th className="text-center" scope="col">Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								{/* {state.inventory.items.map(function(item, index){
+
+									return <tr key={index}>
+												<th scope="row">{item.name}</th>
+												<td>{weapon.hit>0?'+':''}{weapon.hit}</td>
+
+												<th scope="row">{item.name}</th>
+												<td className="text-center">{item.num}</td>
+												<td className="text-center">{item.cost}gp</td>
+												<td className="text-center">{item.weight}</td>
+												<td className="text-center">{item.num * item.weight}</td>
+
+											</tr>;
+
+								})} */}
+							</tbody>
+						</Table>
+
+					</Card.Body>
+				</Card>
 			</div>;
 
 }

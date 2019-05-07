@@ -9,17 +9,6 @@ import Character from './Character/Character';
 
 
 class Tools extends Component {
-
-	constructor(props, context) {
-		super(props, context);
-
-		this.state = {
-			character: {
-
-			}
-		}
-	}
-
 	render() {
 		return (
 				<div id="Tools">
@@ -42,13 +31,5 @@ class Tools extends Component {
 	};
 }
 
-/*
-<Nav.Item>
-	<Nav.Link eventKey="link-2">Initiative</Nav.Link>
-</Nav.Item>
-<Nav.Item>
-	<Nav.Link eventKey="link-2">Players</Nav.Link>
-</Nav.Item>
-*/
 
 export default Tools;

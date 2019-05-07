@@ -33,10 +33,45 @@ class Character extends Component {
 		super(props, context);
 
 		this.state = {
-
+			character: {
+				encumberance: 0,
+				inventory: {
+					item: [
+						{
+							name: 'Warhammer',
+							num: 8,
+							cost: 400,
+							weight: 4
+						},
+						{
+							name: 'Warhammer',
+							num: 8,
+							cost: 400,
+							weight: 4
+						},
+						{
+							name: 'Warhammer',
+							num: 8,
+							cost: 400,
+							weight: 4
+						},
+						{
+							name: 'Warhammer',
+							num: 8,
+							cost: 400,
+							weight: 4
+						},
+					],
+				}
+			}
 		}
+
 	}
 
+	//Loop through items and calculate encumberence
+	calculateWeight = () => {
+		
+	}
 
 	render() {
 		return (

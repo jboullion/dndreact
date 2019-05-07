@@ -10,7 +10,7 @@ const equipment = (props) => {
 	const state = {
 		equipment: {
 			weapons: [
-				{
+				{ 
 					name: 'Warhammer',
 					hit: 6,
 					damage: [
@@ -43,22 +43,22 @@ const equipment = (props) => {
 				{
 					name: 'Silver',
 					initial: 'sp',
-					value: 2
+					value: 10
 				},
 				{
 					name: 'Electrum ',
 					initial: 'ep',
-					value: 3
+					value: 60
 				},
 				{
 					name: 'Gold',
 					initial: 'gp',
-					value: 4
+					value: 100
 				},
 				{
 					name: 'Platinum',
 					initial: 'pp',
-					value: 5
+					value: 1000
 				},
 			],
 			gems: [
