@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Dice from './Dice';
 
-import { getRandomInt, numericSort } from '../../../functions'
+import { playerDiceRoll, getRandomInt, numericSort } from '../../../functions'
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -73,7 +73,7 @@ class Roll extends Component {
 
 		//Get our results
 		for(let d = 0; d < die.num; d++){
-			let result = getRandomInt(die.value);
+			let result = playerDiceRoll(die.value);
 			total += result;
 			results.push(result);
 		}

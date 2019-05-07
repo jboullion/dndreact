@@ -13,6 +13,24 @@ export function getRandomInt(max) {
 	return Math.floor(Math.random() * Math.floor(max)) + 1;
 }
 
+
+/**
+ * Return a random number 1 - max
+ * @param int max Maximum value of the random
+ * 
+ * @return int Random Integer
+ */
+export function playerDiceRoll(max, adv) {
+	if(! adv){
+		adv = 1.00;
+	}
+
+	//We can give our players a slight advantage if we want
+	let playerAdvantage = adv;
+
+	return Math.min(Math.floor((Math.random() * playerAdvantage) * Math.floor(max) ) + 1, max);
+}
+
 /**
  * Return a random number min - max
  * @param int min Minimum value of the random

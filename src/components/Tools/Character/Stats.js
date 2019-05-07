@@ -8,12 +8,19 @@ import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
 
+import StatsCSS from './Stats.module.css';
+
 const stats = (props) => {
+
 	return <div className=" mb-4 tab-pane" id="character-stats">
 				<Card className="w-100">
 					<Card.Body>
 						<legend>Stats</legend>
 						
+						<div>
+							<strong className={StatsCSS.total}>{props.rollResult}</strong>
+						</div>
+
 						<Table striped bordered>
 							<thead>
 								<tr className="table-dark">
@@ -31,8 +38,10 @@ const stats = (props) => {
 												<th scope="row"><span className="d-none d-sm-block">{stat.name}</span><span className="d-block d-sm-none">{stat.shortname}</span></th>
 												<td className="text-center" style={{width: '100px'}}><FormControl type="number" value={stat.value} onChange={(e) => props.incrementStat(e.target.value,index)} /></td>
 												<td className="text-center">{stat.bonus>0?'+':''}{stat.bonus}</td>
-												<td className="text-center"><FontAwesomeIcon icon={faCheckCircle} /></td>
-												<td className="text-center"><FontAwesomeIcon icon={faDiceD20} /></td>
+												<td className="text-center touch-icon" onClick={(e) => props.toggleProficiency(index)}>{stat.prof?<FontAwesomeIcon icon={faCheckCircle} className="fa-2x touch-icon" />:''}</td>
+												<td className="text-center touch-icon" onClick={(e) => props.rollStat(stat)}>
+													<FontAwesomeIcon icon={faDiceD20} className="fa-2x" />
+												</td>
 											</tr>;
 								})}
 							</tbody>
@@ -44,13 +53,16 @@ const stats = (props) => {
 
 const mapStateToProps = state => {
 	return {
-		stats: state.stats
+		stats: state.stats,
+		rollResult: state.recentStatRoll
 	};
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		incrementStat: (value, index) => dispatch({type: 'UPDATE_STAT', payload: {value, index}})
+		incrementStat: (value, index) => dispatch({type: 'STAT_UPDATE', payload: {value, index}}),
+		toggleProficiency: (index) => dispatch({type: 'STAT_TOGGLE', payload: {index}}),
+		rollStat: (stat) => dispatch({type: 'STAT_ROLL', payload: {stat}})
 	};
 }
 

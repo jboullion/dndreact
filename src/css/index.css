@@ -2,8 +2,6 @@
  * Bootstrap overrides and tweaks
  */
 
-
-
  .table th, 
  .table td { vertical-align: middle; }
 
@@ -11,3 +9,6 @@
 	.table th, 
 	.table td { padding: 0.5rem; }
 }
+
+
+.touch-icon { cursor: pointer; padding: 0 !important; }
