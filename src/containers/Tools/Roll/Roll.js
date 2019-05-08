@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import Dice from './Dice';
-
-import { playerDiceRoll, getRandomInt, numericSort } from '../../../functions'
+import { playerDiceRoll, numericSort } from '../../../functions'
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+
+import Dice from './Dice';
 
 import { faDiceD4,faDiceD6,faDiceD8,faDiceD10,faDiceD12,faDiceD20 } from '@fortawesome/pro-solid-svg-icons'
 

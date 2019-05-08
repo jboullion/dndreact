@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import { calcStatBonus } from '../../../functions'
+
 import FormControl from 'react-bootstrap/FormControl';
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
@@ -17,8 +19,11 @@ const stats = (props) => {
 					<Card.Body>
 						<legend>Stats</legend>
 						
-						<div>
-							<strong className={StatsCSS.total}>{props.rollResult}</strong>
+						<div className="d-flex justify-content-center align-items-center">
+							<div className={StatsCSS.total}><small>Roll</small> <br />{props.rollResult.roll} <span>+</span></div>
+							<div className={StatsCSS.total}><small>Bonus</small><br />{props.rollResult.bonus} <span>+</span></div>
+							<div className={StatsCSS.total}><small>Prof</small><br />{props.rollResult.prof?props.profBonus:0} <span>=</span></div>
+							<div className={StatsCSS.total}><small>Total</small><br /><strong>{props.rollResult.roll + props.rollResult.bonus + (props.rollResult.prof?props.profBonus:0)}</strong></div>
 						</div>
 
 						<Table striped bordered>
@@ -33,11 +38,11 @@ const stats = (props) => {
 							</thead>
 							<tbody>
 								{props.stats.map(function(stat, index){
-									
+									let bonus = calcStatBonus(stat);
 									return <tr className="table-active"  key={index}>
 												<th scope="row"><span className="d-none d-sm-block">{stat.name}</span><span className="d-block d-sm-none">{stat.shortname}</span></th>
 												<td className="text-center" style={{width: '100px'}}><FormControl type="number" value={stat.value} onChange={(e) => props.incrementStat(e.target.value,index)} /></td>
-												<td className="text-center">{stat.bonus>0?'+':''}{stat.bonus}</td>
+												<td className="text-center">{bonus>0?'+':''}{bonus}</td>
 												<td className="text-center touch-icon" onClick={(e) => props.toggleProficiency(index)}>{stat.prof?<FontAwesomeIcon icon={faCheckCircle} className="fa-2x touch-icon" />:''}</td>
 												<td className="text-center touch-icon" onClick={(e) => props.rollStat(stat)}>
 													<FontAwesomeIcon icon={faDiceD20} className="fa-2x" />
@@ -51,12 +56,15 @@ const stats = (props) => {
 			</div>;
 }
 
+
 const mapStateToProps = state => {
 	return {
 		stats: state.stats,
-		rollResult: state.recentStatRoll
+		rollResult: state.recentStatRoll,
+		profBonus: state.profBonus
 	};
 }
+
 
 const mapDispatchToProps = dispatch => {
 	return {
@@ -65,5 +73,6 @@ const mapDispatchToProps = dispatch => {
 		rollStat: (stat) => dispatch({type: 'STAT_ROLL', payload: {stat}})
 	};
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(stats);

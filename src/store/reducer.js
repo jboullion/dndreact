@@ -1,48 +1,47 @@
-import { playerDiceRoll } from '../functions' //numericSort
+import { playerDiceRoll, calcStatBonus } from '../functions' //numericSort
 
 const initialState = {
-	recentStatRoll: 0,
+	level: 1,
+	profBonus: 2,
+	recentStatRoll: { 
+		roll: 0,
+		bonus: 0,
+		prof: false },
 	stats: [
 		{
 			name: 'Strength',
 			shortname: 'Str',
 			value: 16,
-			bonus: -4,
 			prof: false,
 		},
 		{
 			name: 'Dexterity',
 			shortname: 'Dex',
 			value: 16,
-			bonus: 4,
 			prof: false,
 		},
 		{
 			name: 'Constitution',
 			shortname: 'Con',
 			value: 16,
-			bonus: 4,
 			prof: false,
 		},
 		{
 			name: 'Intellegence',
 			shortname: 'Int',
 			value: 16,
-			bonus: 4,
 			prof: false,
 		},
 		{
 			name: 'Wisdom',
 			shortname: 'Wis',
 			value: 16,
-			bonus: 4,
 			prof: false,
 		},
 		{
 			name: 'Charisma',
 			shortname: 'Cha',
 			value: 16,
-			bonus: 4,
 			prof: false,
 		},
 	]
@@ -59,7 +58,7 @@ const reducer = (state = initialState, action) => {
 			};
 
 			//update our die with the value of our input
-			stat.value = action.payload.value;
+			stat.value = parseInt(action.payload.value);
 
 			//copy our state dice
 			stats = [...state.stats];
@@ -93,8 +92,12 @@ const reducer = (state = initialState, action) => {
 		case 'STAT_ROLL':
 
 			let roll = playerDiceRoll(20);
-			let recentStatRoll =  roll + '  + ' + action.payload.stat.bonus + ' = ' + (roll + action.payload.stat.bonus);		
-			console.log(recentStatRoll);
+			let recentStatRoll =  {
+				roll: roll,
+				bonus: calcStatBonus(action.payload.stat),
+				prof: action.payload.stat.prof
+			}// + '  + ' + action.payload.stat.bonus + ' = ' + (roll + action.payload.stat.bonus);		
+			
 			return {
 				...state,
 				recentStatRoll: recentStatRoll

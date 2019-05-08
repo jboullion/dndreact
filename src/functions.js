@@ -44,9 +44,17 @@ export function getRandomIntRange(min, max) {
 
 /**
  * The default numeric sort for an array
- * @param {*} a 
- * @param {*} b 
+ * @param number a 
+ * @param number b 
  */
 export function numericSort(a, b){
 	return a - b;
+}
+
+/**
+ * 
+ * @param object stat 
+ */
+export function calcStatBonus(stat){
+	return Math.floor((stat.value - 10) / 2);
 }
