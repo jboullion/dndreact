@@ -55,6 +55,7 @@ const skills = (props) => {
 			</div>;
 }
 
+
 const mapStateToProps = state => {
 	return {
 		stats: state.stats.stats,
