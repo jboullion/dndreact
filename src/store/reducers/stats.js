@@ -1,10 +1,7 @@
-import { playerDiceRoll, calcStatBonus } from '../functions' //numericSort
-import * as actionTypes from './actions'
+import { playerDiceRoll, calcStatBonus } from '../../functions'
+import * as actionTypes from '../actions'
 
-const initialState = {
-	level: 1,
-	profBonus: 2,
-	
+const defaultStats = {
 	//STATS
 	recentStatRoll: { 
 		roll: 0,
@@ -15,66 +12,43 @@ const initialState = {
 		{
 			name: 'Strength',
 			shortname: 'Str',
-			value: 16,
+			value: 10,
 			prof: false,
 		},
 		{
 			name: 'Dexterity',
 			shortname: 'Dex',
-			value: 16,
+			value: 10,
 			prof: false,
 		},
 		{
 			name: 'Constitution',
 			shortname: 'Con',
-			value: 16,
+			value: 10,
 			prof: false,
 		},
 		{
 			name: 'Intellegence',
 			shortname: 'Int',
-			value: 16,
+			value: 10,
 			prof: false,
 		},
 		{
 			name: 'Wisdom',
 			shortname: 'Wis',
-			value: 16,
+			value: 10,
 			prof: false,
 		},
 		{
 			name: 'Charisma',
 			shortname: 'Cha',
-			value: 16,
+			value: 10,
 			prof: false,
 		},
-	],
-
-	//SKILLS
-	recentSkillRoll: { 
-		roll: 0,
-		bonus: 0,
-		prof: false 
-	},
-	skills: [
-		{
-			name: 'Acrobatics',
-			stat: 'Dex',
-			bonus: -4,
-			prof: false,
-			adv: false,
-		},
-		{
-			name: 'Animal Handling',
-			stat: 'Wis',
-			bonus: -4,
-			prof: false,
-			adv: false,
-		}
 	]
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = defaultStats, action) => {
 	let stat, stats;
 
 	switch(action.type){

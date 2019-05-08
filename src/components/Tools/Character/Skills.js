@@ -7,6 +7,9 @@ import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
 
+// import { calcStatBonus } from '../../../functions'
+// import * as actionTypes from '../../../store/actions'
+
 import RollResult from '../RollResult';
 
 // import SkillsCSS from './Skills.module.css';
@@ -54,19 +57,19 @@ const skills = (props) => {
 
 const mapStateToProps = state => {
 	return {
-		stats: state.stats,
-		skills: state.skills,
-		rollResult: state.recentSkillRoll,
-		profBonus: state.profBonus
+		stats: state.stats.stats,
+		skills: state.skills.skills,
+		rollResult: state.skills.recentSkillRoll,
+		profBonus: state.char.profBonus
 	};
 }
 
 
 const mapDispatchToProps = dispatch => {
 	return {
-		incrementStat: (value, index) => dispatch({type: 'STAT_UPDATE', payload: {value, index}}),
-		toggleProficiency: (index) => dispatch({type: 'STAT_TOGGLE', payload: {index}}),
-		rollStat: (stat) => dispatch({type: 'STAT_ROLL', payload: {stat}})
+		// incrementStat: (value, index) => dispatch({type: actionTypes.STAT_UPDATE, payload: {value, index}}),
+		// toggleProficiency: (index) => dispatch({type: actionTypes.STAT_TOGGLE, payload: {index}}),
+		// rollStat: (stat) => dispatch({type: actionTypes.STAT_ROLL, payload: {stat}})
 	};
 }
 

@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-import { calcStatBonus } from '../../../functions'
-import * as actionTypes from '../../../store/actions'
-
 import FormControl from 'react-bootstrap/FormControl';
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
+
+import { calcStatBonus } from '../../../functions'
+import * as actionTypes from '../../../store/actions'
 
 import RollResult from '../RollResult';
 
@@ -57,9 +57,9 @@ const stats = (props) => {
 
 const mapStateToProps = state => {
 	return {
-		stats: state.stats,
-		rollResult: state.recentStatRoll,
-		profBonus: state.profBonus
+		stats: state.stats.stats,
+		rollResult: state.stats.recentStatRoll,
+		profBonus: state.char.profBonus
 	};
 }
 
