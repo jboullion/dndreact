@@ -8,10 +8,12 @@ import Skills from '../../../components/Tools/Character/Skills';
 import Equipment from '../../../components/Tools/Character/Equipment';
 import Inventory from '../../../components/Tools/Character/Inventory';
 
-
 import Container from 'react-bootstrap/Container';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+
+import CharacterCSS from './Character.module.css';
+
 
 /*
 <?php require_once $BASE_DIR.'templates/tools/character/save.php'; ?>
@@ -78,8 +80,8 @@ class Character extends Component {
 			<Container id="Character">
 				<Important />
 				
-				<Tabs justify defaultActiveKey="info" >
-					<Tab eventKey="info" title="Information" className="mt-2">
+				<Tabs justify defaultActiveKey="info" className={CharacterCSS.tabs}>
+					<Tab eventKey="info" title="Info" className="mt-2">
 						<Info />
 					</Tab>
 					<Tab eventKey="stats" title="Stats" className="mt-2">

@@ -1,12 +1,16 @@
 import { playerDiceRoll, calcStatBonus } from '../functions' //numericSort
+import * as actionTypes from './actions'
 
 const initialState = {
 	level: 1,
 	profBonus: 2,
+	
+	//STATS
 	recentStatRoll: { 
 		roll: 0,
 		bonus: 0,
-		prof: false },
+		prof: false 
+	},
 	stats: [
 		{
 			name: 'Strength',
@@ -44,6 +48,29 @@ const initialState = {
 			value: 16,
 			prof: false,
 		},
+	],
+
+	//SKILLS
+	recentSkillRoll: { 
+		roll: 0,
+		bonus: 0,
+		prof: false 
+	},
+	skills: [
+		{
+			name: 'Acrobatics',
+			stat: 'Dex',
+			bonus: -4,
+			prof: false,
+			adv: false,
+		},
+		{
+			name: 'Animal Handling',
+			stat: 'Wis',
+			bonus: -4,
+			prof: false,
+			adv: false,
+		}
 	]
 }
 
@@ -51,7 +78,7 @@ const reducer = (state = initialState, action) => {
 	let stat, stats;
 
 	switch(action.type){
-		case 'STAT_UPDATE':
+		case actionTypes.STAT_UPDATE:
 			//copy needed stat
 			stat = {
 				...state.stats[action.payload.index]
@@ -70,7 +97,7 @@ const reducer = (state = initialState, action) => {
 				...state,
 				stats: stats
 			}
-		case 'STAT_TOGGLE':
+		case actionTypes.STAT_TOGGLE:
 			//copy needed stat
 			stat = {
 				...state.stats[action.payload.index]
@@ -89,7 +116,7 @@ const reducer = (state = initialState, action) => {
 				...state,
 				stats: stats
 			}
-		case 'STAT_ROLL':
+		case actionTypes.STAT_ROLL:
 
 			let roll = playerDiceRoll(20);
 			let recentStatRoll =  {

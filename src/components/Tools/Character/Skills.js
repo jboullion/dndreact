@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
@@ -6,30 +7,18 @@ import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
 
+import RollResult from '../RollResult';
+
+// import SkillsCSS from './Skills.module.css';
+
 const skills = (props) => {
-	const state = {
-		skills: [
-			{
-				name: 'Acrobatics',
-				stat: 'Dex',
-				bonus: -4,
-				prof: false,
-				adv: false,
-			},
-			{
-				name: 'Animal Handling',
-				stat: 'Wis',
-				bonus: -4,
-				prof: false,
-				adv: false,
-			}
-		]
-	}
 
 	return <div className="mb-4 tab-pane" id="character-skills">
 				<Card className="w-100">
 					<Card.Body>
 						<legend>Skills</legend>
+
+						<RollResult rollResult={props.rollResult} profBonus={props.profBonus} />
 
 						<Table striped bordered>
 							<thead>
@@ -43,7 +32,7 @@ const skills = (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								{state.skills.map(function(skill, index){
+								{props.skills.map(function(skill, index){
 
 									return <tr className="table-active" key={index}>
 												<th scope="row">{skill.name}</th>
@@ -63,4 +52,23 @@ const skills = (props) => {
 			</div>;
 }
 
-export default skills;
+const mapStateToProps = state => {
+	return {
+		stats: state.stats,
+		skills: state.skills,
+		rollResult: state.recentSkillRoll,
+		profBonus: state.profBonus
+	};
+}
+
+
+const mapDispatchToProps = dispatch => {
+	return {
+		incrementStat: (value, index) => dispatch({type: 'STAT_UPDATE', payload: {value, index}}),
+		toggleProficiency: (index) => dispatch({type: 'STAT_TOGGLE', payload: {index}}),
+		rollStat: (stat) => dispatch({type: 'STAT_ROLL', payload: {stat}})
+	};
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(skills);

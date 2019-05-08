@@ -2,6 +2,8 @@
  * Bootstrap overrides and tweaks
  */
 
+ .card-body { padding: 1rem 0.75rem; }
+
  .table th, 
  .table td { vertical-align: middle; }
 
@@ -10,5 +12,8 @@
 	.table td { padding: 0.5rem; }
 }
 
+/**
+ * Custom Classes
+ */
 
 .touch-icon { cursor: pointer; padding: 0 !important; }

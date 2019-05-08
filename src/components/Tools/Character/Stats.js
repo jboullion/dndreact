@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import { calcStatBonus } from '../../../functions'
+import * as actionTypes from '../../../store/actions'
 
 import FormControl from 'react-bootstrap/FormControl';
 import Table from 'react-bootstrap/Table';
@@ -10,7 +11,9 @@ import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
 
-import StatsCSS from './Stats.module.css';
+import RollResult from '../RollResult';
+
+// import StatsCSS from './Stats.module.css';
 
 const stats = (props) => {
 
@@ -19,12 +22,7 @@ const stats = (props) => {
 					<Card.Body>
 						<legend>Stats</legend>
 						
-						<div className="d-flex justify-content-center align-items-center">
-							<div className={StatsCSS.total}><small>Roll</small> <br />{props.rollResult.roll} <span>+</span></div>
-							<div className={StatsCSS.total}><small>Bonus</small><br />{props.rollResult.bonus} <span>+</span></div>
-							<div className={StatsCSS.total}><small>Prof</small><br />{props.rollResult.prof?props.profBonus:0} <span>=</span></div>
-							<div className={StatsCSS.total}><small>Total</small><br /><strong>{props.rollResult.roll + props.rollResult.bonus + (props.rollResult.prof?props.profBonus:0)}</strong></div>
-						</div>
+						<RollResult rollResult={props.rollResult} profBonus={props.profBonus} />
 
 						<Table striped bordered>
 							<thead>
@@ -68,9 +66,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		incrementStat: (value, index) => dispatch({type: 'STAT_UPDATE', payload: {value, index}}),
-		toggleProficiency: (index) => dispatch({type: 'STAT_TOGGLE', payload: {index}}),
-		rollStat: (stat) => dispatch({type: 'STAT_ROLL', payload: {stat}})
+		incrementStat: (value, index) => dispatch({type: actionTypes.STAT_UPDATE, payload: {value, index}}),
+		toggleProficiency: (index) => dispatch({type: actionTypes.STAT_TOGGLE, payload: {index}}),
+		rollStat: (stat) => dispatch({type: actionTypes.STAT_ROLL, payload: {stat}})
 	};
 }
 
