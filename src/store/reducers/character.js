@@ -1,5 +1,5 @@
 // import { playerDiceRoll, calcStatBonus } from '../../functions'
-// import * as actionTypes from '../actions'
+import * as actionTypes from '../actions'
 
 const defaultCharacter = {
 	HP: 8,
@@ -7,7 +7,7 @@ const defaultCharacter = {
 	maxHP: 8,
 	AC: 10,
 	tempAC: 0,
-	hitdie: [8], // 4,6,8,10,12 is possible with multiclassing
+	hitdie: [4,6,8,10,12], // 4,6,8,10,12 is possible with multiclassing
 	profBonus: 2,
 	profLock: false, //allows user to change their profBonus
 	init: 0, //all bonuses separate from stat bonus
@@ -36,11 +36,21 @@ const defaultCharacter = {
 }
 
 const reducer = (state = defaultCharacter, action) => {
-	// let skill, skills;
 
 	switch(action.type){
+		case actionTypes.CHAR_UPDATE:
 
+			//copy our state
+			let character = Object.assign({},state);
 
+			//update the value
+			character[action.payload.index] = action.payload.value;
+
+			return {
+				...character
+			}
+
+		default:
 
 	}
 

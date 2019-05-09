@@ -6,3 +6,5 @@ export const SKILL_UPDATE = 'SKILL_UPDATE';
 export const SKILL_PROF = 'SKILL_PROF';
 export const SKILL_ADV = 'SKILL_ADV';
 export const SKILL_ROLL = 'SKILL_ROLL';
+
+export const CHAR_UPDATE = 'CHAR_UPDATE';

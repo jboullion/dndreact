@@ -7,6 +7,9 @@ import { connect } from 'react-redux'
  import InputGroup from 'react-bootstrap/InputGroup';
  import Card from 'react-bootstrap/Card';
 
+// import { calcStatBonus } from '../../../functions'
+import * as actionTypes from '../../../store/actions'
+
 
 const info = (props) => {
 	return <div className="mb-4" id="character-info">
@@ -22,7 +25,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Character Name</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'Kilde'} />
+									<FormControl type="text" value={ props.character.name } onChange={(e) => props.updateCharacter(e.target.value,'name')} />
 								</InputGroup>
 							</Col>
 							<Col md={3} className="mb-1">
@@ -30,7 +33,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Level</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="number" defaultValue={3} />
+									<FormControl type="number" value={ props.character.level } onChange={(e) => props.updateCharacter(e.target.value,'level')} />
 								</InputGroup>
 							</Col>
 						</Row>
@@ -41,7 +44,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Race</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'Dwarf'} />
+									<FormControl type="text" value={ props.character.race } onChange={(e) => props.updateCharacter(e.target.value,'race')} />
 								</InputGroup>
 							</Col>
 
@@ -50,7 +53,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Class</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'Cleric'} />
+									<FormControl type="text" value={ props.character.class } onChange={(e) => props.updateCharacter(e.target.value,'class')} />
 								</InputGroup>
 							</Col>
 							
@@ -59,7 +62,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Sex</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'Male'} />
+									<FormControl type="text" value={ props.character.sex } onChange={(e) => props.updateCharacter(e.target.value,'sex')} />
 								</InputGroup>
 							</Col>
 
@@ -68,7 +71,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Age</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'Age'} />
+									<FormControl type="text" value={ props.character.age } onChange={(e) => props.updateCharacter(e.target.value,'age')} />
 								</InputGroup>
 							</Col>
 
@@ -81,7 +84,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Diety</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'Diety'} />
+									<FormControl type="text" value={ props.character.diety } onChange={(e) => props.updateCharacter(e.target.value,'diety')} />
 								</InputGroup>
 							</Col>
 
@@ -90,7 +93,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Background</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'Clan Crafter'} />
+									<FormControl type="text" value={ props.character.background } onChange={(e) => props.updateCharacter(e.target.value,'background')} />
 								</InputGroup>
 							</Col>
 
@@ -99,7 +102,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Alignment</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'Lawful Good'} />
+									<FormControl type="text" value={ props.character.alignment } onChange={(e) => props.updateCharacter(e.target.value,'alignment')} />
 								</InputGroup>
 							</Col>
 
@@ -108,7 +111,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Size</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'Medium'} />
+									<FormControl type="text" value={ props.character.size } onChange={(e) => props.updateCharacter(e.target.value,'size')} />
 								</InputGroup>
 							</Col>
 						</Row>
@@ -121,7 +124,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Height</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'4\'8"'} />
+									<FormControl type="text" value={ props.character.height } onChange={(e) => props.updateCharacter(e.target.value,'height')} />
 								</InputGroup>
 							</Col>
 
@@ -130,7 +133,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Weight</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'140'} />
+									<FormControl type="text" value={ props.character.weight } onChange={(e) => props.updateCharacter(e.target.value,'weight')} />
 								</InputGroup>
 							</Col>
 
@@ -139,7 +142,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Hair</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'Blonde'} />
+									<FormControl type="text" value={ props.character.hair } onChange={(e) => props.updateCharacter(e.target.value,'hair')} />
 								</InputGroup>
 							</Col>
 
@@ -148,7 +151,7 @@ const info = (props) => {
 									<InputGroup.Prepend>
 										<InputGroup.Text className=" bg-primary text-white">Eyes</InputGroup.Text>
 									</InputGroup.Prepend>
-									<FormControl type="text" defaultValue={'Blue'} />
+									<FormControl type="text" value={ props.character.eyes } onChange={(e) => props.updateCharacter(e.target.value,'eyes')} />
 								</InputGroup>
 							</Col>
 
@@ -169,10 +172,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		// incrementStat: (value, index) => dispatch({type: actionTypes.STAT_UPDATE, payload: {value, index}}),
-		// incrementProf: (index) => dispatch({type: actionTypes.SKILL_PROF, payload: {index}}),
-		// toggleAdv: (index) => dispatch({type: actionTypes.SKILL_ADV, payload: {index}}),
-		// rollSkill: (bonus, skill) => dispatch({type: actionTypes.SKILL_ROLL, payload: {bonus,skill}})
+		updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
 	};
 }
 

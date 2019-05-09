@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/pro-solid-svg-icons' //faLockAlt
 
 import { getStatBonus, calcPassive } from '../../../functions'
-//import * as actionTypes from '../../../store/actions'
+import * as actionTypes from '../../../store/actions'
 
 
 const important = (props) => {
@@ -25,7 +25,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-success text-white">HP</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={props.character.HP} />
+						<FormControl type="number" value={props.character.HP} onChange={(e) => props.updateCharacter(e.target.value,'HP')} />
 					</InputGroup>
 					<ProgressBar>
 						<ProgressBar variant="success" now={80} key={1} />
@@ -39,7 +39,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">AC</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={props.character.AC} />
+						<FormControl type="number" value={props.character.AC} onChange={(e) => props.updateCharacter(e.target.value,'AC')} />
 					</InputGroup>
 				</Col>
 
@@ -49,7 +49,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-info text-white">Temp HP</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={props.character.tempHP} />
+						<FormControl type="number" value={props.character.tempHP} onChange={(e) => props.updateCharacter(e.target.value,'tempHP')} />
 					</InputGroup>
 				</Col>
 
@@ -59,7 +59,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Temp AC</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={props.character.tempAC} />
+						<FormControl type="number" value={props.character.tempAC} onChange={(e) => props.updateCharacter(e.target.value,'tempAC')} />
 					</InputGroup>
 				</Col>
 
@@ -68,7 +68,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Max HP</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={props.character.maxHP} />
+						<FormControl type="number" value={props.character.maxHP} onChange={(e) => props.updateCharacter(e.target.value,'maxHP')} />
 					</InputGroup>
 				</Col>
 
@@ -77,7 +77,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Hit Die</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={props.character.level} />
+						<FormControl type="number" value={props.character.level} readOnly />
 						<InputGroup.Append>
 							<ButtonGroup>
 								<DropdownButton variant="secondary" as={ButtonGroup} title="">
@@ -95,7 +95,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Prof</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={props.character.profBonus} />
+						<FormControl type="number" value={props.character.profBonus} onChange={(e) => props.updateCharacter(e.target.value,'profBonus')} />
 						<InputGroup.Append>
 							<Button variant="secondary text-white"><FontAwesomeIcon icon={faLock} /></Button>
 						</InputGroup.Append>
@@ -158,7 +158,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className="bg-primary text-white">XP</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" defaultValue={2000} />
+						<FormControl type="number" value={props.character.XP} onChange={(e) => props.updateCharacter(e.target.value,'XP')} />
 						{/* Figure out what the next level xp would be needed based on current xp <InputGroup.Append>
 							<InputGroup.Text className=" bg-secondary text-white">/ 4000</InputGroup.Text>
 						</InputGroup.Append> */}
@@ -179,10 +179,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		// incrementStat: (value, index) => dispatch({type: actionTypes.STAT_UPDATE, payload: {value, index}}),
-		// incrementProf: (index) => dispatch({type: actionTypes.SKILL_PROF, payload: {index}}),
-		// toggleAdv: (index) => dispatch({type: actionTypes.SKILL_ADV, payload: {index}}),
-		// rollSkill: (bonus, skill) => dispatch({type: actionTypes.SKILL_ROLL, payload: {bonus,skill}})
+		updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
 	};
 }
 
