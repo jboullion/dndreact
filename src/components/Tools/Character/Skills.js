@@ -5,10 +5,10 @@ import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
+import { faDiceD20, faCheckCircle, faCheckDouble } from '@fortawesome/pro-solid-svg-icons'
 
-// import { calcStatBonus } from '../../../functions'
-// import * as actionTypes from '../../../store/actions'
+import { calcStatBonus } from '../../../functions'
+import * as actionTypes from '../../../store/actions'
 
 import RollResult from '../RollResult';
 
@@ -20,7 +20,7 @@ const skills = (props) => {
 				<Card className="w-100">
 					<Card.Body>
 						<legend>Skills</legend>
-
+						
 						<RollResult rollResult={props.rollResult} profBonus={props.profBonus} />
 
 						<Table striped bordered>
@@ -28,7 +28,7 @@ const skills = (props) => {
 								<tr className="table-dark">
 									<th scope="col">Name</th>
 									<th scope="col">Stat</th>
-									<th scope="col" className="text-center">Roll</th>
+									<th scope="col" className="text-center">Bonus</th>
 									<th scope="col" className="text-center">Prof.</th>
 									<th scope="col" className="text-center">Adv.</th>
 									<th scope="col" className="text-center">Roll</th>
@@ -36,14 +36,21 @@ const skills = (props) => {
 							</thead>
 							<tbody>
 								{props.skills.map(function(skill, index){
+									let stat = props.stats[skill.stat];
+									let bonus = calcStatBonus(stat);
 
 									return <tr className="table-active" key={index}>
 												<th scope="row">{skill.name}</th>
-												<td>{skill.stat}</td>
-												<td className="text-center">{skill.bonus>0?'+':''}{skill.bonus}</td>
-												<td className="text-center"><FontAwesomeIcon icon={faCheckCircle} /></td>
-												<td className="text-center"><FontAwesomeIcon icon={faCheckCircle} /></td>
-												<td className="text-center"><FontAwesomeIcon icon={faDiceD20} /></td>
+												<td>{stat.shortname}</td>
+												<td className="text-center">{bonus>0?'+':''}{bonus}</td>
+												<td className="text-center touch-icon" onClick={(e) => props.incrementProf(index)}>
+													{skill.prof===1?<FontAwesomeIcon icon={faCheckCircle} className="fa-2x" />:''}
+													{skill.prof===2?<FontAwesomeIcon icon={faCheckDouble} className="fa-2x" />:''}
+												</td>
+												<td className="text-center touch-icon" onClick={(e) => props.toggleAdv(index)}>{skill.adv?<FontAwesomeIcon icon={faCheckCircle} className="fa-2x" />:''}</td>
+												<td className="text-center touch-icon" onClick={(e) => props.rollSkill(bonus, skill)}>
+													<FontAwesomeIcon icon={faDiceD20} className="fa-2x" />
+												</td>
 											</tr>;
 
 								})}
@@ -69,8 +76,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		// incrementStat: (value, index) => dispatch({type: actionTypes.STAT_UPDATE, payload: {value, index}}),
-		// toggleProficiency: (index) => dispatch({type: actionTypes.STAT_TOGGLE, payload: {index}}),
-		// rollStat: (stat) => dispatch({type: actionTypes.STAT_ROLL, payload: {stat}})
+		incrementProf: (index) => dispatch({type: actionTypes.SKILL_PROF, payload: {index}}),
+		toggleAdv: (index) => dispatch({type: actionTypes.SKILL_ADV, payload: {index}}),
+		rollSkill: (bonus, skill) => dispatch({type: actionTypes.SKILL_ROLL, payload: {bonus,skill}})
 	};
 }
 

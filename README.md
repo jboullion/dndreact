@@ -28,11 +28,13 @@ Font Awesome (FA) Pro is used in this application. FA Pro is a paid resource and
 [MySQL](https://www.mysql.com/)
 
 
+### Dev Tools
+
+[React Chrome Extention](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+[Redux Chrome Extention](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd/related?hl=en)
+
+
+
 #### Special Thanks
 
 Thank you to [Wizards of the coast](http://company.wizards.com/) for allowing developers to use the Standard Edition rules for their own applications.
-
-
-#### Authors
-
-[James Boullion](https://github.com/jboullion)

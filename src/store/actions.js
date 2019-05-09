@@ -2,3 +2,7 @@ export const STAT_UPDATE = 'STAT_UPDATE';
 export const STAT_TOGGLE = 'STAT_TOGGLE';
 export const STAT_ROLL = 'STAT_ROLL';
 
+export const SKILL_UPDATE = 'SKILL_UPDATE';
+export const SKILL_PROF = 'SKILL_PROF';
+export const SKILL_ADV = 'SKILL_ADV';
+export const SKILL_ROLL = 'SKILL_ROLL';

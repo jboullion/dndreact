@@ -13,37 +13,37 @@ const defaultStats = {
 			name: 'Strength',
 			shortname: 'Str',
 			value: 10,
-			prof: false,
+			prof: 0,
 		},
 		{
 			name: 'Dexterity',
 			shortname: 'Dex',
 			value: 10,
-			prof: false,
+			prof: 0,
 		},
 		{
 			name: 'Constitution',
 			shortname: 'Con',
 			value: 10,
-			prof: false,
+			prof: 0,
 		},
 		{
 			name: 'Intellegence',
 			shortname: 'Int',
 			value: 10,
-			prof: false,
+			prof: 0,
 		},
 		{
 			name: 'Wisdom',
 			shortname: 'Wis',
 			value: 10,
-			prof: false,
+			prof: 0,
 		},
 		{
 			name: 'Charisma',
 			shortname: 'Cha',
 			value: 10,
-			prof: false,
+			prof: 0,
 		},
 	]
 }
@@ -53,6 +53,8 @@ const reducer = (state = defaultStats, action) => {
 
 	switch(action.type){
 		case actionTypes.STAT_UPDATE:
+
+			if(action.payload.value < 1) break;
 			//copy needed stat
 			stat = {
 				...state.stats[action.payload.index]
