@@ -17,12 +17,14 @@ import { faLock } from '@fortawesome/pro-solid-svg-icons' //faLockAlt
 import { getStatBonus, calcPassive } from '../../../functions'
 import * as actionTypes from '../../../store/actions'
 
+import Important from './Important.module.css';
 
 const important = (props) => {
 
 	const healthTotal = parseInt(props.character.maxHP) + parseInt(props.character.tempHP);
 	const tempProgress = Math.ceil((props.character.tempHP / healthTotal) * 100);
 	const hpProgress = Math.ceil((props.character.HP / healthTotal) * 100);
+	const damaged = 100 - hpProgress - tempProgress;
 
 	return <Row className="my-4">
 				<Col xs={6} lg={3} className="mb-3">
@@ -32,7 +34,7 @@ const important = (props) => {
 						</InputGroup.Prepend>
 						<FormControl type="number" value={props.character.HP} onChange={(e) => props.updateCharacter(e.target.value,'HP')} />
 					</InputGroup>
-					<ProgressBar className="bg-danger">
+					<ProgressBar className={(damaged?(damaged > 50?Important.lowHealth:''):Important.fullHealth) + ' bg-danger' }>
 						<ProgressBar variant="success" now={hpProgress} key={1} />
 						<ProgressBar variant="info" now={tempProgress} key={2} />
 					</ProgressBar>
