@@ -11,37 +11,37 @@ const defaultStats = {
 	stats: [
 		{
 			name: 'Strength',
-			shortname: 'Str',
+			abv: 'Str',
 			value: 10,
 			prof: 0,
 		},
 		{
 			name: 'Dexterity',
-			shortname: 'Dex',
+			abv: 'Dex',
 			value: 10,
 			prof: 0,
 		},
 		{
 			name: 'Constitution',
-			shortname: 'Con',
+			abv: 'Con',
 			value: 10,
 			prof: 0,
 		},
 		{
 			name: 'Intellegence',
-			shortname: 'Int',
+			abv: 'Int',
 			value: 10,
 			prof: 0,
 		},
 		{
 			name: 'Wisdom',
-			shortname: 'Wis',
+			abv: 'Wis',
 			value: 10,
 			prof: 0,
 		},
 		{
 			name: 'Charisma',
-			shortname: 'Cha',
+			abv: 'Cha',
 			value: 10,
 			prof: 0,
 		},

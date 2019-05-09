@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
  import Row from 'react-bootstrap/Row';
  import Col from 'react-bootstrap/Col';
@@ -158,4 +159,21 @@ const info = (props) => {
 			</div>;
 }
 
-export default info;
+
+const mapStateToProps = state => {
+	return {
+		character: state.char
+	};
+}
+
+
+const mapDispatchToProps = dispatch => {
+	return {
+		// incrementStat: (value, index) => dispatch({type: actionTypes.STAT_UPDATE, payload: {value, index}}),
+		// incrementProf: (index) => dispatch({type: actionTypes.SKILL_PROF, payload: {index}}),
+		// toggleAdv: (index) => dispatch({type: actionTypes.SKILL_ADV, payload: {index}}),
+		// rollSkill: (bonus, skill) => dispatch({type: actionTypes.SKILL_ROLL, payload: {bonus,skill}})
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(info);

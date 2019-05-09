@@ -52,9 +52,48 @@ export function numericSort(a, b){
 }
 
 /**
- * 
+ * Get the stat bonus of a specific stat
  * @param object stat 
  */
 export function calcStatBonus(stat){
 	return Math.floor((stat.value - 10) / 2);
+}
+
+/**
+ * Get the bonus from any stat by calling its abv
+ * @param {*} statName 
+ * @param {*} stats 
+ * 
+ * @return false on fail
+ */
+export function getStatBonus(statName, stats){
+	if(stats && stats.length && isNaN(statName)){
+		for(let i = 0; i < stats.length; i++){
+			if(stats[i].abv === statName){
+				return calcStatBonus(stats[i]);
+			}
+		}
+	}
+
+	return false;
+}
+
+/** */
+export function calcPassive(type, character, stats, skills){
+	let skill, passiveValue = 0;
+
+	if(skills){
+		skill = skills.find((skill) => {
+			if(skill.name === type)
+				return true;
+			else
+				return false;
+		});
+	}
+
+	if(skill){
+		passiveValue = 10 + (skill.prof * character.profBonus ) + calcStatBonus(stats[skill.stat]) + (skill.adv?5:0);
+	}
+
+	return passiveValue;
 }

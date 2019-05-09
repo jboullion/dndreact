@@ -35,11 +35,11 @@ const stats = (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								{props.stats.map(function(stat, index){
+								{props.stats.map((stat, index) => {
 									let bonus = calcStatBonus(stat);
 
 									return <tr className="table-active"  key={index}>
-												<th scope="row"><span className="d-none d-sm-block">{stat.name}</span><span className="d-block d-sm-none">{stat.shortname}</span></th>
+												<th scope="row"><span className="d-none d-sm-block">{stat.name}</span><span className="d-block d-sm-none">{stat.abv}</span></th>
 												<td className="text-center" style={{width: '100px'}}><FormControl type="number" value={stat.value} onChange={(e) => props.updateStat(e.target.value,index)} /></td>
 												<td className="text-center">{bonus>0?'+':''}{bonus}</td>
 												<td className="text-center touch-icon" onClick={(e) => props.toggleProficiency(index)}>{stat.prof?<FontAwesomeIcon icon={faCheckCircle} className="fa-2x" />:''}</td>

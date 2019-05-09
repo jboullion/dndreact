@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,24 +10,13 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-// import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-// import ToggleButton from 'react-bootstrap/ToggleButton';
 
-/*
-	<ToggleButtonGroup type="checkbox" >
-		<ToggleButton variant="secondary" value={1}>1</ToggleButton>
-		<ToggleButton variant="secondary" value={2}>2</ToggleButton>
-		<ToggleButton variant="secondary" value={3}>3</ToggleButton>
-	</ToggleButtonGroup>
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLock } from '@fortawesome/pro-solid-svg-icons' //faLockAlt
 
-	<InputGroup.Text className="bg-primary text-white">&nbsp;</InputGroup.Text>
-	
-	<ToggleButtonGroup type="checkbox">
-		<ToggleButton variant="secondary" value={1}>1</ToggleButton>
-		<ToggleButton variant="secondary" value={2}>2</ToggleButton>
-		<ToggleButton variant="secondary" value={3}>3</ToggleButton>
-	</ToggleButtonGroup>
-*/
+import { getStatBonus, calcPassive } from '../../../functions'
+//import * as actionTypes from '../../../store/actions'
+
 
 const important = (props) => {
 	return <Row className="my-4">
@@ -35,7 +25,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-success text-white">HP</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" defaultValue={20} />
+						<FormControl type="number" value={props.character.HP} />
 					</InputGroup>
 					<ProgressBar>
 						<ProgressBar variant="success" now={80} key={1} />
@@ -49,7 +39,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">AC</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" defaultValue={17} />
+						<FormControl type="number" value={props.character.AC} />
 					</InputGroup>
 				</Col>
 
@@ -59,7 +49,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-info text-white">Temp HP</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" defaultValue={8} />
+						<FormControl type="number" value={props.character.tempHP} />
 					</InputGroup>
 				</Col>
 
@@ -69,7 +59,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Temp AC</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" defaultValue={17} />
+						<FormControl type="number" value={props.character.tempAC} />
 					</InputGroup>
 				</Col>
 
@@ -78,7 +68,7 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Max HP</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" defaultValue={28} />
+						<FormControl type="number" value={props.character.maxHP} />
 					</InputGroup>
 				</Col>
 
@@ -87,14 +77,13 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Hit Die</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" defaultValue={3} />
+						<FormControl type="number" value={props.character.level} />
 						<InputGroup.Append>
-							<ButtonGroup aria-label="Basic example">
-								<DropdownButton as={ButtonGroup} title="Dice">
-									<Dropdown.Item eventKey="1" className="font-weight-bold">d6</Dropdown.Item>
-									<Dropdown.Item eventKey="2">d8</Dropdown.Item>
-									<Dropdown.Item eventKey="3">d10</Dropdown.Item>
-									<Dropdown.Item eventKey="4">d12</Dropdown.Item>
+							<ButtonGroup>
+								<DropdownButton variant="secondary" as={ButtonGroup} title="">
+									{props.character.hitdie.map((die, index) => {
+										return <Dropdown.Item key={index} eventKey={index} className="font-weight-bold">d{die}</Dropdown.Item>;
+									})}
 								</DropdownButton>
 							</ButtonGroup>
 						</InputGroup.Append>
@@ -105,9 +94,11 @@ const important = (props) => {
 					<InputGroup>
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Prof</InputGroup.Text>
-							<InputGroup.Text className=" bg-success text-white">+</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" defaultValue={2} />
+						<FormControl type="number" value={props.character.profBonus} />
+						<InputGroup.Append>
+							<Button variant="secondary text-white"><FontAwesomeIcon icon={faLock} /></Button>
+						</InputGroup.Append>
 					</InputGroup>
 				</Col>
 
@@ -115,9 +106,11 @@ const important = (props) => {
 					<InputGroup>
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Init</InputGroup.Text>
-							<InputGroup.Text className=" bg-success text-white">+</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" defaultValue={3} />
+						<FormControl type="number" value={ props.character.init + getStatBonus('Dex',props.stats) } />
+						<InputGroup.Append>
+							<Button variant="secondary text-white"><FontAwesomeIcon icon={faLock} /></Button>
+						</InputGroup.Append>
 					</InputGroup>
 				</Col>
 
@@ -126,16 +119,22 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Insight</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" defaultValue={15} />
+						<FormControl type="number" value={ calcPassive('Insight', props.character, props.stats, props.skills) } />
+						<InputGroup.Append>
+							<Button variant="secondary text-white"><FontAwesomeIcon icon={faLock} /></Button>
+						</InputGroup.Append>
 					</InputGroup>
 				</Col>
 
 				<Col xs={6} lg={3} className="mb-3">
 					<InputGroup>
 						<InputGroup.Prepend>
-							<InputGroup.Text className=" bg-primary text-white">Perception</InputGroup.Text>
+							<InputGroup.Text className=" bg-primary text-white">Percep.</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" defaultValue={16} />
+						<FormControl type="number" value={ calcPassive('Perception', props.character, props.stats, props.skills) } />
+						<InputGroup.Append>
+							<Button variant="secondary text-white"><FontAwesomeIcon icon={faLock} /></Button>
+						</InputGroup.Append>
 					</InputGroup>
 				</Col>
 
@@ -169,4 +168,22 @@ const important = (props) => {
 			</Row>;
 }
 
-export default important;
+const mapStateToProps = state => {
+	return {
+		character: state.char,
+		stats: state.stats.stats,
+		skills: state.skills.skills
+	};
+}
+
+
+const mapDispatchToProps = dispatch => {
+	return {
+		// incrementStat: (value, index) => dispatch({type: actionTypes.STAT_UPDATE, payload: {value, index}}),
+		// incrementProf: (index) => dispatch({type: actionTypes.SKILL_PROF, payload: {index}}),
+		// toggleAdv: (index) => dispatch({type: actionTypes.SKILL_ADV, payload: {index}}),
+		// rollSkill: (bonus, skill) => dispatch({type: actionTypes.SKILL_ROLL, payload: {bonus,skill}})
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(important);

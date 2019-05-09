@@ -35,13 +35,13 @@ const skills = (props) => {
 								</tr>
 							</thead>
 							<tbody>
-								{props.skills.map(function(skill, index){
+								{props.skills.map((skill, index) => {
 									let stat = props.stats[skill.stat];
 									let bonus = calcStatBonus(stat);
 
 									return <tr className="table-active" key={index}>
 												<th scope="row">{skill.name}</th>
-												<td>{stat.shortname}</td>
+												<td>{stat.abv}</td>
 												<td className="text-center">{bonus>0?'+':''}{bonus}</td>
 												<td className="text-center touch-icon" onClick={(e) => props.incrementProf(index)}>
 													{skill.prof===1?<FontAwesomeIcon icon={faCheckCircle} className="fa-2x" />:''}
@@ -75,7 +75,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		// incrementStat: (value, index) => dispatch({type: actionTypes.STAT_UPDATE, payload: {value, index}}),
 		incrementProf: (index) => dispatch({type: actionTypes.SKILL_PROF, payload: {index}}),
 		toggleAdv: (index) => dispatch({type: actionTypes.SKILL_ADV, payload: {index}}),
 		rollSkill: (bonus, skill) => dispatch({type: actionTypes.SKILL_ROLL, payload: {bonus,skill}})
