@@ -16,4 +16,4 @@
  * Custom Classes
  */
 
-.touch-icon { cursor: pointer; padding: 0 !important; }
+.touch-icon { cursor: pointer; padding: 0 !important; user-select: none; }

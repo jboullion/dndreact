@@ -54,7 +54,8 @@ const reducer = (state = defaultStats, action) => {
 	switch(action.type){
 		case actionTypes.STAT_UPDATE:
 
-			if(action.payload.value < 1) break;
+			if(action.payload.value < 1) action.payload.value = 0;
+			if(action.payload.value > 1000) action.payload.value = 1000;
 			//copy needed stat
 			stat = {
 				...state.stats[action.payload.index]

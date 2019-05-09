@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
+import { faDiceD20, faCheck } from '@fortawesome/pro-solid-svg-icons'
 
 import { calcStatBonus } from '../../../functions'
 import * as actionTypes from '../../../store/actions'
@@ -42,7 +42,7 @@ const stats = (props) => {
 												<th scope="row"><span className="d-none d-sm-block">{stat.name}</span><span className="d-block d-sm-none">{stat.abv}</span></th>
 												<td className="text-center" style={{width: '100px'}}><FormControl type="number" value={stat.value} onChange={(e) => props.updateStat(e.target.value,index)} /></td>
 												<td className="text-center">{bonus>0?'+':''}{bonus}</td>
-												<td className="text-center touch-icon" onClick={(e) => props.toggleProficiency(index)}>{stat.prof?<FontAwesomeIcon icon={faCheckCircle} className="fa-2x" />:''}</td>
+												<td className="text-center touch-icon" onClick={(e) => props.toggleProficiency(index)}>{stat.prof?<FontAwesomeIcon icon={faCheck} className="fa-2x" />:''}</td>
 												<td className="text-center touch-icon" onClick={(e) => props.rollStat(stat)}>
 													<FontAwesomeIcon icon={faDiceD20} className="fa-2x" />
 												</td>

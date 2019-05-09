@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDiceD20, faCheckCircle, faCheckDouble } from '@fortawesome/pro-solid-svg-icons'
+import { faDiceD20, faCheck, faCheckDouble } from '@fortawesome/pro-solid-svg-icons'
 
 import { calcStatBonus } from '../../../functions'
 import * as actionTypes from '../../../store/actions'
@@ -44,10 +44,10 @@ const skills = (props) => {
 												<td>{stat.abv}</td>
 												<td className="text-center">{bonus>0?'+':''}{bonus}</td>
 												<td className="text-center touch-icon" onClick={(e) => props.incrementProf(index)}>
-													{skill.prof===1?<FontAwesomeIcon icon={faCheckCircle} className="fa-2x" />:''}
+													{skill.prof===1?<FontAwesomeIcon icon={faCheck} className="fa-2x" />:''}
 													{skill.prof===2?<FontAwesomeIcon icon={faCheckDouble} className="fa-2x" />:''}
 												</td>
-												<td className="text-center touch-icon" onClick={(e) => props.toggleAdv(index)}>{skill.adv?<FontAwesomeIcon icon={faCheckCircle} className="fa-2x" />:''}</td>
+												<td className="text-center touch-icon" onClick={(e) => props.toggleAdv(index)}>{skill.adv?<FontAwesomeIcon icon={faCheck} className="fa-2x" />:''}</td>
 												<td className="text-center touch-icon" onClick={(e) => props.rollSkill(bonus, skill)}>
 													<FontAwesomeIcon icon={faDiceD20} className="fa-2x" />
 												</td>
