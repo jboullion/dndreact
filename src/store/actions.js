@@ -8,3 +8,4 @@ export const SKILL_ADV = 'SKILL_ADV';
 export const SKILL_ROLL = 'SKILL_ROLL';
 
 export const CHAR_UPDATE = 'CHAR_UPDATE';
+export const CHAR_LOCK_UPDATE = 'CHAR_LOCK_UPDATE';

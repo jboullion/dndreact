@@ -6,15 +6,17 @@ import Col from 'react-bootstrap/Col';
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Button from 'react-bootstrap/Button';
+/*
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+*/
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLock } from '@fortawesome/pro-solid-svg-icons' //faLockAlt
+import { faLock, faLockOpen, faUndoAlt } from '@fortawesome/pro-solid-svg-icons' //, faCampfire, faCampground //shortrest and long rest
 
-import { getStatBonus, calcPassive } from '../../../functions'
+import { calcProf, calcInit, calcPassive } from '../../../functions'
 import * as actionTypes from '../../../store/actions'
 
 import ImportantCss from './Important.module.css';
@@ -83,8 +85,11 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Hit Die</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={props.character.level} readOnly />
+						<FormControl type="number" value={props.character.hitdie} onChange={(e) => props.updateCharacter(e.target.value,'hitdie')} />
 						<InputGroup.Append>
+							<Button variant="primary" onClick={() => props.updateCharacter(props.character.level,'hitdie')}><FontAwesomeIcon icon={faUndoAlt} className="fa-fw" /></Button>
+						</InputGroup.Append>
+						{/* <InputGroup.Append>
 							<ButtonGroup>
 								<DropdownButton variant="secondary" as={ButtonGroup} title="">
 									{props.character.hitdie.map((die, index) => {
@@ -92,7 +97,8 @@ const important = (props) => {
 									})}
 								</DropdownButton>
 							</ButtonGroup>
-						</InputGroup.Append>
+						</InputGroup.Append> */}
+
 					</InputGroup>
 				</Col>
 
@@ -101,9 +107,9 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Prof</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={props.character.profBonus} onChange={(e) => props.updateCharacter(e.target.value,'profBonus')} />
+						<FormControl readOnly={props.character.profBonusLock?'readOnly':''} type="number" value={calcProf(props.character)} onChange={(e) => props.updateLockedCharacter(e.target.value,'profBonus')} />
 						<InputGroup.Append>
-							<Button variant="secondary text-white"><FontAwesomeIcon icon={faLock} /></Button>
+							<Button variant={props.character.profBonusLock?'primary':'secondary text-white'} onClick={() => props.updateCharacter(!props.character.profBonusLock,'profBonusLock')}><FontAwesomeIcon icon={props.character.profBonusLock?faLock:faLockOpen} className="fa-fw" /></Button>
 						</InputGroup.Append>
 					</InputGroup>
 				</Col>
@@ -113,9 +119,9 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Init</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={ props.character.init + getStatBonus('Dex',props.stats) } />
+						<FormControl readOnly={props.character.initLock?'readOnly':''} type="number" value={ calcInit(props.character, props.stats) } onChange={(e) => props.updateLockedCharacter(e.target.value,'init')} />
 						<InputGroup.Append>
-							<Button variant="secondary text-white"><FontAwesomeIcon icon={faLock} /></Button>
+							<Button variant={props.character.initLock?'primary':'secondary text-white'} onClick={() => props.updateCharacter(!props.character.initLock,'initLock')}><FontAwesomeIcon icon={props.character.initLock?faLock:faLockOpen} className="fa-fw" /></Button>
 						</InputGroup.Append>
 					</InputGroup>
 				</Col>
@@ -125,9 +131,9 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Insight</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={ calcPassive('Insight', props.character, props.stats, props.skills) } />
+						<FormControl readOnly={props.character.insightLock?'readOnly':''} type="number" value={ calcPassive('Insight', props.character, props.stats, props.skills) } onChange={(e) => props.updateLockedCharacter(e.target.value,'insight')} />
 						<InputGroup.Append>
-							<Button variant="secondary text-white"><FontAwesomeIcon icon={faLock} /></Button>
+							<Button variant={props.character.insightLock?'primary':'secondary text-white'} onClick={() => props.updateCharacter(!props.character.insightLock,'insightLock')}><FontAwesomeIcon icon={props.character.insightLock?faLock:faLockOpen} className="fa-fw" /></Button>
 						</InputGroup.Append>
 					</InputGroup>
 				</Col>
@@ -137,9 +143,9 @@ const important = (props) => {
 						<InputGroup.Prepend>
 							<InputGroup.Text className=" bg-primary text-white">Percep.</InputGroup.Text>
 						</InputGroup.Prepend>
-						<FormControl type="number" value={ calcPassive('Perception', props.character, props.stats, props.skills) } />
+						<FormControl readOnly={props.character.perceptionLock?'readOnly':''} type="number" value={ calcPassive('Perception', props.character, props.stats, props.skills) } onChange={(e) => props.updateLockedCharacter(e.target.value,'perception')} />
 						<InputGroup.Append>
-							<Button variant="secondary text-white"><FontAwesomeIcon icon={faLock} /></Button>
+							<Button variant={props.character.perceptionLock?'primary':'secondary text-white'} onClick={() => props.updateCharacter(!props.character.perceptionLock,'perceptionLock')}><FontAwesomeIcon icon={props.character.perceptionLock?faLock:faLockOpen} className="fa-fw" /></Button>
 						</InputGroup.Append>
 					</InputGroup>
 				</Col>
@@ -150,7 +156,7 @@ const important = (props) => {
 							props.character.fails.map((value,index) => {
 								let newFails = [...props.character.fails];
 								newFails[index] = !newFails[index];
-								return <Button variant={value?'danger':'secondary'} className={ImportantCss.saveThrows} onClick={() => props.updateCharacter(newFails,'fails')}>{(index + 1)}</Button>
+								return <Button key={index} variant={value?'danger':'secondary'} className={ImportantCss.saveThrows} onClick={() => props.updateCharacter(newFails,'fails')}>{(index + 1)}</Button>
 							})
 						}
 
@@ -160,7 +166,7 @@ const important = (props) => {
 							props.character.saves.map((value,index) => {
 								let newSaves = [...props.character.saves];
 								newSaves[index] = !newSaves[index];
-								return <Button variant={value?'success':'secondary'} className={ImportantCss.saveThrows} onClick={() => props.updateCharacter(newSaves,'saves')}>{(index + 1)}</Button>
+								return <Button key={index} variant={value?'success':'secondary'} className={ImportantCss.saveThrows} onClick={() => props.updateCharacter(newSaves,'saves')}>{(index + 1)}</Button>
 							})
 						}
 					</InputGroup>
@@ -193,6 +199,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
+		updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
 	};
 }
 

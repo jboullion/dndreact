@@ -7,7 +7,7 @@ import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD20, faCheck, faCheckDouble } from '@fortawesome/pro-solid-svg-icons'
 
-import { calcStatBonus } from '../../../functions'
+import { calcStatBonus, calcProf } from '../../../functions'
 import * as actionTypes from '../../../store/actions'
 
 import RollResult from '../RollResult';
@@ -68,7 +68,7 @@ const mapStateToProps = state => {
 		stats: state.stats.stats,
 		skills: state.skills.skills,
 		rollResult: state.skills.recentSkillRoll,
-		profBonus: state.char.profBonus
+		profBonus: calcProf(state.char)
 	};
 }
 

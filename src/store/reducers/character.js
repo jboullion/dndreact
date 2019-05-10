@@ -7,15 +7,16 @@ const defaultCharacter = {
 	maxHP: 8,
 	AC: 10,
 	tempAC: 0,
-	hitdie: [4,6,8,10,12], // 4,6,8,10,12 is possible with multiclassing
-	profBonus: 2,
-	profLock: false, //allows user to change their profBonus
+	hitdie: 1,
+	//hitdie: [4,6,8,10,12], // 4,6,8,10,12 is possible with multiclassing
+	profBonus: 2, //Should this just be prof? or proficiency? 
+	profBonusLock: true, //allows user to change their profBonus
 	init: 0, //all bonuses separate from stat bonus
-	initLock: false, //allows user to change their init
-	insight: 0, //all bonuses separate from stat bonus
-	insightLock: false, //allows user to change their passive insight
-	perception: 0, //all bonuses separate from stat bonus
-	perceptionLock: false, //allows user to change their passive perception
+	initLock: true, //allows user to change their init
+	insight: 10, //all bonuses separate from stat bonus
+	insightLock: true, //allows user to change their passive insight
+	perception: 10, //all bonuses separate from stat bonus
+	perceptionLock: true, //allows user to change their passive perception
 	saves: [false,false,false],
 	fails: [false,false,false],
 	XP: 0,
@@ -36,12 +37,15 @@ const defaultCharacter = {
 }
 
 const reducer = (state = defaultCharacter, action) => {
+	let character;
 
 	switch(action.type){
 		case actionTypes.CHAR_UPDATE:
 
 			//copy our state
-			let character = Object.assign({},state);
+			character = Object.assign({},state);
+
+			console.log(action.payload.index +' '+action.payload.value);
 
 			//update the value
 			character[action.payload.index] = action.payload.value;
@@ -49,9 +53,20 @@ const reducer = (state = defaultCharacter, action) => {
 			return {
 				...character
 			}
+		case actionTypes.CHAR_LOCK_UPDATE:
+			//Only let the character update the some stats when they are unlocked, otherwise they are tied to the stats
+			//copy our state
+			character = Object.assign({},state);
 
+			//update the value
+			if(! character[action.payload.index+'Lock']){
+				character[action.payload.index] = parseInt(action.payload.value);
+			}
+
+			return {
+				...character
+			}
 		default:
-
 	}
 
 	return state;
