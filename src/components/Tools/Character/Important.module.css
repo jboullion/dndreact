@@ -30,3 +30,10 @@
 		box-shadow: 0px 0px 4px 2px rgba(40,167,69,0.5);
 	}
 }
+
+
+.saveThrows { padding: 0; width: 14%; }
+
+.successThrow {  }
+
+.failThrow {  }

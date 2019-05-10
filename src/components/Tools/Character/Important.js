@@ -17,7 +17,7 @@ import { faLock } from '@fortawesome/pro-solid-svg-icons' //faLockAlt
 import { getStatBonus, calcPassive } from '../../../functions'
 import * as actionTypes from '../../../store/actions'
 
-import Important from './Important.module.css';
+import ImportantCss from './Important.module.css';
 
 const important = (props) => {
 
@@ -34,7 +34,7 @@ const important = (props) => {
 						</InputGroup.Prepend>
 						<FormControl type="number" value={props.character.HP} onChange={(e) => props.updateCharacter(e.target.value,'HP')} />
 					</InputGroup>
-					<ProgressBar className={(damaged?(damaged > 50?Important.lowHealth:''):Important.fullHealth) + ' bg-danger' }>
+					<ProgressBar className={(damaged?(damaged > 80?ImportantCss.lowHealth:''):ImportantCss.fullHealth) + ' bg-danger' }>
 						<ProgressBar variant="success" now={hpProgress} key={1} />
 						<ProgressBar variant="info" now={tempProgress} key={2} />
 					</ProgressBar>
@@ -146,16 +146,23 @@ const important = (props) => {
 
 				<Col xs={6} lg={3} className="mb-3">
 					<InputGroup style={{height: '100%'}}>
+						{
+							props.character.fails.map((value,index) => {
+								let newFails = [...props.character.fails];
+								newFails[index] = !newFails[index];
+								return <Button variant={value?'danger':'secondary'} className={ImportantCss.saveThrows} onClick={() => props.updateCharacter(newFails,'fails')}>{(index + 1)}</Button>
+							})
+						}
+
+						<InputGroup.Text className={ImportantCss.saveThrows + ' bg-primary'}>&nbsp;</InputGroup.Text>
 						
-						<Button variant="secondary" style={{padding: 0, width: '14%'}}>1</Button>
-						<Button variant="secondary" style={{padding: 0, width: '14%'}}>2</Button>
-						<Button variant="secondary" style={{padding: 0, width: '14%'}}>3</Button>
-	
-						<InputGroup.Text className=" bg-primary text-white" style={{padding: 0, width: '14%'}}>&nbsp;</InputGroup.Text>
-						
-						<Button variant="secondary" style={{padding: 0, width: '14%'}}>1</Button>
-						<Button variant="secondary" style={{padding: 0, width: '14%'}}>2</Button>
-						<Button variant="secondary" style={{padding: 0, width: '14%'}}>3</Button>
+						{
+							props.character.saves.map((value,index) => {
+								let newSaves = [...props.character.saves];
+								newSaves[index] = !newSaves[index];
+								return <Button variant={value?'success':'secondary'} className={ImportantCss.saveThrows} onClick={() => props.updateCharacter(newSaves,'saves')}>{(index + 1)}</Button>
+							})
+						}
 					</InputGroup>
 				</Col>
 

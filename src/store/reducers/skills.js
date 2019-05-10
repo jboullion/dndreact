@@ -145,13 +145,15 @@ const reducer = (state = defaultStats, action) => {
 				skills: skills
 			}
 		case actionTypes.SKILL_ROLL:
-			let roll = playerDiceRoll(20);
+			let roll = playerDiceRoll();
+			let advRoll = playerDiceRoll();
 
 			let recentSkillRoll =  {
 				roll: roll,
 				bonus: action.payload.bonus,
 				prof: action.payload.skill.prof,
-				adv: action.payload.skill.adv
+				adv: action.payload.skill.adv,
+				advRoll: advRoll
 			}	
 			
 			return {

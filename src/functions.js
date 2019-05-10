@@ -17,18 +17,20 @@ export function getRandomInt(max) {
 /**
  * Return a random number 1 - max
  * @param int max Maximum value of the random
+ * @param number adv Give the player increased rolls ;)
  * 
  * @return int Random Integer
  */
 export function playerDiceRoll(max, adv) {
+	if(! max){
+		max = 20;
+	}
+
 	if(! adv){
 		adv = 1.00;
 	}
 
-	//We can give our players a slight advantage if we want
-	let playerAdvantage = adv;
-
-	return Math.min(Math.floor((Math.random() * playerAdvantage) * Math.floor(max) ) + 1, max);
+	return Math.min(Math.floor((Math.random() * adv) * Math.floor(max) ) + 1, max);
 }
 
 /**

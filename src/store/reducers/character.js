@@ -16,8 +16,8 @@ const defaultCharacter = {
 	insightLock: false, //allows user to change their passive insight
 	perception: 0, //all bonuses separate from stat bonus
 	perceptionLock: false, //allows user to change their passive perception
-	saves: 0,
-	fails: 0,
+	saves: [false,false,false],
+	fails: [false,false,false],
 	XP: 0,
 	level: 1,
 	name: '',
