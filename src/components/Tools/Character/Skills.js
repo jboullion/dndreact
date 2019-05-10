@@ -44,12 +44,12 @@ const skills = (props) => {
 												<td>{stat.abv}</td>
 												<td className="text-center">{bonus>0?'+':''}{bonus}</td>
 												<td className="text-center touch-icon" onClick={(e) => props.incrementProf(index)}>
-													{skill.prof===1?<FontAwesomeIcon icon={faCheck} className="fa-2x" />:''}
-													{skill.prof===2?<FontAwesomeIcon icon={faCheckDouble} className="fa-2x" />:''}
+													{skill.prof===1?<FontAwesomeIcon icon={faCheck} size="2x" />:''}
+													{skill.prof===2?<FontAwesomeIcon icon={faCheckDouble} size="2x" />:''}
 												</td>
-												<td className="text-center touch-icon" onClick={(e) => props.toggleAdv(index)}>{skill.adv?<FontAwesomeIcon icon={faCheck} className="fa-2x" />:''}</td>
+												<td className="text-center touch-icon" onClick={(e) => props.toggleAdv(index)}>{skill.adv?<FontAwesomeIcon icon={faCheck} size="2x" />:''}</td>
 												<td className="text-center touch-icon" onClick={(e) => props.rollSkill(bonus, skill)}>
-													<FontAwesomeIcon icon={faDiceD20} className="fa-2x" />
+													<FontAwesomeIcon icon={faDiceD20} size="2x" />
 												</td>
 											</tr>;
 
@@ -68,7 +68,7 @@ const mapStateToProps = state => {
 		stats: state.stats.stats,
 		skills: state.skills.skills,
 		rollResult: state.skills.recentSkillRoll,
-		profBonus: calcProf(state.char)
+		profBonus: calcProf(state.character)
 	};
 }
 

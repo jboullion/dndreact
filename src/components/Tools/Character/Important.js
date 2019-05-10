@@ -189,7 +189,7 @@ const important = (props) => {
 
 const mapStateToProps = state => {
 	return {
-		character: state.char,
+		character: state.character,
 		stats: state.stats.stats,
 		skills: state.skills.skills
 	};

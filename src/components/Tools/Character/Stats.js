@@ -42,9 +42,9 @@ const stats = (props) => {
 												<th scope="row"><span className="d-none d-sm-block">{stat.name}</span><span className="d-block d-sm-none">{stat.abv}</span></th>
 												<td className="text-center" style={{width: '100px'}}><FormControl type="number" value={stat.value} onChange={(e) => props.updateStat(e.target.value,index)} /></td>
 												<td className="text-center">{bonus>0?'+':''}{bonus}</td>
-												<td className="text-center touch-icon" onClick={(e) => props.toggleProficiency(index)}>{stat.prof?<FontAwesomeIcon icon={faCheck} className="fa-2x" />:''}</td>
+												<td className="text-center touch-icon" onClick={(e) => props.toggleProficiency(index)}>{stat.prof?<FontAwesomeIcon icon={faCheck} size="2x" />:''}</td>
 												<td className="text-center touch-icon" onClick={(e) => props.rollStat(stat)}>
-													<FontAwesomeIcon icon={faDiceD20} className="fa-2x" />
+													<FontAwesomeIcon icon={faDiceD20} size="2x" />
 												</td>
 											</tr>;
 								})}
@@ -60,7 +60,7 @@ const mapStateToProps = state => {
 	return {
 		stats: state.stats.stats,
 		rollResult: state.stats.recentStatRoll,
-		profBonus: calcProf(state.char)
+		profBonus: calcProf(state.character)
 	};
 }
 

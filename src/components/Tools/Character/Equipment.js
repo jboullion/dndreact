@@ -1,76 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
-import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
+import Table from 'react-bootstrap/Table';
+//import Button from 'react-bootstrap/Button';
+import FormControl from 'react-bootstrap/FormControl';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDiceD20, faCheckCircle } from '@fortawesome/pro-solid-svg-icons'
+import { faDiceD20, faPlus } from '@fortawesome/pro-solid-svg-icons'
 
 const equipment = (props) => {
-	const state = {
-		equipment: {
-			weapons: [
-				{ 
-					name: 'Warhammer',
-					hit: 6,
-					damage: [
-						{
-							num: 4,
-							dam: 8
-						},
-						{
-							num: 2,
-							dam: 4
-						},
-					],
-					range: 80,
-					type: 'Blunt'
-				}
-			],
-			armor: [
-				{
-					name: 'Chainmail',
-					type: 'Heavy',
-					ac: 16
-				}
-			],
-			money: [
-				{
-					name: 'Copper',
-					initial: 'cp',
-					value: 1
-				},
-				{
-					name: 'Silver',
-					initial: 'sp',
-					value: 10
-				},
-				{
-					name: 'Electrum ',
-					initial: 'ep',
-					value: 60
-				},
-				{
-					name: 'Gold',
-					initial: 'gp',
-					value: 100
-				},
-				{
-					name: 'Platinum',
-					initial: 'pp',
-					value: 1000
-				},
-			],
-			gems: [
-				{
-					name: 'Ruby',
-					number: 10,
-					value: 1,
-					money: 'gp'
-				},
-			]
-		}
-	}
 
 	return <div className="mb-5 tab-pane" id="character-equipment">
 
@@ -80,28 +19,27 @@ const equipment = (props) => {
 
 						<Table striped bordered>
 							<thead>
-								<tr className="table-dark">
-									<th>Weapon</th>
-									<th>+Hit</th>
+								<tr className="table-dark touch-row">
+									<th>Weapon <FontAwesomeIcon icon={faPlus} className="float-right" style={{height: '24px'}} /></th>
+									<th>Hit</th>
 									<th>Damage</th>
 									<th>Range</th>
-									<th>Type</th>
+									<th className="text-center">Roll</th>
 								</tr>
 							</thead>
 							<tbody>
-								{state.equipment.weapons.map(function(weapon, index){
+								{props.equipment.weapons.map(function(weapon, index){
 
 									return <tr key={index}>
-												<th scope="row">{weapon.name}</th>
+												<th scope="row" className="touch-row">{weapon.name}</th>
 												<td>{weapon.hit>0?'+':''}{weapon.hit}</td>
 												<td className="text-center">{
 													weapon.damage.map(function(damage, index){
 														return damage.num+'d'+damage.dam;
 													})
 												}</td>
-												<td className="text-center"><FontAwesomeIcon icon={faCheckCircle} /></td>
-												<td className="text-center"><FontAwesomeIcon icon={faCheckCircle} /></td>
-												<td className="text-center"><FontAwesomeIcon icon={faDiceD20} /></td>
+												<td className="text-center"></td>
+												<td className="text-center touch-icon"><FontAwesomeIcon icon={faDiceD20} size="2x"  /></td>
 											</tr>;
 
 								})}
@@ -110,16 +48,16 @@ const equipment = (props) => {
 
 						<Table striped bordered>
 							<thead>
-								<tr className="table-dark">
-									<th>Armor</th>
+								<tr className="table-dark touch-row">
+									<th>Armor <FontAwesomeIcon icon={faPlus} className="float-right" style={{height: '24px'}} /></th>
 									<th>Type</th>
 									<th>AC</th>
 								</tr>
 							</thead>
 							<tbody>
-								{state.equipment.armor.map(function(armor, index){
+								{props.equipment.armor.map(function(armor, index){
 
-									return <tr key={index}>
+									return <tr key={index} className="touch-row">
 												<th>{armor.name}</th>
 												<td>{armor.type}</td>
 												<td>{armor.ac}</td>
@@ -133,15 +71,15 @@ const equipment = (props) => {
 							<thead>
 								<tr className="table-dark">
 									<th>Money</th>
-									<th></th>
+									<th style={{width: '150px'}}><span className="float-right">Total: 10gp</span></th>
 								</tr>
 							</thead>
 							<tbody>
-								{state.equipment.money.map(function(money, index){
+								{props.equipment.money.map(function(money, index){
 
 									return <tr className="" key={index}>
 												<th>{money.name} ({money.initial})</th>
-												<td>{money.value}</td>
+												<td><FormControl type="number" value={money.value} /></td>
 											</tr>;
 
 								})}
@@ -150,16 +88,16 @@ const equipment = (props) => {
 
 						<Table striped bordered>
 							<thead>
-								<tr className="table-dark">
-									<th>Gems</th>
+								<tr className="table-dark touch-row">
+									<th>Gems <FontAwesomeIcon icon={faPlus} className="float-right" style={{height: '24px'}} /></th>
 									<th>#</th>
-									<th>Value</th>
+									<th>Value <span className="float-right">Total: 10gp</span></th>
 								</tr>
 							</thead>
 							<tbody>
-								{state.equipment.gems.map(function(gem, index){
+								{props.equipment.gems.map(function(gem, index){
 
-									return <tr className="" key={index}>
+									return <tr key={index} className="touch-row">
 												<th>{gem.name}</th>
 												<td>{gem.number}</td>
 												<td>{gem.value}{gem.money}</td>
@@ -171,9 +109,24 @@ const equipment = (props) => {
 
 					</Card.Body>
 				</Card>
-
 			</div>;
 
 }
 
-export default equipment;
+const mapStateToProps = state => {
+	return {
+		equipment: state.equipment,
+		// stats: state.stats.stats,
+		// skills: state.skills.skills
+	};
+}
+
+
+const mapDispatchToProps = dispatch => {
+	return {
+		// updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
+		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(equipment);

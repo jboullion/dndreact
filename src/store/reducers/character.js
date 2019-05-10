@@ -45,8 +45,6 @@ const reducer = (state = defaultCharacter, action) => {
 			//copy our state
 			character = Object.assign({},state);
 
-			console.log(action.payload.index +' '+action.payload.value);
-
 			//update the value
 			character[action.payload.index] = action.payload.value;
 

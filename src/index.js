@@ -8,6 +8,8 @@ import App from './App';
 import statReducer from './store/reducers/stats';
 import skillReducer from './store/reducers/skills';
 import characterReducer from './store/reducers/character';
+import equipmentReducer from './store/reducers/equipment';
+import modalReducer from './store/reducers/modals';
 
 import './css/bootstrap.min.css';
 import './css/index.css';
@@ -19,7 +21,9 @@ import * as serviceWorker from './serviceWorker';
 const rootReducer = combineReducers({
 	stats: statReducer,
 	skills: skillReducer,
-	char: characterReducer
+	character: characterReducer,
+	equipment: equipmentReducer,
+	modal: modalReducer
 });
 
 const logger = store => {

@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux'
+
+import * as actionTypes from '../store/actions'
 
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -18,11 +21,27 @@ const header = (props) => {
 					
 					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 					<Navbar.Collapse id="responsive-navbar-nav" className={'justify-content-end'}>
-						<Button className={HeaderCSS.btnSpace} variant="outline-info" onClick={props.toggleAccount}>Create Account</Button>
-						<Button className={HeaderCSS.btnSpace} variant="outline-success" onClick={props.toggleSignin}>Sign In</Button>
+						<Button className={HeaderCSS.btnSpace} variant="outline-info" onClick={() => props.toggleModal('account')}>Create Account</Button>
+						<Button className={HeaderCSS.btnSpace} variant="outline-success" onClick={() => props.toggleModal('signin')}>Sign In</Button>
 					</Navbar.Collapse>
 				</Container>
 			</Navbar>;
 }
 
-export default header;
+const mapStateToProps = state => {
+	return {
+		modal: state.modal,
+		// stats: state.stats.stats,
+		// skills: state.skills.skills
+	};
+}
+
+
+const mapDispatchToProps = dispatch => {
+	return {
+		toggleModal: (index) => dispatch({type: actionTypes.MODAL_TOGGLE, payload: {index}}),
+		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(header);

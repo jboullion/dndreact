@@ -165,7 +165,7 @@ const info = (props) => {
 
 const mapStateToProps = state => {
 	return {
-		character: state.char
+		character: state.character
 	};
 }
 
