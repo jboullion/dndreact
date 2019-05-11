@@ -15,8 +15,9 @@ const dice = (props) => {
 				<Form.Group>
 					<InputGroup className="mb-3">
 						<InputGroup.Prepend>
-							<InputGroup.Text className="bg-primary text-white">d{props.die.value}</InputGroup.Text>
-							<InputGroup.Text className="bg-primary text-white"><FontAwesomeIcon icon={props.die.component} /></InputGroup.Text>
+						<InputGroup.Text className="bg-primary text-white"><FontAwesomeIcon icon={props.die.component} className="fa-fw" style={{height: '24px'}} /></InputGroup.Text>
+							<InputGroup.Text className="bg-primary text-white" style={{width: '50px'}}>d{props.die.value}</InputGroup.Text>
+							
 						</InputGroup.Prepend>
 						<FormControl type="number" className="dice-num" value={props.die.num} onChange={(event) => props.updateDieNumber(event, props.die.value)} />
 						<InputGroup.Append>

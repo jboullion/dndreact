@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
  import Card from 'react-bootstrap/Card';
 
 // import { calcStatBonus } from '../../../functions'
-import * as actionTypes from '../../../store/actions'
+import * as actionTypes from '../../../store/actions/actions'
 
 
 const info = (props) => {

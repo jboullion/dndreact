@@ -1,5 +1,5 @@
 // import { playerDiceRoll, calcStatBonus } from '../../functions'
-//import * as actionTypes from '../actions'
+//import * as actionTypes from '../actions/actions'
 
 const defaultEquipment = {
 	weapons: [

@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faLockOpen, faUndoAlt } from '@fortawesome/pro-solid-svg-icons' //, faCampfire, faCampground //shortrest and long rest
 
 import { calcProf, calcInit, calcPassive } from '../../../functions'
-import * as actionTypes from '../../../store/actions'
+import * as actionTypes from '../../../store/actions/actions'
 
 import ImportantCss from './Important.module.css';
 

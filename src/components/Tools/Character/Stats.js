@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import * as actionCreators from '../../../store/actions/actions'
 
 import FormControl from 'react-bootstrap/FormControl';
 import Table from 'react-bootstrap/Table';
@@ -9,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD20, faCheck } from '@fortawesome/pro-solid-svg-icons'
 
 import { calcStatBonus, calcProf } from '../../../functions'
-import * as actionTypes from '../../../store/actions'
+import * as actionTypes from '../../../store/actions/actions'
 
 import RollResult from '../RollResult';
 
@@ -67,7 +68,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		updateStat: (value, index) => dispatch({type: actionTypes.STAT_UPDATE, payload: {value, index}}),
+		updateStat: (value, index) => dispatch(actionCreators.statUpdate({value, index})),
 		toggleProficiency: (index) => dispatch({type: actionTypes.STAT_TOGGLE, payload: {index}}),
 		rollStat: (stat) => dispatch({type: actionTypes.STAT_ROLL, payload: {stat}})
 	};
