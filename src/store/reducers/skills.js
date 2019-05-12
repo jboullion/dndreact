@@ -1,109 +1,118 @@
 import { playerDiceRoll } from '../../functions'
-import * as actionTypes from '../actions/actions'
+import * as actionTypes from '../actions/actionTypes'
+import { updateObject } from '../utility'
 
-const defaultStats = {
-	//SKILLS
-	recentSkillRoll: { 
-		roll: 0,
-		bonus: 0,
-		prof: false 
-	},
-	skills: [{
-		name: "Acrobatics",
-		stat: 1,
-		prof: 0, //skill can be double proficiency. 0,1,2
-		adv: false
-	}, {
-		name: "Animal Handling",
-		stat: 4,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Arcana",
-		stat: 3,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Athletics",
-		stat: 0,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Deception",
-		stat: 5,
-		prof: 0,
-		adv: false
-	}, {
-		name: "History",
-		stat: 3,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Insight",
-		stat: 4,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Intimidation",
-		stat: 5,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Investigation",
-		stat: 3,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Medicine",
-		stat: 4,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Nature",
-		stat: 3,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Perception",
-		stat: 4,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Performance",
-		stat: 5,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Persuasion",
-		stat: 5,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Religion",
-		stat: 3,
-		prof: 0,
-		adv: false
-	}, {
+
+let defaultSkills = {};
+
+//The default stats if nothing loaded
+if(actionTypes.localstate && actionTypes.localstate.skills){
+	defaultSkills = actionTypes.localstate.skills;
+}else{
+	defaultSkills = {
+		//SKILLS
+		recentSkillRoll: { 
+			roll: 0,
+			bonus: 0,
+			prof: false 
+		},
+		skills: [{
+			name: "Acrobatics",
+			stat: 1,
+			prof: 0, //skill can be double proficiency. 0,1,2
+			adv: false
+		}, {
+			name: "Animal Handling",
+			stat: 4,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Arcana",
+			stat: 3,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Athletics",
+			stat: 0,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Deception",
+			stat: 5,
+			prof: 0,
+			adv: false
+		}, {
+			name: "History",
+			stat: 3,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Insight",
+			stat: 4,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Intimidation",
+			stat: 5,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Investigation",
+			stat: 3,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Medicine",
+			stat: 4,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Nature",
+			stat: 3,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Perception",
+			stat: 4,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Performance",
+			stat: 5,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Persuasion",
+			stat: 5,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Religion",
+			stat: 3,
+			prof: 0,
+			adv: false
+		}, {
+			
+			name: "Sleight of Hand",
+			stat: 1,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Stealth",
+			stat: 1,
+			prof: 0,
+			adv: false
+		}, {
+			name: "Survival",
+			stat: 4,
+			prof: 0,
+			adv: false
+		}]
 		
-		name: "Sleight of Hand",
-		stat: 1,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Stealth",
-		stat: 1,
-		prof: 0,
-		adv: false
-	}, {
-		name: "Survival",
-		stat: 4,
-		prof: 0,
-		adv: false
-	}]
-	
+	}
 }
 
-const reducer = (state = defaultStats, action) => {
+const reducer = (state = defaultSkills, action) => {
 	let skill, skills;
 
 	switch(action.type){
@@ -124,10 +133,7 @@ const reducer = (state = defaultStats, action) => {
 			//update the stats at the correct index
 			skills[action.payload.index] = skill;
 
-			return {
-				...state,
-				skills: skills
-			}
+			return updateObject(state, {skills: skills});
 		case actionTypes.SKILL_ADV:
 			skill = {
 				...state.skills[action.payload.index]
@@ -140,10 +146,8 @@ const reducer = (state = defaultStats, action) => {
 			//update the stats at the correct index
 			skills[action.payload.index] = skill;
 
-			return {
-				...state,
-				skills: skills
-			}
+			return updateObject(state, {skills: skills});
+
 		case actionTypes.SKILL_ROLL:
 			let roll = playerDiceRoll();
 			let advRoll = playerDiceRoll();
@@ -155,11 +159,8 @@ const reducer = (state = defaultStats, action) => {
 				adv: action.payload.skill.adv,
 				advRoll: advRoll
 			}	
-			
-			return {
-				...state,
-				recentSkillRoll: recentSkillRoll
-			}
+
+			return updateObject(state, {recentSkillRoll: recentSkillRoll});
 		default:
 
 	}

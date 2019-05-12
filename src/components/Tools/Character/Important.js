@@ -7,6 +7,10 @@ import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
+
+// import Dropdown from 'react-bootstrap/Dropdown';
+// import DropdownButton from 'react-bootstrap/DropdownButton';
+
 /*
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -14,10 +18,10 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 */
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLock, faLockOpen, faUndoAlt } from '@fortawesome/pro-solid-svg-icons' //, faCampfire, faCampground //shortrest and long rest
+import { faLock, faLockOpen, faUndoAlt} from '@fortawesome/pro-solid-svg-icons' //, faCampfire, faCampground //shortrest and long rest // faEyeSlash, faDeaf conditions
 
 import { calcProf, calcInit, calcPassive } from '../../../functions'
-import * as actionTypes from '../../../store/actions/actions'
+import * as actionTypes from '../../../store/actions/actionTypes'
 
 import ImportantCss from './Important.module.css';
 
@@ -173,15 +177,28 @@ const important = (props) => {
 				</Col>
 
 				<Col xs={6} lg={3} className="mb-3" id="xp">
+
+					{/* TODO: Conditions. Where should this go?
+						<InputGroup style={{height: '100%'}}>
+							<Button variant='secondary' className={ImportantCss.saveThrows} style={{ padding: '6px 0'}}><FontAwesomeIcon icon={faEyeSlash} className="fa-fw" /></Button>
+							<Button variant='secondary' className={ImportantCss.saveThrows} style={{ padding: '6px 0'}}><FontAwesomeIcon icon={faDeaf} className="fa-fw" /></Button>
+							<DropdownButton variant="secondary" id="dropdown-basic-button" title="Dropdown button">
+								<Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+								<Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+								<Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+							</DropdownButton>
+						</InputGroup> */}
+					
 					<InputGroup>
 						<InputGroup.Prepend>
 							<InputGroup.Text className="bg-primary text-white">XP</InputGroup.Text>
 						</InputGroup.Prepend>
 						<FormControl type="number" value={props.character.XP} onChange={(e) => props.updateCharacter(e.target.value,'XP')} />
-						{/* Figure out what the next level xp would be needed based on current xp <InputGroup.Append>
-							<InputGroup.Text className=" bg-secondary text-white">/ 4000</InputGroup.Text>
-						</InputGroup.Append> */}
+						 
 					</InputGroup>
+					{/* Figure out what the next level xp would be needed based on current xp <InputGroup.Append>
+							<InputGroup.Text className=" bg-secondary text-white">/ 4000</InputGroup.Text>
+						</InputGroup.Append>  */}
 				</Col>
 
 			</Row>;

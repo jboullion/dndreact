@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import * as actionCreators from '../../../store/actions/actions'
+import * as actionTypes from '../../../store/actions/actionTypes'
+import * as actionCreators from '../../../store/actions/index'
 
 import FormControl from 'react-bootstrap/FormControl';
 import Table from 'react-bootstrap/Table';
@@ -10,7 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD20, faCheck } from '@fortawesome/pro-solid-svg-icons'
 
 import { calcStatBonus, calcProf } from '../../../functions'
-import * as actionTypes from '../../../store/actions/actions'
 
 import RollResult from '../RollResult';
 

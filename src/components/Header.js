@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-import * as actionTypes from '../store/actions/actions'
+import * as actionTypes from '../store/actions/actionTypes'
 
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';

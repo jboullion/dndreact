@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD20, faCheck, faCheckDouble } from '@fortawesome/pro-solid-svg-icons'
 
 import { calcStatBonus, calcProf } from '../../../functions'
-import * as actionTypes from '../../../store/actions/actions'
+import * as actionTypes from '../../../store/actions/actionTypes'
 
 import RollResult from '../RollResult';
 

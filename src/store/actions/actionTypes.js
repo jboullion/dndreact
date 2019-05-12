@@ -12,21 +12,4 @@ export const CHAR_LOCK_UPDATE = 'CHAR_LOCK_UPDATE';
 
 export const MODAL_TOGGLE = 'MODAL_TOGGLE';
 
-export const saveCharacter = (payload) => {
-	return {
-		type: STAT_UPDATE,
-		payload: payload
-	}
-}
-
-export const statUpdate = (payload) => {
-	
-	return dispatch => {
-		setTimeout( () => {
-			dispatch(saveCharacter(payload));
-		},2000);
-	};
-
-};
-
- 
+export const localstate = JSON.parse(localStorage.getItem('DND_STATE'));

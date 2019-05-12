@@ -1,5 +1,6 @@
 // import { playerDiceRoll, calcStatBonus } from '../../functions'
-import * as actionTypes from '../actions/actions'
+import * as actionTypes from '../actions/actionTypes'
+// import { updateObject } from '../utility'
 
 const defaultModals = {
 	account: false,
