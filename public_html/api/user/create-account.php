@@ -4,10 +4,19 @@
  * 
  * Called from the signup form
  */
-header("content-type:application/json");
+
+//header("content-type:application/json");
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'].'/includes/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/includes/functions.php';
+
+require_once '../database.php';
+require_once '../functions.php';
+
+echo 'Create Account<br />';
+
+dnd_print($_POST);
+die();
+
+/*
 if(empty($_POST) || empty($_POST['email']) || empty($_POST['password'])) {
 	echo json_encode(array('error' => 'Info Missing'));
 	exit;
@@ -17,7 +26,7 @@ if (! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 	exit;
 }
 //Does this email Exist?
-$user = mc_user_exists($PDO, $_POST['email']);
+$user = dnd_user_exists($PDO, $_POST['email']);
 if(! empty($user)){
 	echo json_encode(array('error' => 'Email Address already Exists'));
 	exit;
@@ -45,3 +54,4 @@ if($result){
 }else{
 	echo json_encode(array('error' => 'Unable to create account'));
 }
+*/
