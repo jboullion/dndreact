@@ -10,6 +10,12 @@ function dnd_print($data){
 	echo '<pre class="jb-print">'.print_r($data, true).'</pre>';
 }
 
+/**
+ * When receiving information from axios it is sent as a json string. We want to take that string and turn it into an array for PHP consumption
+ */
+function dnd_get_post_data(){
+	return json_decode(file_get_contents("php://input"),true);
+}
 
 /**
  * Send a user to a specific location
@@ -92,7 +98,7 @@ function dnd_get_userinfo($user_id, $column){
  */
 function dnd_user_exists(PDO $PDO, $email){
 	try{
-		$select = "SELECT * FROM users WHERE user_email = :email LIMIT 1";
+		$select = "SELECT * FROM app_users WHERE `email` = :email LIMIT 1";
 		$stmt = $PDO->prepare($select);
 		$stmt->execute( 
 			array(

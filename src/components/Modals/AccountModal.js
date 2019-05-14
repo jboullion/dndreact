@@ -71,13 +71,16 @@ class AccountModal extends Component {
 			formData[formIdentifier] = this.state.signinform[formIdentifier].value;
 		}
 
-		console.log(formData);
-		axios.post('user/create-account.php', {
-			firstName: 'Fred',
-			lastName: 'Flintstone'
-		  })
+		
+		axios.post('user/create-account.php', formData)
 		  .then(function (response) {
-			console.log(response);
+			if(response.error){
+				console.log(response.error);
+			}else if(response.success){
+				//User account was created!
+			}else{
+				console.log('AccountModal: Unkown Error');
+			}
 		  })
 		  .catch(function (error) {
 			console.log(error);
@@ -108,7 +111,7 @@ class AccountModal extends Component {
 					<Modal.Title>Create Account</Modal.Title>
 				</Modal.Header>
 				
-				<Form onSubmit={this.createAccount}>
+				<Form onSubmit={(e) => this.createAccount(e)}>
 					<Modal.Body>
 						{ form }
 					</Modal.Body>
