@@ -1,24 +1,128 @@
-import React from 'react';
+import React, { Component } from 'react';
+
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-const accountModal = (props) => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/pro-solid-svg-icons'
 
-	return <Modal show={props.show} onHide={() => props.handleClose('account')} >
-			<Modal.Header closeButton>
-				<Modal.Title>Create Account</Modal.Title>
-			</Modal.Header>
+import axios from '../../axiosConfig';
+
+class AccountModal extends Component {
+	constructor(props, context) {
+		super(props, context);
 		
-			<Modal.Body>
-				<p>Modal body text goes here.</p>
-			</Modal.Body>
+		this.state = {
+			signinform: {
+				email: {
+					type: 'email',
+					label: 'Email',
+					placeholder: 'Email Address',
+					value: "",
+					validation: {
+						required: true,
+						isEmail: true
+					},
+					valid: false,
+					touched: false
+				},
+				password: {
+					type: 'password',
+					label: 'Password',
+					value: "",
+					validation: {
+						required: true,
+						minLength: 6
+					},
+					valid: false,
+					touched: false
+				}
+			},
+			loading: false
+		}
+	}	
+
+	inputChangedHandler = (event, inputIdentifier) => {
+
+		const updatedForm = {
+			...this.state.signinform
+		}
+
+		const updatedFormElement = {
+			...updatedForm[inputIdentifier]
+		}
 		
-			<Modal.Footer>
-				<Button variant="secondary" onClick={() => props.handleClose('account')}>Close</Button>
-				<Button variant="primary" onClick={() => props.handleClose('account')}>Create Account</Button>
-			</Modal.Footer>
-		</Modal>;
+		updatedFormElement.value = event.target.value;
+		updatedForm[inputIdentifier] = updatedFormElement;
+
+		this.setState({signinform: updatedForm});
+	}
+
+	createAccount = (event) => {
+		event.preventDefault();
+
+		this.setState({loading: true});
+
+		const formData = {};
+
+		for(let formIdentifier in this.state.signinform){
+			formData[formIdentifier] = this.state.signinform[formIdentifier].value;
+		}
+
+		console.log(formData);
+		axios.post('user/create-account.php', {
+			firstName: 'Fred',
+			lastName: 'Flintstone'
+		  })
+		  .then(function (response) {
+			console.log(response);
+		  })
+		  .catch(function (error) {
+			console.log(error);
+		  });
+		
+	} 
+
+	render() {
+		const formElementsArray = [];
+		for(let key in this.state.signinform){
+			formElementsArray.push({
+				id: key,
+				config: this.state.signinform[key]
+			})
+		}
+
+		const form = formElementsArray.map(formElement => (
+			<Form.Group key={formElement.id}>
+				<Form.Label>{formElement.config.label}</Form.Label>
+				<Form.Control type={formElement.config.type} placeholder={formElement.config.placeholder} value={formElement.config.value} onChange={(e) => this.inputChangedHandler(e, formElement.id)} />
+			</Form.Group>
+		));
+
+		return (
+			<Modal show={this.props.show} onHide={() => this.props.handleClose('account')} >
+			
+				<Modal.Header closeButton>
+					<Modal.Title>Create Account</Modal.Title>
+				</Modal.Header>
+				
+				<Form onSubmit={this.createAccount}>
+					<Modal.Body>
+						{ form }
+					</Modal.Body>
+			
+					<Modal.Footer>
+						{this.state.loading?<FontAwesomeIcon icon={faSpinner} spin />:''}
+						<Button variant="secondary" onClick={() => this.props.handleClose('account')}>Close</Button>
+						<Button variant="primary" type="submit">Create Account</Button>
+					</Modal.Footer>
+				</Form>
+			</Modal>
+		)
+	};
+
 }
 
-export default accountModal;
+export default AccountModal;

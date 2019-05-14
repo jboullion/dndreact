@@ -1,8 +1,5 @@
 import * as actionTypes from '../actions/actionTypes'
 
-import { saveCharacter } from './save'
-
-
 export const statUpdate = (payload) => {
 	
 	return {
