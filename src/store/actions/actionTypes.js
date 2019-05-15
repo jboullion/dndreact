@@ -10,6 +10,9 @@ export const SKILL_ROLL = 'SKILL_ROLL';
 export const CHAR_UPDATE = 'CHAR_UPDATE';
 export const CHAR_LOCK_UPDATE = 'CHAR_LOCK_UPDATE';
 
+export const EQUIP_UPDATE = 'EQUIP_UPDATE';
+export const EQUIP_MONEY = 'EQUIP_MONEY';
+
 export const MODAL_TOGGLE = 'MODAL_TOGGLE';
 
 export const localstate = JSON.parse(localStorage.getItem('DND_STATE'));

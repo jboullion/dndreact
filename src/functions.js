@@ -201,3 +201,28 @@ export function checkValidity(formElement){
 
 	return {valid:isValid, message:message};
 }
+
+/**
+ * Calculate our total GP based on how much money we have
+ * @param {array} money An array of money objects from the equipment object
+ * @param {string} rate The value to return. cp,ep,gp,pp
+ */
+export function calcMoney(money, rate){
+	if(! rate){
+		rate = 'gp';
+	}
+
+	let totalCP = 0;
+	let totalRated = 0;
+	let rateMoney = money.find( (element) => {
+		return element.initial === rate;
+	});
+
+	money.forEach(element => {
+		totalCP += element.value * element.multiple; 
+	});
+
+	totalRated = (totalCP / rateMoney.multiple).toFixed(0); //floor or ceil?
+
+	return totalRated;
+}

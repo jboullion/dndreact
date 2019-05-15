@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import * as actionTypes from '../../../store/actions/actionTypes'
 
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
@@ -9,7 +10,11 @@ import FormControl from 'react-bootstrap/FormControl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceD20, faPlus } from '@fortawesome/pro-solid-svg-icons'
 
+import { calcMoney } from '../../../functions'
+
 const equipment = (props) => {
+
+	const totalMoney = calcMoney(props.equipment.money);
 
 	return <div className="mb-5 tab-pane" id="character-equipment">
 
@@ -71,7 +76,7 @@ const equipment = (props) => {
 							<thead>
 								<tr className="table-dark">
 									<th>Money</th>
-									<th style={{width: '150px'}}><span className="float-right">Total: 10gp</span></th>
+									<th style={{width: '150px'}}><span className="float-right">Total: {totalMoney}gp</span></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -79,7 +84,7 @@ const equipment = (props) => {
 
 									return <tr className="" key={index}>
 												<th>{money.name} ({money.initial})</th>
-												<td><FormControl type="number" value={money.value} /></td>
+												<td><FormControl type="number" value={money.value} onChange={(e) => props.updateMoney(e.target.value,index)} /></td>
 											</tr>;
 
 								})}
@@ -124,7 +129,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		// updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
+		updateEquipment: (value, index) => dispatch({type: actionTypes.EQUIP_UPDATE, payload: {value, index}}),
+		updateMoney: (value, index) => dispatch({type: actionTypes.EQUIP_MONEY, payload: {value, index}}),
 		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
 	};
 }
