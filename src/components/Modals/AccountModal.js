@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-
+import axios from '../../axiosConfig';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/pro-solid-svg-icons'
 
-import axios from '../../axiosConfig';
+import { elementIsValid, checkValidity } from '../../functions'
 
 class AccountModal extends Component {
 	constructor(props, context) {
@@ -23,10 +24,12 @@ class AccountModal extends Component {
 					value: "",
 					validation: {
 						required: true,
-						isEmail: true
+						isEmail: true,
+						maxLength: 100
 					},
 					valid: false,
-					touched: false
+					touched: false,
+					message: ''
 				},
 				password: {
 					type: 'password',
@@ -34,16 +37,23 @@ class AccountModal extends Component {
 					value: "",
 					validation: {
 						required: true,
-						minLength: 6
+						minLength: 6,
+						maxLength: 100
 					},
 					valid: false,
-					touched: false
+					touched: false,
+					message: ''
 				}
 			},
-			loading: false
+			formIsValid: false,
+			loading: false,
+			error: '',
+			success:''
 		}
-	}	
+	}
 
+
+	// Handle input element update and check validation
 	inputChangedHandler = (event, inputIdentifier) => {
 
 		const updatedForm = {
@@ -55,11 +65,24 @@ class AccountModal extends Component {
 		}
 		
 		updatedFormElement.value = event.target.value;
+		const validResult = checkValidity(updatedFormElement);
+		updatedFormElement.valid = validResult.valid;
+		updatedFormElement.message = validResult.message;
+		updatedFormElement.touched = true;
+
 		updatedForm[inputIdentifier] = updatedFormElement;
 
-		this.setState({signinform: updatedForm});
+		let formIsValid = true;
+		for(let inputIdentifier in updatedForm){
+			formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
+		}
+
+
+		this.setState({signinform: updatedForm, formIsValid:formIsValid});
 	}
 
+
+	// Handle our form submission to create an account on the server
 	createAccount = (event) => {
 		event.preventDefault();
 
@@ -71,36 +94,42 @@ class AccountModal extends Component {
 			formData[formIdentifier] = this.state.signinform[formIdentifier].value;
 		}
 
-		
+		const accountModal = this;
+
 		axios.post('user/create-account.php', formData)
 		  .then(function (response) {
-			if(response.error){
-				console.log(response.error);
-			}else if(response.success){
+			if(response.data.error){
+				accountModal.setState({error: response.data.error, success: ''});
+			}else if(response.data.success){
 				//User account was created!
+				accountModal.setState({error: '',success: 'Account created!'});
 			}else{
-				console.log('AccountModal: Unkown Error');
+				//console.log('AccountModal: Unkown Error');
+				accountModal.setState({error: 'Unkown Error: Unable to create account at this time.', success: ''});
 			}
+			accountModal.setState({loading: false});
 		  })
 		  .catch(function (error) {
-			console.log(error);
+			//console.log(error);
 		  });
-		
+
 	} 
+
 
 	render() {
 		const formElementsArray = [];
 		for(let key in this.state.signinform){
 			formElementsArray.push({
 				id: key,
-				config: this.state.signinform[key]
+				state: this.state.signinform[key]
 			})
 		}
 
 		const form = formElementsArray.map(formElement => (
 			<Form.Group key={formElement.id}>
-				<Form.Label>{formElement.config.label}</Form.Label>
-				<Form.Control type={formElement.config.type} placeholder={formElement.config.placeholder} value={formElement.config.value} onChange={(e) => this.inputChangedHandler(e, formElement.id)} />
+				<Form.Label>{formElement.state.label}</Form.Label>
+				<Form.Control className={elementIsValid(formElement.state)?'':'invalid'} type={formElement.state.type} placeholder={formElement.state.placeholder} value={formElement.state.value} onChange={(e) => this.inputChangedHandler(e, formElement.id)} />
+				{elementIsValid(formElement.state)?'':<p className="invalid-text">{formElement.state.message}</p>}
 			</Form.Group>
 		));
 
@@ -113,13 +142,22 @@ class AccountModal extends Component {
 				
 				<Form onSubmit={(e) => this.createAccount(e)}>
 					<Modal.Body>
+					{this.state.error !== ''?
+						<Alert variant="danger">
+						{this.state.error}
+						</Alert>:''}
+					{this.state.success !== ''?
+						<Alert variant="success">
+						{this.state.success}
+						</Alert>:''}
+
 						{ form }
 					</Modal.Body>
 			
 					<Modal.Footer>
 						{this.state.loading?<FontAwesomeIcon icon={faSpinner} spin />:''}
 						<Button variant="secondary" onClick={() => this.props.handleClose('account')}>Close</Button>
-						<Button variant="primary" type="submit">Create Account</Button>
+						<Button variant="primary" type="submit" disabled={!this.state.formIsValid}>Create Account</Button>
 					</Modal.Footer>
 				</Form>
 			</Modal>

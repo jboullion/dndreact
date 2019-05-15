@@ -133,8 +133,8 @@ export function calcProf(character){
 /**
  * Calculate our initiative. Really more of a Get, but checks if the skill is locked or not
  * 
- * @param {*} character 
- * @param {*} stats 
+ * @param {object} character 
+ * @param {object} stats 
  */
 export function calcInit(character, stats){
 
@@ -143,4 +143,61 @@ export function calcInit(character, stats){
 	}
 
 	return character.init;
+}
+
+
+/**
+ * Decide if an element is valid based on its state
+ * 
+ * @param {object} formElement The state of the form element to validate
+ */
+export function elementIsValid(formElement){
+	if(! formElement.touched) return true;
+	if(formElement.validation && formElement.valid !== true) return formElement.valid;
+	return true;
+}
+
+/**
+ * Check if an input element is valid
+ * 
+ * @param {*} value The field value to check
+ * @param {object} rules the rules / validation to check against
+ */
+export function checkValidity(formElement){
+	let isValid = true;
+	let message = '';
+
+	//Required
+	if(formElement.validation.required){
+		if(formElement.value.trim() === ''){
+			isValid = false;
+			message = 'Field Required';
+		}
+	}
+
+	//MinLength
+	if(formElement.validation.minLength && isValid){
+		if(formElement.value.length < formElement.validation.minLength){
+			isValid = false;
+			message = 'Must be '+formElement.validation.minLength+' or more characters';
+		}
+	}
+
+	// MaxLength
+	if(formElement.validation.maxLength && isValid){
+		if(formElement.value.length > formElement.validation.maxLength){
+			isValid = false;
+			message = 'Must be '+formElement.validation.maxLength+' or less characters';
+		}
+	}
+
+	// Email
+	// if(formElement.validation.isEmail && isValid){
+	// 	if(! /(.+)@(.+){2,}\.(.+){2,}/.test(formElement.value) ){
+	// 		isValid = false;
+	// 		message = 'Enter a valid email';
+	// 	}
+	// }
+
+	return {valid:isValid, message:message};
 }

@@ -14,6 +14,7 @@ Build Production App with `npm run build`
 [React](https://reactjs.org/)
 [Redux](https://react-redux.js.org/)
 [Redux Thunk](https://github.com/reduxjs/redux-thunk)
+[Formik](https://github.com/jaredpalmer/formik)
 
 [Bootstrap](https://getbootstrap.com/)
 [React Bootstrap](https://react-bootstrap.github.io/)
