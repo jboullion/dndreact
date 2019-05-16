@@ -1,204 +1,127 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-// //We keep these components in our components folder since they are Pure / functional / stateless components
-// import Important from '../../../components/Tools/Character/Important';
-// import Info from '../../../components/Tools/Character/Info';
-// import Stats from '../../../components/Tools/Character/Stats';
-// import Skills from '../../../components/Tools/Character/Skills';
-// import Equipment from '../../../components/Tools/Character/Equipment';
-// import Inventory from '../../../components/Tools/Character/Inventory';
-
-// import Container from 'react-bootstrap/Container';
-// import Tab from 'react-bootstrap/Tab';
-// import Tabs from 'react-bootstrap/Tabs';
+import Container from 'react-bootstrap/Container';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
+import Button from 'react-bootstrap/Button';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBed } from '@fortawesome/pro-solid-svg-icons' //, faCampfire, faCampground //shortrest and long rest // faEyeSlash, faDeaf conditions
+
+import Spell from '../../../components/Tools/Spells/Spell';
+
+import { calcStatBonus } from '../../../functions'
+import * as actionTypes from '../../../store/actions/actionTypes'
 
 // import CharacterCSS from './Character.module.css';
 
 
 class Spells extends Component {
-
-
+	
 	render() {
+		const spellAttack = this.props.character.profBonus+calcStatBonus(this.props.stats[3]);
+
 		return (
-			<div>
+			<Container>
 				<Row className="w-100 my-2">
-					<div className="col-4">
-						<div className="input-group">
-							<div className="input-group-prepend">
-								<span className="input-group-text bg-primary text-white" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="2 (Prof) + 4 (Int) = 5">Atk+</span>
-							</div>
-							<input type="number" className="form-control" aria-label="Spell Atk Bonus" value="5"/>
+					<Col xs={8}>
+						<div className="d-flex justify-content-center align-items-center">
+							<div><small>Atk+</small> <br />{spellAttack} </div>
+							<div><small>DC</small><br />{8+spellAttack} </div>
 						</div>
-					</div>
-					<div className="col-4">
-						<div className="input-group">
-							<div className="input-group-prepend">
-								<span className="input-group-text bg-primary text-white"  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="8 + 2 (Prof) + 4 (Int) = 14">DC</span>
-							</div>
-							<input type="number" className="form-control" aria-label="Spell DC" value="15"/>
-						</div>
-					</div>
-					<div className="col-4 text-right">
-						<button type="button" className="btn btn-success" id="clear-roll"><i className="fas fa-bed"></i> Rest</button>
-					</div>
+					</Col>
+					<Col xs={4}className="text-right">
+						<Button variant="success"><FontAwesomeIcon icon={faBed} /> Rest</Button>
+					</Col>
 				</Row>
 
-				 <div className="row">
-					<div className="col-12">
+				 <Row>
+					<Col>
 						<legend className="mb-2">Spellbook</legend>
-						<ul className="nav nav-tabs nav-fill">
-							<li className="nav-item">
-								<a className="nav-link active"  data-toggle="tab" data-target="#spells-0" >0</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link"  data-toggle="tab" data-target="#spells-1">1</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link"  data-toggle="tab" data-target="#spells-2">2</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link"  data-toggle="tab" data-target="#spells-3">3</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link"  data-toggle="tab" data-target="#spells-4">4</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link"  data-toggle="tab" data-target="#spells-5">5</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link"  data-toggle="tab" data-target="#spells-6">6</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link"  data-toggle="tab" data-target="#spells-7">7</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link"  data-toggle="tab" data-target="#spells-8">8</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link"  data-toggle="tab" data-target="#spells-9">9</a>
-							</li>
-						</ul>
-					</div>
-				</div>
+						<Tabs justify defaultActiveKey="0">
+							<Tab eventKey="0" title="0" className="mt-2">
+								<Button className="my-2">Add Spell</Button>
 
-				<div className="row">
-					<div className="col-12">
-						<div className="tab-content">
-							<div className="tab-pane active" id="spells-0" role="tabpanel" aria-labelledby="roll-tab">
-
-								<button type="button" className="btn btn-outline-success my-2">Add Spell</button>
-
-								<div className="card my-2">
-									<div className="card-body">
-										<h4 className="card-title">Vicious Mocking</h4>
-										<h6 className="card-subtitle mb-2 text-muted">VSM</h6>
-										<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-									</div>
-								</div>
-								<div className="card my-2">
-									<div className="card-body">
-										<h4 className="card-title">Vicious Mocking</h4>
-										<h6 className="card-subtitle mb-2 text-muted">VSM</h6>
-										<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-									</div>
-								</div>
-								<div className="card my-2">
-									<div className="card-body">
-										<h4 className="card-title">Vicious Mocking</h4>
-										<h6 className="card-subtitle mb-2 text-muted">VSM</h6>
-										<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-									</div>
-								</div>
-								<div className="card my-2">
-									<div className="card-body">
-										<h4 className="card-title">Vicious Mocking</h4>
-										<h6 className="card-subtitle mb-2 text-muted">VSM</h6>
-										<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-									</div>
-								</div>
-
-							</div>
-							<div className="tab-pane" id="spells-1" role="tabpanel" aria-labelledby="roll-tab">
-							
-								
+								<Spell className="card my-2" 
+								title="Vicious Mocking" 
+								somatic="VSM"
+								desc="Some quick example text to build on the card title and make up the bulk of the card's content." />
+							</Tab>
+							<Tab eventKey="1" title="1" className="mt-2">
 								<label className="mt-2">Spell Slots</label>
-								<div className="input-group mb-4">
-									<input type="text" className="form-control" placeholder="Max" id="max-0" value="4" />
-									<span className="input-group-text" id="inputGroup-sizing-lg"> / </span>
-									<input type="text" className="form-control" placeholder="Current" id="current-0"  value="3" />
-									<div className="input-group-append">
-										<button type="button" className="btn btn-secondary">Use</button>
-									</div>
-								</div>
+								<InputGroup className="mb-4">
+									<FormControl type="number" defaultValue={4}  />
+									<InputGroup.Text> / </InputGroup.Text>
+									<FormControl type="number" defaultValue={3}  />
+									<InputGroup.Append>
+										<Button variant="primary">Use</Button>
+									</InputGroup.Append>
+								</InputGroup>
 
-								<div className="progress mb-4">
-									<div className="progress-bar bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
+								<ProgressBar>
+									<ProgressBar variant="info" now={75} />
+								</ProgressBar>
 
-								<button type="button" className="btn btn-outline-success">Add Spell</button>
+								<Button className="my-2">Add Spell</Button>
 
-								<div className="card my-2">
-									<div className="card-body">
-										<h4 className="card-title">Vicious Mocking</h4>
-										<h6 className="card-subtitle mb-2 text-muted">VSM</h6>
-										<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-									</div>
-								</div>
-								<div className="card my-2">
-									<div className="card-body">
-										<h4 className="card-title">Vicious Mocking</h4>
-										<h6 className="card-subtitle mb-2 text-muted">VSM</h6>
-										<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-									</div>
-								</div>
-								<div className="card my-2">
-									<div className="card-body">
-										<h4 className="card-title">Vicious Mocking</h4>
-										<h6 className="card-subtitle mb-2 text-muted">VSM</h6>
-										<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-									</div>
-								</div>
-								<div className="card my-2">
-									<div className="card-body">
-										<h4 className="card-title">Vicious Mocking</h4>
-										<h6 className="card-subtitle mb-2 text-muted">VSM</h6>
-										<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-									</div>
-								</div>
-							</div>
-							<div className="tab-pane" id="spells-2" role="tabpanel" aria-labelledby="roll-tab">
+								<Spell className="card my-2" 
+										title="Vicious Mocking" 
+										somatic="VSM"
+										desc="" />
+							</Tab>
+							<Tab eventKey="2" title="2" className="mt-2">
 								Level 2
-							</div>
-							<div className="tab-pane" id="spells-3" role="tabpanel" aria-labelledby="roll-tab">
+							</Tab>
+							<Tab eventKey="3" title="3" className="mt-2">
 								Level 3
-							</div>
-							<div className="tab-pane" id="spells-4" role="tabpanel" aria-labelledby="roll-tab">
+							</Tab>
+							<Tab eventKey="4" title="4" className="mt-2">
 								Level 4
-							</div>
-							<div className="tab-pane" id="spells-5" role="tabpanel" aria-labelledby="roll-tab">
+							</Tab>
+							<Tab eventKey="5" title="5" className="mt-2">
 								Level 5
-							</div>
-							<div className="tab-pane" id="spells-6" role="tabpanel" aria-labelledby="roll-tab">
+							</Tab>
+							<Tab eventKey="6" title="6" className="mt-2">
 								Level 6
-							</div>
-							<div className="tab-pane" id="spells-7" role="tabpanel" aria-labelledby="roll-tab">
+							</Tab>
+							<Tab eventKey="7" title="7" className="mt-2">
 								Level 7
-							</div>
-							<div className="tab-pane" id="spells-8" role="tabpanel" aria-labelledby="roll-tab">
+							</Tab>
+							<Tab eventKey="8" title="8" className="mt-2">
 								Level 8
-							</div>
-							<div className="tab-pane" id="spells-9" role="tabpanel" aria-labelledby="roll-tab">
+							</Tab>
+							<Tab eventKey="9" title="9" className="mt-2">
 								Level 9
-							</div>
-						</div>
-					</div>
-				</div> */}
-
-			</div>
+							</Tab>
+						</Tabs>
+					</Col>
+				</Row>
+			</Container>
 		)
 	};
 }
 
-export default Spells;
+const mapStateToProps = state => {
+	return {
+		character: state.character,
+		stats: state.stats.stats,
+		skills: state.skills.skills
+	};
+}
+
+
+const mapDispatchToProps = dispatch => {
+	return {
+		updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
+		updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Spells);
