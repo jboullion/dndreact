@@ -5,27 +5,20 @@ import { updateObject } from '../utility'
 let defaultEquipment = {
 	weapons: [
 		{ 
-			name: 'Warhammer',
-			hit: 6,
-			damage: [
-				{
-					num: 4,
-					dam: 8
-				},
-				{
-					num: 2,
-					dam: 4
-				},
-			],
-			range: 80,
-			type: 'Blunt'
+			name: '',
+			hit: 0,
+			numDice: 1,
+			diceValue: 6,
+			bonus: 0,
+			stat: 0,
+			type: ''
 		}
 	],
 	armor: [
 		{
-			name: 'Chainmail',
-			type: 'Heavy',
-			ac: 16
+			name: '',
+			type: '',
+			ac: 10
 		}
 	],
 	money: [
@@ -73,7 +66,7 @@ let defaultEquipment = {
 
 //The default stats if nothing loaded
 if(actionTypes.localstate && actionTypes.localstate.equipment){
-	defaultEquipment = actionTypes.localstate.equipment;
+//	defaultEquipment = actionTypes.localstate.equipment;
 }
 
 
@@ -104,7 +97,12 @@ const reducer = (state = defaultEquipment, action) => {
 			//update our die with the value of our input
 			money.value = parseInt(action.payload.value);
 
-			//update the stats at the correct index
+			//no non numbers
+			if(isNaN(money.value)){
+				money.value = 0;
+			}
+
+			//update the money at the correct index
 			moneies[action.payload.index] = money;
 
 			return updateObject(state, {money: moneies});

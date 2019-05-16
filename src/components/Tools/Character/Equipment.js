@@ -24,30 +24,30 @@ const equipment = (props) => {
 
 						<Table striped bordered>
 							<thead>
-								<tr className="table-dark touch-row">
-									<th>Weapon <FontAwesomeIcon icon={faPlus} className="float-right" style={{height: '24px'}} /></th>
-									<th>Hit</th>
-									<th>Damage</th>
-									<th>Range</th>
+								<tr className="table-dark touch-row" >
+									<th>Weapon</th>
+									<th className="text-center">+ Hit</th>
+									<th className="text-center">Die</th>
+									<th className="text-center">Bon</th>
 									<th className="text-center">Roll</th>
 								</tr>
 							</thead>
 							<tbody>
 								{props.equipment.weapons.map(function(weapon, index){
-
-									return <tr key={index}>
-												<th scope="row" className="touch-row">{weapon.name}</th>
-												<td>{weapon.hit>0?'+':''}{weapon.hit}</td>
-												<td className="text-center">{
-													weapon.damage.map(function(damage, index){
-														return damage.num+'d'+damage.dam;
-													})
-												}</td>
-												<td className="text-center"></td>
+									console.log(weapon);
+									return <tr key={index} >
+												<th scope="row" className="touch-row">{weapon.name}Warhammer</th>
+											
+												<td className="text-center">{weapon.hit>0?'+':''}{weapon.hit}</td>
+												<td className="text-center">{weapon.numDice}d{weapon.diceValue}</td>
+												<td className="text-center">{weapon.bonus}</td>
 												<td className="text-center touch-icon"><FontAwesomeIcon icon={faDiceD20} size="2x"  /></td>
 											</tr>;
 
 								})}
+
+								{/* <FontAwesomeIcon icon={faPlus} className="float-right" style={{height: '24px'}} />
+									onClick={() => props.toggleModal('weapon')} */}
 							</tbody>
 						</Table>
 
@@ -76,7 +76,7 @@ const equipment = (props) => {
 							<thead>
 								<tr className="table-dark">
 									<th>Money</th>
-									<th style={{width: '150px'}}><span className="float-right">Total: {totalMoney}gp</span></th>
+									<th style={{width: '150px'}}><span className="float-right">Total: {totalMoney}</span></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -131,6 +131,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		updateEquipment: (value, index) => dispatch({type: actionTypes.EQUIP_UPDATE, payload: {value, index}}),
 		updateMoney: (value, index) => dispatch({type: actionTypes.EQUIP_MONEY, payload: {value, index}}),
+		toggleModal: (index) => dispatch({type: actionTypes.MODAL_TOGGLE, payload: {index}})
 		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
 	};
 }

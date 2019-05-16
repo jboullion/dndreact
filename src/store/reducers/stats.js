@@ -85,6 +85,11 @@ const statUpdate = (state, action) => {
 	//update our die with the value of our input
 	stat.value = parseInt(action.payload.value);
 
+	//no non numbers
+	if(isNaN(stat.value)){
+		stat.value = 1;
+	}
+
 	//copy our state dice
 	let stats = [...state.stats];
 

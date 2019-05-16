@@ -213,7 +213,9 @@ export function calcMoney(money, rate){
 	}
 
 	let totalCP = 0;
+	let remainderCP = 0;
 	let totalRated = 0;
+	let totalString = '';
 	let rateMoney = money.find( (element) => {
 		return element.initial === rate;
 	});
@@ -222,7 +224,17 @@ export function calcMoney(money, rate){
 		totalCP += element.value * element.multiple; 
 	});
 
-	totalRated = (totalCP / rateMoney.multiple).toFixed(0); //floor or ceil?
+	totalRated = totalCP / rateMoney.multiple; //floor or ceil?
 
-	return totalRated;
+	if(rate !== 'cp'){
+		remainderCP = totalRated - Math.floor(totalRated);
+
+		remainderCP = Math.round(remainderCP * 100);
+		//totalString = ' '+remainderCP+'cp';
+	}
+
+	totalRated = Math.floor(totalRated);
+	totalString = ''+totalRated+rate+' '+remainderCP+'cp';
+
+	return totalString;
 }

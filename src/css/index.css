@@ -2,6 +2,8 @@
  * Bootstrap overrides and tweaks
  */
 
+ .btn { padding: 0.375rem 0.5rem; }
+
  .card-body { padding: 1rem 0.75rem; }
 
  .table th, 
@@ -10,6 +12,9 @@
 @media (max-width: 576px) { 
 	.table th, 
 	.table td { padding: 0.5rem; }
+
+	.card { border: 0; }
+	.card-body { padding: 1rem 0rem; }
 }
 
 
