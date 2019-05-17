@@ -34,7 +34,6 @@ const equipment = (props) => {
 							</thead>
 							<tbody>
 								{props.equipment.weapons.map(function(weapon, index){
-									console.log(weapon);
 									return <tr key={index} >
 												<th scope="row" className="touch-row">{weapon.name}Warhammer</th>
 											

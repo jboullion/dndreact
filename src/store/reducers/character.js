@@ -24,6 +24,8 @@ if(actionTypes.localstate && actionTypes.localstate.character){
 		insightLock: true, //allows user to change their passive insight
 		perception: 10, //all bonuses separate from stat bonus
 		perceptionLock: true, //allows user to change their passive perception
+		spellAtk: 0, //all bonuses separate from stat bonus
+		spellAtkLock: true, //allows user to change their spellAtk
 		saves: [false,false,false],
 		fails: [false,false,false],
 		XP: 0,
@@ -63,6 +65,8 @@ const reducer = (state = defaultCharacter, action) => {
 			//Only let the character update the some stats when they are unlocked, otherwise they are tied to the stats
 			//copy our state
 			character = Object.assign({},state);
+
+			console.log(action.payload.index+'Lock');
 
 			//update the value
 			if(! character[action.payload.index+'Lock']){
