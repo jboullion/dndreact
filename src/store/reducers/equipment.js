@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility'
 
 let defaultEquipment = {
+	weaponModal:false,
 	weapons: [
 		{ 
 			name: '',
@@ -66,7 +67,7 @@ let defaultEquipment = {
 
 //The default stats if nothing loaded
 if(actionTypes.localstate && actionTypes.localstate.equipment){
-//	defaultEquipment = actionTypes.localstate.equipment;
+	defaultEquipment = actionTypes.localstate.equipment;
 }
 
 
@@ -106,6 +107,17 @@ const reducer = (state = defaultEquipment, action) => {
 			moneies[action.payload.index] = money;
 
 			return updateObject(state, {money: moneies});
+		case actionTypes.MODAL_WEAPON:
+			
+			//copy our state
+			equipment = Object.assign({},state);
+
+			//update the value
+			equipment.weaponModal = !equipment.weaponModal;
+
+			return {
+				...equipment
+			}
 		default:
 	}
 

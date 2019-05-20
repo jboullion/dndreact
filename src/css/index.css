@@ -11,7 +11,7 @@
 
 @media (max-width: 576px) { 
 	.table th, 
-	.table td { padding: 0.5rem; }
+	.table td {  }
 
 	.card { border: 0; }
 	.card-body { padding: 1rem 0rem; }

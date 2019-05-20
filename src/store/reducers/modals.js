@@ -4,8 +4,7 @@ import * as actionTypes from '../actions/actionTypes'
 
 const defaultModals = {
 	account: false,
-	signin: false,
-	weapon:false
+	signin: false
 }
 
 const reducer = (state = defaultModals, action) => {

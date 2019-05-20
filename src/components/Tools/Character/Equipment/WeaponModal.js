@@ -8,7 +8,7 @@ import Alert from 'react-bootstrap/Alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/pro-solid-svg-icons'
 
-import { elementIsValid, checkValidity } from '../../functions'
+import { elementIsValid, checkValidity } from '../../../../functions'
 
 class WeaponModal extends Component {
 	constructor(props, context) {

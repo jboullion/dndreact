@@ -5,7 +5,6 @@ import * as actionTypes from '../../store/actions/actionTypes'
 
 import AccountModal from '../../components/Modals/AccountModal';
 import SigninModal from '../../components/Modals/SigninModal';
-import WeaponModal from '../../components/Modals/WeaponModal';
 
 
 class Modals extends Component {
@@ -15,7 +14,6 @@ class Modals extends Component {
 				<div id="modals">
 					<AccountModal handleClose={this.props.toggleModal} show={this.props.modal.account} />
 					<SigninModal handleClose={this.props.toggleModal} show={this.props.modal.signin}/>
-					<WeaponModal handleClose={this.props.toggleModal} show={this.props.modal.weapon}/>
 				</div>
 		)
 	};
