@@ -33,12 +33,12 @@ const logger = store => {
 	return next => {
 
 		return action => {
-			console.log('[Middleware] Dispatching', action);
+			//console.log('[Middleware] Dispatching', action);
 			const result = next(action);
 
 			localStorage.setItem('DND_STATE', JSON.stringify(store.getState()) );
 
-			console.log('[Middleware] next state', store.getState());
+			//console.log('[Middleware] next state', store.getState());
 			return result;
 		}
 	}

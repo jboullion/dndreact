@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -14,13 +15,24 @@ class WeaponModal extends Component {
 	constructor(props, context) {
 		super(props, context);
 		
+		let currentWeapon = {
+			name: '',
+			stat: 0,
+			hit: 0,
+			numDice: 1,
+			diceValue: 6,
+			bonus: 0,
+			type: '' //Is this needed?
+		};
+
 		this.state = {
+			currentWeapon: props.equipment.currentWeapon,
 			form: {
 				name: {
 					type: 'text',
 					label: 'Name',
 					placeholder: '',
-					value: "",
+					value: currentWeapon.name,
 					validation: {
 						required: true,
 						maxLength: 100
@@ -29,10 +41,23 @@ class WeaponModal extends Component {
 					touched: false,
 					message: ''
 				},
+				stat: {
+					type: 'number',
+					label: 'Stat',
+					value: currentWeapon.stat,
+					validation: {
+						required: true,
+						minLength: 1,
+						maxLength: 1
+					},
+					valid: false,
+					touched: false,
+					message: ''
+				},
 				hit: {
 					type: 'number',
 					label: 'Bonus to Hit',
-					value: 0,
+					value: currentWeapon.hit,
 					validation: {
 						required: true,
 						minLength: 1,
@@ -45,7 +70,7 @@ class WeaponModal extends Component {
 				numDice: {
 					type: 'number',
 					label: '# Dice',
-					value: 1,
+					value: currentWeapon.numDice,
 					validation: {
 						required: true,
 						minLength: 0,
@@ -58,7 +83,7 @@ class WeaponModal extends Component {
 				diceValue: {
 					type: 'number',
 					label: 'Dice Value',
-					value: 6,
+					value: currentWeapon.diceValue,
 					validation: {
 						required: true,
 						minLength: 0,
@@ -71,7 +96,7 @@ class WeaponModal extends Component {
 				bonusDamage: {
 					type: 'number',
 					label: 'Bomus Damange',
-					value: 6,
+					value: currentWeapon.bonus,
 					validation: {
 						required: true,
 						minLength: 0,
@@ -84,7 +109,7 @@ class WeaponModal extends Component {
 				damageType: {
 					type: 'text',
 					label: 'Damange Type',
-					value: '',
+					value: currentWeapon.type,
 					validation: {
 						required: false,
 						minLength: 0,
@@ -102,10 +127,139 @@ class WeaponModal extends Component {
 			success:''
 		}
 	}
+/*
+	//Setup our form state dependent on if the currentWeapon has changed
+	static shouldComponentUpdate(nextProps, nextState){
+		console.log('shouldComponentUpdate');
 
+		let currentWeapon = {
+			name: '',
+			stat: 0,
+			hit: 0,
+			numDice: 1,
+			diceValue: 6,
+			bonus: 0,
+			type: '' //Is this needed?
+		};
 
+		if(nextState.currentWeapon === nextProps.equipment.currentWeapon) return state;
+			// Leave default weapon alone
+
+		if(props.equipment.currentWeapon === -1){
+			// Leave default weapon alone
+
+		}else if(props.equipment.weapons[props.equipment.currentWeapon]){
+			currentWeapon = props.equipment.weapons[props.equipment.currentWeapon];
+		}
+
+		let cleanState = {
+			form: {
+				name: {
+					type: 'text',
+					label: 'Name',
+					placeholder: '',
+					value: currentWeapon.name,
+					validation: {
+						required: true,
+						maxLength: 100
+					},
+					valid: false,
+					touched: false,
+					message: ''
+				},
+				stat: {
+					type: 'number',
+					label: 'Stat',
+					value: currentWeapon.stat,
+					validation: {
+						required: true,
+						minLength: 1,
+						maxLength: 1
+					},
+					valid: false,
+					touched: false,
+					message: ''
+				},
+				hit: {
+					type: 'number',
+					label: 'Bonus to Hit',
+					value: currentWeapon.hit,
+					validation: {
+						required: true,
+						minLength: 1,
+						maxLength: 2
+					},
+					valid: false,
+					touched: false,
+					message: ''
+				},
+				numDice: {
+					type: 'number',
+					label: '# Dice',
+					value: currentWeapon.numDice,
+					validation: {
+						required: true,
+						minLength: 0,
+						maxLength: 2
+					},
+					valid: false,
+					touched: false,
+					message: ''
+				},
+				diceValue: {
+					type: 'number',
+					label: 'Dice Value',
+					value: currentWeapon.diceValue,
+					validation: {
+						required: true,
+						minLength: 0,
+						maxLength: 2
+					},
+					valid: false,
+					touched: false,
+					message: ''
+				},
+				bonusDamage: {
+					type: 'number',
+					label: 'Bomus Damange',
+					value: currentWeapon.bonus,
+					validation: {
+						required: true,
+						minLength: 0,
+						maxLength: 2
+					},
+					valid: false,
+					touched: false,
+					message: ''
+				},
+				damageType: {
+					type: 'text',
+					label: 'Damage Type',
+					value: currentWeapon.type,
+					validation: {
+						required: false,
+						minLength: 0,
+						maxLength: 2
+					},
+					valid: false,
+					touched: false,
+					message: ''
+				}
+
+			},
+			formIsValid: false,
+			loading: false,
+			error: '',
+			success:''
+		}
+
+		return cleanState;
+	}
+*/
 	// Handle input element update and check validation
 	inputChangedHandler = (event, inputIdentifier) => {
+
+		console.log('Input Changed Handler');
 
 		const updatedForm = {
 			...this.state.form
@@ -136,7 +290,6 @@ class WeaponModal extends Component {
 	// Handle our form submission to create an weapon on the server
 	updateWeapon = (event) => {
 		event.preventDefault();
-
 	}
 
 
@@ -190,4 +343,21 @@ class WeaponModal extends Component {
 
 }
 
-export default WeaponModal;
+
+const mapStateToProps = state => {
+	return {
+		equipment: state.equipment,
+		// stats: state.stats.stats,
+		// skills: state.skills.skills
+	};
+}
+
+
+const mapDispatchToProps = dispatch => {
+	return {
+		// updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
+		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeaponModal);

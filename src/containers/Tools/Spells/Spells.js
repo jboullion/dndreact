@@ -29,7 +29,7 @@ class Spells extends Component {
 		let SpellLevels = [];
 
 		for(let i = 0; i < 10; i++){
-			SpellLevels.push(<Tab eventKey={i} title={i} className="mt-2">
+			SpellLevels.push(<Tab key={i} eventKey={i} title={i} className="mt-2">
 								<SpellLevel key={i} level={i} />
 							</Tab>);
 		}
