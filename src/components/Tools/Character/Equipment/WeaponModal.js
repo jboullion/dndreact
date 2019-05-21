@@ -170,15 +170,16 @@ class WeaponModal extends Component {
 			})
 		}
 
-
+		
 		const form = formElementsArray.map(formElement => (
+			
 			<Form.Group key={formElement.id}>
 				<Form.Label>{formElement.state.label}</Form.Label>
 				<Form.Control 
 					className={elementIsValid(formElement.state)?'':'invalid'} 
 					type={formElement.state.type} 
 					placeholder={formElement.state.placeholder} 
-					value={this.props.equipment.currentWeapon[formElement.state.key]} 
+					value={this.props.equipment.currentWeapon?this.props.equipment.currentWeapon[formElement.state.key]:''} 
 					onChange={(e) => this.props.updateEquipment(formElement.state.key, e.target.value) } />
 				{elementIsValid(formElement.state)?'':<p className="invalid-text">{formElement.state.message}</p>}
 			</Form.Group>
