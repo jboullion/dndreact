@@ -13,7 +13,7 @@ class Tools extends Component {
 	render() {
 		return (
 				<div id="Tools">
-					<Tabs justify defaultActiveKey="spells">
+					<Tabs justify defaultActiveKey="character">
 						<Tab eventKey="character" title="Character">
 							<Character />
 						</Tab>

@@ -11,6 +11,7 @@ export const CHAR_UPDATE = 'CHAR_UPDATE';
 export const CHAR_LOCK_UPDATE = 'CHAR_LOCK_UPDATE';
 
 export const EQUIP_UPDATE = 'EQUIP_UPDATE';
+export const EQUIP_WEAPON = 'EQUIP_WEAPON';
 export const EQUIP_MONEY = 'EQUIP_MONEY';
 export const MODAL_WEAPON = 'MODAL_WEAPON';
 

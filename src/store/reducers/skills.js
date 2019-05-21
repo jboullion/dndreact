@@ -92,7 +92,6 @@ if(actionTypes.localstate && actionTypes.localstate.skills){
 			prof: 0,
 			adv: false
 		}, {
-			
 			name: "Sleight of Hand",
 			stat: 1,
 			prof: 0,

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
+import * as actionTypes from '../../../../store/actions/actionTypes'
+
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -15,24 +17,15 @@ class WeaponModal extends Component {
 	constructor(props, context) {
 		super(props, context);
 		
-		let currentWeapon = {
-			name: '',
-			stat: 0,
-			hit: 0,
-			numDice: 1,
-			diceValue: 6,
-			bonus: 0,
-			type: '' //Is this needed?
-		};
-
+		//const weaponAttr = ['name','stat','hit','numDice','diceValue','bonus','type']
+		
 		this.state = {
-			currentWeapon: props.equipment.currentWeapon,
 			form: {
 				name: {
 					type: 'text',
 					label: 'Name',
 					placeholder: '',
-					value: currentWeapon.name,
+					key: 'name',
 					validation: {
 						required: true,
 						maxLength: 100
@@ -44,7 +37,7 @@ class WeaponModal extends Component {
 				stat: {
 					type: 'number',
 					label: 'Stat',
-					value: currentWeapon.stat,
+					key: 'stat',
 					validation: {
 						required: true,
 						minLength: 1,
@@ -57,7 +50,7 @@ class WeaponModal extends Component {
 				hit: {
 					type: 'number',
 					label: 'Bonus to Hit',
-					value: currentWeapon.hit,
+					key: 'hit',
 					validation: {
 						required: true,
 						minLength: 1,
@@ -70,7 +63,7 @@ class WeaponModal extends Component {
 				numDice: {
 					type: 'number',
 					label: '# Dice',
-					value: currentWeapon.numDice,
+					key: 'numDice',
 					validation: {
 						required: true,
 						minLength: 0,
@@ -83,7 +76,7 @@ class WeaponModal extends Component {
 				diceValue: {
 					type: 'number',
 					label: 'Dice Value',
-					value: currentWeapon.diceValue,
+					key: 'diceValue',
 					validation: {
 						required: true,
 						minLength: 0,
@@ -96,7 +89,7 @@ class WeaponModal extends Component {
 				bonusDamage: {
 					type: 'number',
 					label: 'Bomus Damange',
-					value: currentWeapon.bonus,
+					key: 'bonus',
 					validation: {
 						required: true,
 						minLength: 0,
@@ -109,133 +102,7 @@ class WeaponModal extends Component {
 				damageType: {
 					type: 'text',
 					label: 'Damange Type',
-					value: currentWeapon.type,
-					validation: {
-						required: false,
-						minLength: 0,
-						maxLength: 2
-					},
-					valid: false,
-					touched: false,
-					message: ''
-				}
-
-			},
-			formIsValid: false,
-			loading: false,
-			error: '',
-			success:''
-		}
-	}
-/*
-	//Setup our form state dependent on if the currentWeapon has changed
-	static shouldComponentUpdate(nextProps, nextState){
-		console.log('shouldComponentUpdate');
-
-		let currentWeapon = {
-			name: '',
-			stat: 0,
-			hit: 0,
-			numDice: 1,
-			diceValue: 6,
-			bonus: 0,
-			type: '' //Is this needed?
-		};
-
-		if(nextState.currentWeapon === nextProps.equipment.currentWeapon) return state;
-			// Leave default weapon alone
-
-		if(props.equipment.currentWeapon === -1){
-			// Leave default weapon alone
-
-		}else if(props.equipment.weapons[props.equipment.currentWeapon]){
-			currentWeapon = props.equipment.weapons[props.equipment.currentWeapon];
-		}
-
-		let cleanState = {
-			form: {
-				name: {
-					type: 'text',
-					label: 'Name',
-					placeholder: '',
-					value: currentWeapon.name,
-					validation: {
-						required: true,
-						maxLength: 100
-					},
-					valid: false,
-					touched: false,
-					message: ''
-				},
-				stat: {
-					type: 'number',
-					label: 'Stat',
-					value: currentWeapon.stat,
-					validation: {
-						required: true,
-						minLength: 1,
-						maxLength: 1
-					},
-					valid: false,
-					touched: false,
-					message: ''
-				},
-				hit: {
-					type: 'number',
-					label: 'Bonus to Hit',
-					value: currentWeapon.hit,
-					validation: {
-						required: true,
-						minLength: 1,
-						maxLength: 2
-					},
-					valid: false,
-					touched: false,
-					message: ''
-				},
-				numDice: {
-					type: 'number',
-					label: '# Dice',
-					value: currentWeapon.numDice,
-					validation: {
-						required: true,
-						minLength: 0,
-						maxLength: 2
-					},
-					valid: false,
-					touched: false,
-					message: ''
-				},
-				diceValue: {
-					type: 'number',
-					label: 'Dice Value',
-					value: currentWeapon.diceValue,
-					validation: {
-						required: true,
-						minLength: 0,
-						maxLength: 2
-					},
-					valid: false,
-					touched: false,
-					message: ''
-				},
-				bonusDamage: {
-					type: 'number',
-					label: 'Bomus Damange',
-					value: currentWeapon.bonus,
-					validation: {
-						required: true,
-						minLength: 0,
-						maxLength: 2
-					},
-					valid: false,
-					touched: false,
-					message: ''
-				},
-				damageType: {
-					type: 'text',
-					label: 'Damage Type',
-					value: currentWeapon.type,
+					key: 'type',
 					validation: {
 						required: false,
 						minLength: 0,
@@ -253,44 +120,45 @@ class WeaponModal extends Component {
 			success:''
 		}
 
-		return cleanState;
 	}
-*/
-	// Handle input element update and check validation
-	inputChangedHandler = (event, inputIdentifier) => {
+	
 
-		console.log('Input Changed Handler');
 
-		const updatedForm = {
-			...this.state.form
-		}
+	// // Handle input element update and check validation
+	// inputChangedHandler = (event, inputIdentifier) => {
 
-		const updatedFormElement = {
-			...updatedForm[inputIdentifier]
-		}
+	// 	console.log('Input Changed Handler');
+
+	// 	const updatedForm = {
+	// 		...this.state.form
+	// 	}
+
+	// 	const updatedFormElement = {
+	// 		...updatedForm[inputIdentifier]
+	// 	}
 		
-		updatedFormElement.value = event.target.value;
-		const validResult = checkValidity(updatedFormElement);
-		updatedFormElement.valid = validResult.valid;
-		updatedFormElement.message = validResult.message;
-		updatedFormElement.touched = true;
+	// 	updatedFormElement.value = event.target.value;
+	// 	const validResult = checkValidity(updatedFormElement);
+	// 	updatedFormElement.valid = validResult.valid;
+	// 	updatedFormElement.message = validResult.message;
+	// 	updatedFormElement.touched = true;
 
-		updatedForm[inputIdentifier] = updatedFormElement;
+	// 	updatedForm[inputIdentifier] = updatedFormElement;
 
-		let formIsValid = true;
-		for(let inputIdentifier in updatedForm){
-			formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
-		}
+	// 	let formIsValid = true;
+	// 	for(let inputIdentifier in updatedForm){
+	// 		formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
+	// 	}
 
 
-		this.setState({form: updatedForm, formIsValid:formIsValid});
-	}
+	// 	this.setState({form: updatedForm, formIsValid:formIsValid});
+	// }
 
 
 	// Handle our form submission to create an weapon on the server
-	updateWeapon = (event) => {
-		event.preventDefault();
-	}
+	// updateWeapon = (event) => {
+	// 	event.preventDefault();
+	// }
 
 
 	render() {
@@ -302,13 +170,20 @@ class WeaponModal extends Component {
 			})
 		}
 
+
 		const form = formElementsArray.map(formElement => (
 			<Form.Group key={formElement.id}>
 				<Form.Label>{formElement.state.label}</Form.Label>
-				<Form.Control className={elementIsValid(formElement.state)?'':'invalid'} type={formElement.state.type} placeholder={formElement.state.placeholder} value={formElement.state.value} onChange={(e) => this.inputChangedHandler(e, formElement.id)} />
+				<Form.Control 
+					className={elementIsValid(formElement.state)?'':'invalid'} 
+					type={formElement.state.type} 
+					placeholder={formElement.state.placeholder} 
+					value={this.props.equipment.currentWeapon[formElement.state.key]} 
+					onChange={(e) => this.props.updateEquipment(formElement.state.key, e.target.value) } />
 				{elementIsValid(formElement.state)?'':<p className="invalid-text">{formElement.state.message}</p>}
 			</Form.Group>
 		));
+
 
 		return (
 			<Modal show={this.props.show} onHide={() => this.props.handleClose('weapon')} >
@@ -343,7 +218,6 @@ class WeaponModal extends Component {
 
 }
 
-
 const mapStateToProps = state => {
 	return {
 		equipment: state.equipment,
@@ -355,6 +229,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
+
+		updateEquipment: (key, value) => dispatch({type: actionTypes.EQUIP_WEAPON, payload: {key, value}}),
 		// updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
 		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
 	};

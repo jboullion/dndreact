@@ -4,7 +4,16 @@ import { updateObject } from '../utility'
 
 let defaultEquipment = {
 	weaponModal:false,
-	currentWeapon: {}, // -1 === new, 0-n are the indexes of the weapons to display in the modal
+	currentWeaponIndex: -1,
+	currentWeapon: { 
+		name: 'Default',
+		stat: 0,
+		hit: 0,
+		numDice: 1,
+		diceValue: 6,
+		bonus: 0,
+		type: '' //is this needed?
+	}, // -1 === new, 0-n are the indexes of the weapons to display in the modal
 	weaponLimit: 3, //The total number of weapons that can be in the equipment tab
 	armorModal:false,
 	currentArmor: -1, // -1 === new, 0-n are the indexes of the armor to display in the modal
@@ -79,7 +88,7 @@ if(actionTypes.localstate && actionTypes.localstate.equipment){
 
 
 const reducer = (state = defaultEquipment, action) => {
-	let equipment, money, moneies;
+	let equipment, money, moneies, currentWeapon;
 
 	switch(action.type){
 		/*
@@ -88,11 +97,20 @@ const reducer = (state = defaultEquipment, action) => {
 			//copy our state
 			equipment = Object.assign({},state);
 
-			//update the value
-			equipment[action.payload.index] = action.payload.value;
+			console.log(action.payload);
 
-			return updateObject(state, equipment);
+			if(equipment.currentWeaponIndex){
+				equipment.currentWeapon[action.payload.index] = action.payload.value;
+				return updateObject(state, {currentWeapon: currentWeapon});
+			}else{
+				//update the value
+				equipment[action.payload.key][action.payload.index] = action.payload.value;
+				return updateObject(state, {weapons: moneies});
+			}
+			
+			console.log(equipment)
 		*/
+		
 		case actionTypes.EQUIP_MONEY:
 
 			//copy our state
@@ -115,8 +133,6 @@ const reducer = (state = defaultEquipment, action) => {
 
 			return updateObject(state, {money: moneies});
 		case actionTypes.MODAL_WEAPON:
-			
-			let currentWeapon = {};
 
 			//copy our state
 			equipment = Object.assign({},state);
@@ -139,13 +155,48 @@ const reducer = (state = defaultEquipment, action) => {
 				currentWeapon = equipment.weapons[action.payload.index];
 			}
 
-			equipment.currentWeapon = currentWeapon;
 
-			console.log(currentWeapon);
+			equipment.currentWeaponIndex = action.payload.index;
+
+			equipment.currentWeapon = currentWeapon;
 
 			return {
 				...equipment
 			}
+		case actionTypes.EQUIP_WEAPON:
+
+			//if(state.currentWeaponIndex){
+
+				currentWeapon = {
+					...state.currentWeapon
+				};
+
+				currentWeapon[action.payload.key] = action.payload.value;
+				return updateObject(state, {currentWeapon: currentWeapon});
+			/*
+			}else{
+				let weapon, weapons;
+
+				equipment = Object.assign({},state);
+
+				//copy our state
+				weapon = {
+					...state.weapons[state.currentWeaponIndex]
+				};
+
+				weapons = [...state.weapons];
+				
+				//update our die with the value of our input
+				weapon[action.payload.key] = action.payload.value;
+
+				//update the money at the correct index
+				weapons[state.currentWeaponIndex] = weapon;
+				
+				equipment.weapons = weapons
+
+				return updateObject(state, equipment);
+			}
+			*/
 		default:
 	}
 

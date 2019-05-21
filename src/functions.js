@@ -157,6 +157,7 @@ export function elementIsValid(formElement){
 	return true;
 }
 
+
 /**
  * Check if an input element is valid
  * 

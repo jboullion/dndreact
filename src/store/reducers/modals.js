@@ -18,8 +18,6 @@ const reducer = (state = defaultModals, action) => {
 
 			//update the value
 			modals[action.payload.index] = !modals[action.payload.index];
-
-			console.log(modals[action.payload.index]);
 			
 			return {
 				...modals
