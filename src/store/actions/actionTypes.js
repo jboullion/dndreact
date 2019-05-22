@@ -24,6 +24,11 @@ export const EQUIP_ARMOR = 'EQUIP_ARMOR';
 export const EQUIP_SAVE_ARMOR = 'EQUIP_SAVE_ARMOR';
 export const EQUIP_DELETE_ARMOR = 'EQUIP_DELETE_ARMOR';
 
+export const MODAL_GEMS = 'MODAL_GEMS';
+export const EQUIP_GEMS = 'EQUIP_GEMS';
+export const EQUIP_SAVE_GEMS = 'EQUIP_SAVE_GEMS';
+export const EQUIP_DELETE_GEMS = 'EQUIP_DELETE_GEMS';
+
 export const MODAL_TOGGLE = 'MODAL_TOGGLE';
 
 export const localstate = JSON.parse(localStorage.getItem('DND_STATE'));

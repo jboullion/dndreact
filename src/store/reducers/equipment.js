@@ -20,6 +20,13 @@ const defaultArmor = {
 	ac: 10
 };
 
+const defaultGem = {
+	name: '',
+	number: 1,
+	value: 1,
+	money: 'gp'
+};
+
 
 let defaultEquipment = {
 	weaponModal:false,
@@ -30,8 +37,9 @@ let defaultEquipment = {
 	currentArmorIndex: -1,
 	currentArmor: defaultArmor,
 	//armorLimit: 3, //The total number of armors that can be in the equipment tab
-	gemsModal:false,
-	currentGem: -1, // -1 === new, 0-n are the indexes of the gems to display in the modal
+	gemModal:false,
+	currentGemIndex: -1,
+	currentGem: defaultGem, // -1 === new, 0-n are the indexes of the gems to display in the modal
 	weapons: [],
 	armor: [],
 	money: [
@@ -66,14 +74,7 @@ let defaultEquipment = {
 			multiple: 1000
 		},
 	],
-	gems: [
-		{
-			name: 'Ruby',
-			number: 10,
-			value: 1,
-			money: 'gp'
-		},
-	]
+	gems: []
 };
 
 
@@ -90,6 +91,7 @@ const reducer = (state = defaultEquipment, action) => {
 	switch(action.type){
 		case actionTypes.EQUIP_MONEY:
 			return updateObject(state, {money: updateMoney(state, action)});
+		
 		case actionTypes.MODAL_WEAPON:
 			return {...openWeaponModal(state, action)}
 		case actionTypes.EQUIP_WEAPON:
@@ -98,6 +100,7 @@ const reducer = (state = defaultEquipment, action) => {
 			return {...saveWeapon(state, action)}
 		case actionTypes.EQUIP_DELETE_WEAPON:
 			return {...deleteWeapon(state, action)}
+		
 		case actionTypes.MODAL_ARMOR:
 			return {...openArmorModal(state, action)}
 		case actionTypes.EQUIP_ARMOR:
@@ -106,6 +109,16 @@ const reducer = (state = defaultEquipment, action) => {
 			return {...saveArmor(state, action)}
 		case actionTypes.EQUIP_DELETE_ARMOR:
 			return {...deleteArmor(state, action)}
+
+		case actionTypes.MODAL_GEMS:
+			return {...openGemsModal(state, action)}
+		case actionTypes.EQUIP_GEMS:
+			return updateObject(state, {currentGem: updateGems(state, action)});
+		case actionTypes.EQUIP_SAVE_GEMS:
+			return {...saveGems(state, action)}
+		case actionTypes.EQUIP_DELETE_GEMS:
+			return {...deleteGems(state, action)}
+
 		default:
 	}
 
@@ -296,6 +309,90 @@ const deleteArmor = (state, action) => {
 		equipment.armor.splice(equipment.currentArmorIndex,1);
 
 		equipment.armorModal = false;
+	}
+
+	return equipment;
+}
+
+
+
+
+
+
+
+/**
+ * We need to setup the weapon we want to work with in our modal
+ */
+const openGemsModal = (state, action) => {
+	let currentGem;
+
+	//copy our state
+	let equipment = Object.assign({},state);
+
+	//update the value
+	equipment.gemModal = !equipment.gemModal;
+
+	//if our paylod is -1 or exists in our weapons then lets set our currentArmor index
+	if( action.payload.index === -1){
+		currentGem = defaultGem;
+	}else if(equipment.gems[action.payload.index] ){
+		currentGem = equipment.gems[action.payload.index];
+	}
+
+	equipment.currentGemsIndex = action.payload.index;
+
+	equipment.currentGem = currentGem;
+
+	return equipment;
+}
+
+
+// Update a weapon in the modal while editing
+const updateGems = (state, action) => {
+	let currentGem = {
+		...state.currentGem
+	};
+
+	//This hack should remove the leading zeros from inputs
+	if(! isNaN(action.payload.value)){
+		action.payload.value = parseInt(action.payload.value, 10);
+	}
+
+	currentGem[action.payload.key] = action.payload.value;
+
+	return currentGem;
+}
+
+// Save this weapon from the modal form
+const saveGems = (state, action) => {
+	//copy our state
+	let equipment = Object.assign({},state);
+
+	//copy our current weapon
+	let currentGem = {
+		...state.currentGem
+	};
+
+	//copy our weapons
+	if(equipment.currentGemIndex === -1){
+		equipment.gems.push(currentGem);
+	}else{
+		equipment.gems[equipment.currentGemIndex] = currentGem;
+	}
+
+	return equipment;
+}
+
+// Delete a weapon from our equipment
+const deleteGems = (state, action) => {
+	//copy our state
+	let equipment = Object.assign({},state);
+
+	//copy our armor
+	if(equipment.currentGemsIndex >= 0){
+		equipment.gems.splice(equipment.currentGemsIndex,1);
+
+		equipment.gemModal = false;
 	}
 
 	return equipment;

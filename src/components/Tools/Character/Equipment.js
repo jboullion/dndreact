@@ -8,8 +8,10 @@ import Weapons from './Equipment/Weapons';
 import Armor from './Equipment/Armor';
 import Money from './Equipment/Money';
 import Gems from './Equipment/Gems';
-import ArmorModal from './Equipment/ArmorModal';
+
 import WeaponModal from './Equipment/WeaponModal';
+import ArmorModal from './Equipment/ArmorModal';
+import GemModal from './Equipment/GemModal';
 
 const gems = (props) => {
 
@@ -32,6 +34,7 @@ const gems = (props) => {
 
 				<WeaponModal handleClose={props.toggleWeaponModal} show={props.equipment.weaponModal}/>
 				<ArmorModal handleClose={props.toggleArmorModal} show={props.equipment.armorModal}/>
+				<GemModal handleClose={props.toggleGemModal} show={props.equipment.gemModal}/>
 			</div>;
 
 }
@@ -48,11 +51,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		// updateEquipment: (value, index) => dispatch({type: actionTypes.EQUIP_UPDATE, payload: {value, index}}),
-		// updateMoney: (value, index) => dispatch({type: actionTypes.EQUIP_MONEY, payload: {value, index}}),
 		toggleWeaponModal: (index) => dispatch({type: actionTypes.MODAL_WEAPON, payload: {index}}),
-		toggleArmorModal: (index) => dispatch({type: actionTypes.MODAL_ARMOR, payload: {index}})
-		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
+		toggleArmorModal: (index) => dispatch({type: actionTypes.MODAL_ARMOR, payload: {index}}),
+		toggleGemModal: (index) => dispatch({type: actionTypes.MODAL_GEMS, payload: {index}})
 	};
 }
 
