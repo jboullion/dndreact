@@ -165,38 +165,38 @@ const reducer = (state = defaultEquipment, action) => {
 			}
 		case actionTypes.EQUIP_WEAPON:
 
-			//if(state.currentWeaponIndex){
-
-				currentWeapon = {
-					...state.currentWeapon
-				};
-
-				currentWeapon[action.payload.key] = action.payload.value;
-				return updateObject(state, {currentWeapon: currentWeapon});
-			/*
-			}else{
-				let weapon, weapons;
-
-				equipment = Object.assign({},state);
-
-				//copy our state
-				weapon = {
-					...state.weapons[state.currentWeaponIndex]
-				};
-
-				weapons = [...state.weapons];
-				
-				//update our die with the value of our input
-				weapon[action.payload.key] = action.payload.value;
-
-				//update the money at the correct index
-				weapons[state.currentWeaponIndex] = weapon;
-				
-				equipment.weapons = weapons
-
-				return updateObject(state, equipment);
+			currentWeapon = {
+				...state.currentWeapon
+			};
+			
+			//This hack should remove the leading zeros from inputs
+			if(! isNaN(action.payload.value)){
+				action.payload.value = parseInt(action.payload.value, 10);
 			}
-			*/
+
+			currentWeapon[action.payload.key] = action.payload.value;
+			return updateObject(state, {currentWeapon: currentWeapon});
+		case actionTypes.EQUIP_SAVE_WEAPON:
+
+
+			//copy our state
+			equipment = Object.assign({},state);
+
+			//console.log(equipment);
+
+			//copy our current weapon
+			currentWeapon = {
+				...state.currentWeapon
+			};
+
+			//copy our weapons
+			equipment.weapons[equipment.currentWeaponIndex] = currentWeapon;
+
+			//console.log(equipment);
+
+			return {
+				...equipment
+			}
 		default:
 	}
 

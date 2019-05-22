@@ -18,4 +18,4 @@ const rollResult = (props) => {
 			</div>;
 }
 
-export default rollResult;
+export default React.memo(rollResult);

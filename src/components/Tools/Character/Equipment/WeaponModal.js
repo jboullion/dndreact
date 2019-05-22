@@ -8,10 +8,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 
+import DDInput from '../../DDInput';
+import DDSelect from '../../DDSelect';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/pro-solid-svg-icons'
-
-import { elementIsValid, checkValidity } from '../../../../functions'
 
 class WeaponModal extends Component {
 	constructor(props, context) {
@@ -35,7 +36,7 @@ class WeaponModal extends Component {
 					message: ''
 				},
 				stat: {
-					type: 'number',
+					type: 'select',
 					label: 'Stat',
 					key: 'stat',
 					validation: {
@@ -45,7 +46,8 @@ class WeaponModal extends Component {
 					},
 					valid: false,
 					touched: false,
-					message: ''
+					message: '',
+					options: props.stats
 				},
 				hit: {
 					type: 'number',
@@ -156,9 +158,11 @@ class WeaponModal extends Component {
 
 
 	// Handle our form submission to create an weapon on the server
-	// updateWeapon = (event) => {
-	// 	event.preventDefault();
-	// }
+	updateWeapon = (event) => {
+		event.preventDefault();
+		this.props.saveWeapon();
+		this.props.handleClose('weapon')
+	}
 
 
 	render() {
@@ -171,26 +175,39 @@ class WeaponModal extends Component {
 		}
 
 		
-		const form = formElementsArray.map(formElement => (
+		const form = formElementsArray.map(formElement => {
 			
-			<Form.Group key={formElement.id}>
-				<Form.Label>{formElement.state.label}</Form.Label>
-				<Form.Control 
-					className={elementIsValid(formElement.state)?'':'invalid'} 
-					type={formElement.state.type} 
-					placeholder={formElement.state.placeholder} 
-					value={this.props.equipment.currentWeapon?this.props.equipment.currentWeapon[formElement.state.key]:''} 
-					onChange={(e) => this.props.updateEquipment(formElement.state.key, e.target.value) } />
-				{elementIsValid(formElement.state)?'':<p className="invalid-text">{formElement.state.message}</p>}
-			</Form.Group>
-		));
+			if(formElement.state.type === 'select'){
+				let options = formElement.state.options.map(function(stat, index){
+					return {
+						name: stat.name,
+						value: index,
+					  } 
+				});
+
+
+				return <DDSelect 
+						key={formElement.id} 
+						formElement={formElement}
+						onChange={this.props.updateWeapon}
+						options={options}
+						value={this.props.equipment.currentWeapon?this.props.equipment.currentWeapon[formElement.state.key]:''} />
+			}else{
+				return <DDInput 
+						key={formElement.id} 
+						formElement={formElement}
+						onChange={this.props.updateWeapon}
+						value={this.props.equipment.currentWeapon?this.props.equipment.currentWeapon[formElement.state.key]:''} />
+			}
+			
+		});
 
 
 		return (
 			<Modal show={this.props.show} onHide={() => this.props.handleClose('weapon')} >
 			
 				<Modal.Header closeButton>
-					<Modal.Title>Add Weapon</Modal.Title>
+					<Modal.Title>{ this.props.equipment.currentWeaponIndex === -1?'New':'Edit'} Weapon</Modal.Title>
 				</Modal.Header>
 				
 				<Form onSubmit={(e) => this.updateWeapon(e)}>
@@ -210,7 +227,7 @@ class WeaponModal extends Component {
 					<Modal.Footer>
 						{this.state.loading?<FontAwesomeIcon icon={faSpinner} spin />:''}
 						<Button variant="secondary" onClick={() => this.props.handleClose('weapon')}>Close</Button>
-						<Button variant="primary" type="submit" disabled={!this.state.formIsValid}>Create weapon</Button>
+						<Button variant="success" type="submit">Save</Button>
 					</Modal.Footer>
 				</Form>
 			</Modal>
@@ -222,7 +239,7 @@ class WeaponModal extends Component {
 const mapStateToProps = state => {
 	return {
 		equipment: state.equipment,
-		// stats: state.stats.stats,
+		stats: state.stats.stats,
 		// skills: state.skills.skills
 	};
 }
@@ -231,7 +248,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 
-		updateEquipment: (key, value) => dispatch({type: actionTypes.EQUIP_WEAPON, payload: {key, value}}),
+		updateWeapon: (key, value) => dispatch({type: actionTypes.EQUIP_WEAPON, payload: {key, value}}),
+		saveWeapon: (key, value) => dispatch({type: actionTypes.EQUIP_SAVE_WEAPON, payload: {key, value}}),
 		// updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
 		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
 	};
