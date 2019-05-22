@@ -2,27 +2,34 @@
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility'
 
+const defaultWeapon = { 
+	name: '',
+	stat: 0,
+	hit: 0,
+	numDice: 1,
+	diceValue: 6,
+	bonus: 0,
+	type: '' //is this needed?
+};
+
 let defaultEquipment = {
 	weaponModal:false,
 	currentWeaponIndex: -1,
-	currentWeapon: { 
-		name: 'Default',
-		stat: 0,
-		hit: 0,
-		numDice: 1,
-		diceValue: 6,
-		bonus: 0,
-		type: '' //is this needed?
-	}, // -1 === new, 0-n are the indexes of the weapons to display in the modal
-	weaponLimit: 3, //The total number of weapons that can be in the equipment tab
+	currentWeapon: defaultWeapon, // -1 === new, 0-n are the indexes of the weapons to display in the modal
+	//weaponLimit: 3, //The total number of weapons that can be in the equipment tab
 	armorModal:false,
-	currentArmor: -1, // -1 === new, 0-n are the indexes of the armor to display in the modal
-	armorLimit: 3, //The total number of armors that can be in the equipment tab
+	currentArmor: {
+		name: '',
+		type: '',
+		bonus: 0,
+		ac: 10
+	},
+	//armorLimit: 3, //The total number of armors that can be in the equipment tab
 	gemsModal:false,
 	currentGem: -1, // -1 === new, 0-n are the indexes of the gems to display in the modal
 	weapons: [
 		{ 
-			name: 'Not Default',
+			name: 'Unarmed',
 			stat: 0,
 			hit: 0,
 			numDice: 1,
@@ -33,8 +40,9 @@ let defaultEquipment = {
 	],
 	armor: [
 		{
-			name: '',
+			name: 'Unarmored',
 			type: '',
+			bonus: 0,
 			ac: 10
 		}
 	],
@@ -142,15 +150,7 @@ const reducer = (state = defaultEquipment, action) => {
 			
 			//if our paylod is -1 or exists in our weapons then lets set our currentWeapon index
 			if( action.payload.index === -1){
-				currentWeapon = {
-					name: 'Default',
-					stat: 0,
-					hit: 0,
-					numDice: 1,
-					diceValue: 6,
-					bonus: 0,
-					type: '' //Is this needed?
-				};
+				currentWeapon = defaultWeapon;
 			}else if(equipment.weapons[action.payload.index] ){
 				currentWeapon = equipment.weapons[action.payload.index];
 			}
@@ -178,7 +178,6 @@ const reducer = (state = defaultEquipment, action) => {
 			return updateObject(state, {currentWeapon: currentWeapon});
 		case actionTypes.EQUIP_SAVE_WEAPON:
 
-
 			//copy our state
 			equipment = Object.assign({},state);
 
@@ -190,13 +189,32 @@ const reducer = (state = defaultEquipment, action) => {
 			};
 
 			//copy our weapons
-			equipment.weapons[equipment.currentWeaponIndex] = currentWeapon;
+			if(equipment.currentWeaponIndex === -1){
+				equipment.weapons.push(currentWeapon);
+			}else{
+				equipment.weapons[equipment.currentWeaponIndex] = currentWeapon;
+			}
 
 			//console.log(equipment);
 
 			return {
 				...equipment
 			}
+		
+		case actionTypes.EQUIP_DELETE_WEAPON:
+
+			//copy our state
+			equipment = Object.assign({},state);
+
+			//copy our weapons
+			if(equipment.currentWeaponIndex >= 0){
+				equipment.weapons.splice(equipment.currentWeaponIndex,1);
+			}
+
+			return {
+				...equipment
+			}
+
 		default:
 	}
 

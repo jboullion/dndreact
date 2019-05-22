@@ -226,6 +226,7 @@ class WeaponModal extends Component {
 			
 					<Modal.Footer>
 						{this.state.loading?<FontAwesomeIcon icon={faSpinner} spin />:''}
+						{ this.props.equipment.currentWeaponIndex === -1?null:<Button variant="danger" onClick={() => this.props.deleteWeapon()}>Delete</Button>}
 						<Button variant="secondary" onClick={() => this.props.handleClose('weapon')}>Close</Button>
 						<Button variant="success" type="submit">Save</Button>
 					</Modal.Footer>
@@ -250,6 +251,7 @@ const mapDispatchToProps = dispatch => {
 
 		updateWeapon: (key, value) => dispatch({type: actionTypes.EQUIP_WEAPON, payload: {key, value}}),
 		saveWeapon: (key, value) => dispatch({type: actionTypes.EQUIP_SAVE_WEAPON, payload: {key, value}}),
+		deleteWeapon: (key, value) => dispatch({type: actionTypes.EQUIP_DELETE_WEAPON, payload: {key, value}}),
 		// updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
 		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
 	};
