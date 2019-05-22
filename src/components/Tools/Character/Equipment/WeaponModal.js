@@ -90,7 +90,7 @@ class WeaponModal extends Component {
 				},
 				bonusDamage: {
 					type: 'number',
-					label: 'Bomus Damange',
+					label: 'Bonus Damange',
 					key: 'bonus',
 					validation: {
 						required: true,
@@ -174,9 +174,9 @@ class WeaponModal extends Component {
 			})
 		}
 
-		
+
 		const form = formElementsArray.map(formElement => {
-			
+
 			if(formElement.state.type === 'select'){
 				let options = formElement.state.options.map(function(stat, index){
 					return {
@@ -184,7 +184,6 @@ class WeaponModal extends Component {
 						value: index,
 					  } 
 				});
-
 
 				return <DDSelect 
 						key={formElement.id} 
@@ -199,7 +198,7 @@ class WeaponModal extends Component {
 						onChange={this.props.updateWeapon}
 						value={this.props.equipment.currentWeapon?this.props.equipment.currentWeapon[formElement.state.key]:''} />
 			}
-			
+
 		});
 
 
@@ -248,12 +247,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-
 		updateWeapon: (key, value) => dispatch({type: actionTypes.EQUIP_WEAPON, payload: {key, value}}),
 		saveWeapon: (key, value) => dispatch({type: actionTypes.EQUIP_SAVE_WEAPON, payload: {key, value}}),
-		deleteWeapon: (key, value) => dispatch({type: actionTypes.EQUIP_DELETE_WEAPON, payload: {key, value}}),
-		// updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
-		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
+		deleteWeapon: (key, value) => dispatch({type: actionTypes.EQUIP_DELETE_WEAPON, payload: {key, value}})
 	};
 }
 

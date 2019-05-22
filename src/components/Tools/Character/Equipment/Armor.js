@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-// import * as actionTypes from '../../../../store/actions/actionTypes'
+import * as actionTypes from '../../../../store/actions/actionTypes'
 
 import Table from 'react-bootstrap/Table';
 
@@ -11,18 +11,20 @@ const armor = (props) => {
 
 	return <Table striped bordered>
 				<thead>
-					<tr className="table-dark touch-row">
+					<tr className="table-dark touch-row" onClick={() => props.toggleArmorModal(-1)}>
 						<th>Armor <FontAwesomeIcon icon={faPlus} className="float-right" style={{height: '24px'}} /></th>
 						<th>Type</th>
+						<th>Prof.</th>
 						<th>AC</th>
 					</tr>
 				</thead>
 				<tbody>
 					{props.equipment.armor.map(function(armor, index){
 
-						return <tr key={index} className="touch-row">
-									<th>{armor.name}</th>
+						return <tr key={index} onClick={() => props.toggleArmorModal(index)}>
+									<th className="touch-row">{armor.name}</th>
 									<td>{armor.type}</td>
+									<td>{armor.prof}</td>
 									<td>{armor.ac}</td>
 								</tr>;
 
@@ -46,7 +48,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		// updateEquipment: (value, index) => dispatch({type: actionTypes.EQUIP_UPDATE, payload: {value, index}}),
 		// updateMoney: (value, index) => dispatch({type: actionTypes.EQUIP_MONEY, payload: {value, index}}),
-		// toggleWeaponModal: (index) => dispatch({type: actionTypes.MODAL_WEAPON, payload: {index}})
+		toggleArmorModal: (index) => dispatch({type: actionTypes.MODAL_ARMOR, payload: {index}})
 		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
 	};
 }
