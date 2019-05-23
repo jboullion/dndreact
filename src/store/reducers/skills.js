@@ -14,7 +14,7 @@ if(actionTypes.localstate && actionTypes.localstate.skills){
 		recentSkillRoll: { 
 			roll: 0,
 			bonus: 0,
-			prof: false 
+			prof: 0 
 		},
 		skills: [{
 			name: "Acrobatics",

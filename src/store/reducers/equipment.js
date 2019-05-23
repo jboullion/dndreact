@@ -1,4 +1,9 @@
-// import { playerDiceRoll, calcStatBonus } from '../../functions'
+/**
+ * We may want to break this reducer up? 
+ * It shouldn't get much buigger and actually could be condensed quite a bit once we know that the functions can be combined.
+ */
+
+import { playerDiceRoll } from '../../functions' // calcStatBonus
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility'
 
@@ -10,6 +15,18 @@ const defaultWeapon = {
 	diceValue: 6,
 	bonus: 0,
 	type: '' //is this needed?
+};
+
+const defaultWeaponRoll = { 
+	roll: 0,
+	damageRolls: 0,
+	stat: 0,
+	bonus: 0,
+	numDice: 1,
+	diceValue: 6,
+	bonusDamage: 0,
+	prof: 0,
+	totalDamage: 0
 };
 
 const defaultArmor = {
@@ -33,6 +50,7 @@ let defaultEquipment = {
 	currentWeaponIndex: -1,
 	currentWeapon: defaultWeapon, // -1 === new, 0-n are the indexes of the weapons to display in the modal
 	//weaponLimit: 3, //The total number of weapons that can be in the equipment tab
+	recentWeaponRoll: defaultWeaponRoll,
 	armorModal:false,
 	currentArmorIndex: -1,
 	currentArmor: defaultArmor,
@@ -91,7 +109,8 @@ const reducer = (state = defaultEquipment, action) => {
 	switch(action.type){
 		case actionTypes.EQUIP_MONEY:
 			return updateObject(state, {money: updateMoney(state, action)});
-		
+		case actionTypes.WEAPON_ROLL:
+			return updateObject(state, {recentWeaponRoll: weaponRoll(action.payload.weapon)});
 		case actionTypes.MODAL_WEAPON:
 			return {...openWeaponModal(state, action)}
 		case actionTypes.EQUIP_WEAPON:
@@ -154,6 +173,59 @@ const updateMoney = (state, action) => {
 
 	return moneies;
 }
+
+
+
+
+/**
+ * Setup a Roll object that we can display on the weapon page
+ * 
+ */
+function weaponRoll(weapon){
+	let roll = playerDiceRoll();
+	let damageRolls = [];
+	let totalDamage = 0;
+	//let advRoll = playerDiceRoll();
+
+	for(let i = 0; i < weapon.numDice; i++){
+		let damageRoll = playerDiceRoll(weapon.diceValue);
+		
+		totalDamage += damageRoll;
+
+		damageRolls.push(damageRoll);
+
+	}
+
+	if(weapon.bonus > 0){
+		totalDamage += weapon.bonus;
+	}
+
+	let recentWeaponRoll = { 
+		roll: roll,
+		damageRolls: damageRolls,
+		stat: weapon.stat,
+		bonus: weapon.hit,
+		numDice: weapon.numDice,
+		diceValue: weapon.diceValue,
+		bonusDamage: weapon.bonus,
+		prof: false,
+		totalDamage: totalDamage
+	}
+
+/*
+	let recentSkillRoll =  {
+		roll: roll,
+		bonus: action.payload.bonus,
+		prof: action.payload.skill.prof,
+		adv: action.payload.skill.adv,
+		advRoll: advRoll
+	}	
+*/
+
+	return recentWeaponRoll 
+}
+
+
 
 
 /**
