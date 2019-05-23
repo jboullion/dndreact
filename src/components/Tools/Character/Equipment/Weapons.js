@@ -1,3 +1,9 @@
+/**
+ * TODO: Update the faIcon in the Roll slot to match the dice value selected.
+ * TODO: Show an animation when the dice is rolled. Either on the roll or on the die
+ * TODO: Make the Weapon Dice Value a dropdown
+ * 
+ */
 import React from 'react';
 import { connect } from 'react-redux'
 import * as actionTypes from '../../../../store/actions/actionTypes'
@@ -47,7 +53,6 @@ const weapons = (props) => {
 
 
 const mapStateToProps = state => {
-	console.log(state.equipment);
 	return {
 		equipment: state.equipment,
 		stats: state.stats.stats,

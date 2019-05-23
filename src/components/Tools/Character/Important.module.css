@@ -16,7 +16,7 @@
 
 .fullHealth {
 	
-	animation: glow 1.5s ease 0s infinite normal ;
+	/*animation: glow 1.5s ease 0s infinite normal ;*/
 }
 
 @keyframes glow {

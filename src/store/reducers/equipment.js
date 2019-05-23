@@ -98,7 +98,7 @@ let defaultEquipment = {
 
 //The default stats if nothing loaded
 if(actionTypes.localstate && actionTypes.localstate.equipment){
-	//defaultEquipment = actionTypes.localstate.equipment;
+	defaultEquipment = actionTypes.localstate.equipment;
 }
 
 /**

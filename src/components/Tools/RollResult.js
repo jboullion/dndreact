@@ -9,7 +9,7 @@ const rollResult = (props) => {
 		roll = props.rollResult.advRoll;
 	}
 
-	return <div className="d-flex justify-content-center align-items-center">
+	return <div className="d-flex justify-content-center align-items-center ">
 				{props.rollResult.adv?<div className={RollResultCSS.total}><small>Adv</small> <br />{props.rollResult.advRoll} <span>/</span></div>:''}
 				<div className={RollResultCSS.total}><small>Roll</small> <br />{props.rollResult.roll} <span>+</span></div>
 				<div className={RollResultCSS.total}><small>Bonus</small><br />{props.rollResult.bonus} <span>+</span></div>
