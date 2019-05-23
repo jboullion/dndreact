@@ -239,3 +239,42 @@ export function calcMoney(money, rate){
 
 	return totalString;
 }
+
+
+/**
+ * Calculate the total Gold value of our gems
+ * @param {array} gems An array of money objects from the equipment object
+ */
+export function calcGemTotal(gems, money){
+
+	let totalCP = 0;
+	let remainderCP = 0;
+	let totalGold = 0;
+	let totalString = '';
+	// let rateMoney = money.find( (element) => {
+	// 	return element.initial === 'gp';
+	// });
+
+	gems.forEach(element => {
+		/*
+		rateMoney = money.find( (moneyElement) => {
+			return element.money === moneyElement.initial;
+		});
+		*/
+
+		totalCP += element.value * 100 * element.number; //rateMoney.multiple
+	});
+
+	totalGold = totalCP / 100; //floor or ceil?
+
+	remainderCP = totalGold - Math.floor(totalGold);
+
+	remainderCP = Math.round(remainderCP * 100);
+	//totalString = ' '+remainderCP+'cp';
+
+
+	totalGold = Math.floor(totalGold);
+	totalString = ''+totalGold+'gp '+remainderCP+'cp';
+
+	return totalString;
+}

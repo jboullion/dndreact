@@ -339,7 +339,7 @@ const openGemsModal = (state, action) => {
 		currentGem = equipment.gems[action.payload.index];
 	}
 
-	equipment.currentGemsIndex = action.payload.index;
+	equipment.currentGemIndex = action.payload.index;
 
 	equipment.currentGem = currentGem;
 
@@ -352,10 +352,14 @@ const updateGems = (state, action) => {
 	let currentGem = {
 		...state.currentGem
 	};
+	
 
-	//This hack should remove the leading zeros from inputs
-	if(! isNaN(action.payload.value)){
-		action.payload.value = parseInt(action.payload.value, 10);
+	if(action.payload.value){
+		if(! isNaN(action.payload.value)){
+			action.payload.value = parseInt(action.payload.value, 10);
+		}
+	}else{
+		action.payload.value = '';
 	}
 
 	currentGem[action.payload.key] = action.payload.value;
@@ -389,8 +393,8 @@ const deleteGems = (state, action) => {
 	let equipment = Object.assign({},state);
 
 	//copy our armor
-	if(equipment.currentGemsIndex >= 0){
-		equipment.gems.splice(equipment.currentGemsIndex,1);
+	if(equipment.currentGemIndex >= 0){
+		equipment.gems.splice(equipment.currentGemIndex,1);
 
 		equipment.gemModal = false;
 	}

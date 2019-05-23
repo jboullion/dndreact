@@ -58,6 +58,8 @@ class GemModal extends Component {
 					touched: false,
 					message: ''
 				},
+				//TODO: This should be a select dropdown
+				/*
 				money: {
 					type: 'text',
 					label: 'Rate',
@@ -71,6 +73,7 @@ class GemModal extends Component {
 					touched: false,
 					message: ''
 				}
+				*/
 
 			},
 			formIsValid: false,

@@ -7,15 +7,18 @@ import Table from 'react-bootstrap/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/pro-solid-svg-icons'
 
+import { calcGemTotal } from '../../../../functions'
 
 const equipment = (props) => {
+
+	const totalGemMoney = calcGemTotal(props.equipment.gems, props.equipment.money);
 
 	return <Table striped bordered>
 				<thead>
 					<tr className="table-dark touch-row" onClick={() => props.toggleGemModal(-1)}>
 						<th>Gems <FontAwesomeIcon icon={faPlus} className="float-right" style={{height: '24px'}} /></th>
 						<th>#</th>
-						<th>Value <span className="float-right">Total: 10gp</span></th>
+						<th>Value <span className="float-right">Total: {totalGemMoney}</span></th>
 					</tr>
 				</thead>
 				<tbody>
