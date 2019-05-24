@@ -11,7 +11,7 @@ import * as actionTypes from '../../../../store/actions/actionTypes'
 import Table from 'react-bootstrap/Table';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDiceD20, faPlus } from '@fortawesome/pro-solid-svg-icons'
+import { faDiceD4, faDiceD6, faDiceD8, faDiceD10, faDiceD12, faDiceD20, faPlus } from '@fortawesome/pro-solid-svg-icons'
 
 import { calcProf } from '../../../../functions'
 
@@ -19,6 +19,15 @@ import RollResult from '../../RollResult';
 import DamageResult from '../../DamageResult';
 
 const weapons = (props) => {
+
+	let faIcon = [];
+	faIcon[4] = faDiceD4;
+	faIcon[6] = faDiceD6;
+	faIcon[8] = faDiceD8;
+	faIcon[10] = faDiceD10;
+	faIcon[12] = faDiceD12;
+	faIcon[20] = faDiceD20;
+
 
 	return <div >
 			<RollResult rollResult={props.rollResult} profBonus={props.profBonus} />
@@ -42,7 +51,7 @@ const weapons = (props) => {
 									<td className="text-center">{weapon.hit>0?'+':''}{weapon.hit}</td>
 									<td className="text-center">{weapon.numDice}d{weapon.diceValue}</td>
 									<td className="text-center">{weapon.bonus}</td>
-									<td className="text-center touch-icon" onClick={(e) => props.rollWeapon(weapon)}><FontAwesomeIcon icon={faDiceD20} size="2x"  /></td>
+									<td className="text-center touch-icon" onClick={(e) => props.rollWeapon(weapon)}><FontAwesomeIcon icon={faIcon[weapon.diceValue]} size="2x"  /></td>
 								</tr>;
 					})}
 				</tbody>

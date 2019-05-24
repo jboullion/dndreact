@@ -56,7 +56,8 @@ class GemModal extends Component {
 					},
 					valid: false,
 					touched: false,
-					message: ''
+					message: '',
+					append: 'gp'
 				},
 				//TODO: This should be a select dropdown
 				/*

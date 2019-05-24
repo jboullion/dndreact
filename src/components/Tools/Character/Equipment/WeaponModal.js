@@ -76,7 +76,7 @@ class WeaponModal extends Component {
 					message: ''
 				},
 				diceValue: {
-					type: 'number',
+					type: 'select',
 					label: 'Dice Value',
 					key: 'diceValue',
 					validation: {
@@ -86,7 +86,37 @@ class WeaponModal extends Component {
 					},
 					valid: false,
 					touched: false,
-					message: ''
+					message: '',
+					options: [ 
+						{
+							name: 'd4',
+							value: 4
+						},
+						{
+							name: 'd6',
+							value: 6
+						},
+						{
+							name: 'd8',
+							value: 8
+						},
+						{
+							name: 'd10',
+							value: 10
+						},
+						{
+							name: 'd12',
+							value: 12
+						},
+						{
+							name: 'd20',
+							value: 20
+						},
+						// {
+						// 	name: 'd100',
+						// 	value: 100
+						// },
+					]
 				},
 				bonusDamage: {
 					type: 'number',
@@ -101,19 +131,19 @@ class WeaponModal extends Component {
 					touched: false,
 					message: ''
 				},
-				damageType: {
-					type: 'text',
-					label: 'Damange Type',
-					key: 'type',
-					validation: {
-						required: false,
-						minLength: 0,
-						maxLength: 2
-					},
-					valid: false,
-					touched: false,
-					message: ''
-				}
+				// damageType: {
+				// 	type: 'text',
+				// 	label: 'Damange Type',
+				// 	key: 'type',
+				// 	validation: {
+				// 		required: false,
+				// 		minLength: 0,
+				// 		maxLength: 2
+				// 	},
+				// 	valid: false,
+				// 	touched: false,
+				// 	message: ''
+				// }
 
 			},
 			formIsValid: false,
@@ -178,12 +208,20 @@ class WeaponModal extends Component {
 		const form = formElementsArray.map(formElement => {
 
 			if(formElement.state.type === 'select'){
-				let options = formElement.state.options.map(function(stat, index){
-					return {
-						name: stat.name,
-						value: index,
-					  } 
-				});
+				let options;
+
+				if(formElement.state.key === 'stat' ){
+					options = formElement.state.options.map(function(stat, index){
+						return {
+							name: stat.name,
+							value: index,
+						  } 
+					});
+				}else{
+					options = formElement.state.options;
+				}
+
+				
 
 				return <DDSelect 
 						key={formElement.id} 

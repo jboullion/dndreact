@@ -14,7 +14,7 @@ const DDSelect = (props) => {
 				type={props.formElement.state.type}
 				value={props.value} 
 				onChange={(e) => props.onChange(props.formElement.state.key, e.target.value) } >
-				{props.options.map(function(option, index){
+				{props.options.map(function(option){
 					return <option key={option.value} value={option.value} >{option.name}</option>;
 				})}
 			</Form.Control>

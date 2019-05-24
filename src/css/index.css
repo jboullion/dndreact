@@ -9,6 +9,8 @@
  .table th, 
  .table td { vertical-align: middle; }
 
+ .modal .form-label { margin-bottom: 0; }
+
 @media (max-width: 576px) { 
 	.table th, 
 	.table td {  }
