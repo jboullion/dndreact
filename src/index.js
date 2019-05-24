@@ -10,6 +10,7 @@ import statReducer from './store/reducers/stats';
 import skillReducer from './store/reducers/skills';
 import characterReducer from './store/reducers/character';
 import equipmentReducer from './store/reducers/equipment';
+import inventoryReducer from './store/reducers/inventory';
 import spellsReducer from './store/reducers/spells';
 import modalReducer from './store/reducers/modals';
 
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
 	skills: skillReducer,
 	character: characterReducer,
 	equipment: equipmentReducer,
+	inventory: inventoryReducer,
 	spells: spellsReducer,
 	modal: modalReducer
 });

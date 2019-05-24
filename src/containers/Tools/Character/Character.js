@@ -38,7 +38,7 @@ class Character extends Component {
 			<Container id="Character">
 				<Important />
 				
-				<Tabs justify defaultActiveKey="equipment" className={CharacterCSS.tabs}>
+				<Tabs justify defaultActiveKey="inventory" className={CharacterCSS.tabs}>
 					<Tab eventKey="info" title="Info" className="mt-2">
 						<Info />
 					</Tab>

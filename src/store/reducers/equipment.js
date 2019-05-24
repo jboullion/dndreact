@@ -3,7 +3,7 @@
  * It shouldn't get much buigger and actually could be condensed quite a bit once we know that the functions can be combined.
  */
 
-import { playerDiceRoll } from '../../functions' // calcStatBonus
+import { playerDiceRoll, numericSort } from '../../functions' // calcStatBonus
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility'
 
@@ -196,6 +196,8 @@ function weaponRoll(weapon){
 
 	}
 
+	damageRolls = damageRolls.sort(numericSort).reverse();
+
 	if(weapon.bonus > 0){
 		totalDamage += weapon.bonus;
 	}
@@ -260,7 +262,7 @@ const updateWeapon = (state, action) => {
 		...state.currentWeapon
 	};
 
-	//This hack should remove the leading zeros from inputs
+	// Remove leading zeros
 	if(! isNaN(action.payload.value)){
 		action.payload.value = parseInt(action.payload.value, 10);
 	}
@@ -341,7 +343,7 @@ const updateArmor = (state, action) => {
 		...state.currentArmor
 	};
 
-	//This hack should remove the leading zeros from inputs
+	// Remove leading zeros
 	if(! isNaN(action.payload.value)){
 		action.payload.value = parseInt(action.payload.value, 10);
 	}

@@ -153,38 +153,6 @@ class WeaponModal extends Component {
 		}
 
 	}
-	
-
-
-	// // Handle input element update and check validation
-	// inputChangedHandler = (event, inputIdentifier) => {
-
-	// 	console.log('Input Changed Handler');
-
-	// 	const updatedForm = {
-	// 		...this.state.form
-	// 	}
-
-	// 	const updatedFormElement = {
-	// 		...updatedForm[inputIdentifier]
-	// 	}
-		
-	// 	updatedFormElement.value = event.target.value;
-	// 	const validResult = checkValidity(updatedFormElement);
-	// 	updatedFormElement.valid = validResult.valid;
-	// 	updatedFormElement.message = validResult.message;
-	// 	updatedFormElement.touched = true;
-
-	// 	updatedForm[inputIdentifier] = updatedFormElement;
-
-	// 	let formIsValid = true;
-	// 	for(let inputIdentifier in updatedForm){
-	// 		formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
-	// 	}
-
-
-	// 	this.setState({form: updatedForm, formIsValid:formIsValid});
-	// }
 
 
 	// Handle our form submission to create an weapon on the server

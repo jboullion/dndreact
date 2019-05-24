@@ -13,7 +13,7 @@ import WeaponModal from './Equipment/WeaponModal';
 import ArmorModal from './Equipment/ArmorModal';
 import GemModal from './Equipment/GemModal';
 
-const gems = (props) => {
+const equipment = (props) => {
 
 	return <div className="mb-5 tab-pane" id="character-equipment">
 
@@ -57,4 +57,4 @@ const mapDispatchToProps = dispatch => {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(gems);
+export default connect(mapStateToProps, mapDispatchToProps)(equipment);
