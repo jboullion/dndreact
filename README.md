@@ -12,15 +12,23 @@ Build Production App with `npm run build`
 ### Built with the following Tools and Resources
 
 [React](https://reactjs.org/)
+
 [Redux](https://react-redux.js.org/)
+
 [Redux Thunk](https://github.com/reduxjs/redux-thunk)
+
 [Formik](https://github.com/jaredpalmer/formik)
 
+
 [Bootstrap](https://getbootstrap.com/)
+
 [React Bootstrap](https://react-bootstrap.github.io/)
+
 [Bootswatch](https://bootswatch.com/sketchy/)
 
+
 [Font Awesome](https://fontawesome.com/)
+
 [FontAwesome React](https://github.com/FortAwesome/react-fontawesome/tree/development)
 Font Awesome (FA) Pro is used in this application. FA Pro is a paid resource and I have not included it in this repo. To make full use of FA Pro in this application please purchase an FA Pro license.
 
