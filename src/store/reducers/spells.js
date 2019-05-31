@@ -5,24 +5,24 @@ import * as actionTypes from '../actions/actionTypes'
 let defaultSpells = [];
 
 let defaultSpell = {
-	name: '',
+	name: 'Test Name',
 	damage: [],
-	vsm: '',
-	description: '',
+	vsm: 'VSM',
+	description: 'Cool description',
 	range: 0,
 	duration: ''
 };
 
 //The default stats if nothing loaded
 if(actionTypes.localstate && actionTypes.localstate.spells){
-	defaultSpells = actionTypes.localstate.spells;
+	//defaultSpells = actionTypes.localstate.spells;
 }else{
 	defaultSpells = {
 		spellModal: false,
 		currentSpellIndex: [0,0], //we need 2 dimentional index
 		currentSpell: defaultSpell,
 		spells: [
-			[],[],[],[],[],[],[],[],[],[] // 9 levels of spells
+			[defaultSpell],[],[defaultSpell],[],[defaultSpell],[],[defaultSpell],[],[defaultSpell],[] // 9 levels of spells
 		]
 	}
 }
@@ -60,26 +60,24 @@ export default reducer;
 const openSpellModal = (state, action) => {
 	let currentSpell;
 
-	console.log('Open Modal?');
-
 	//copy our state
 	let spells = Object.assign({},state);
 
 	//update the value
 	spells.spellModal = !spells.spellModal;
 
-	/*
-	//if our paylod is -1 or exists in our weapons then lets set our currentSpell index
-	if( action.payload.index === -1){
-		currentSpell = defaultSpell;
-	}else if(spells.items[action.payload.index] ){
-		currentSpell = spells.items[action.payload.index];
-	}
+	// //if our paylod is -1 or exists in our weapons then lets set our currentSpell index
+	// if( action.payload.index === -1){
+	// 	currentSpell = defaultSpell;
+	// }else if(spells.spells[action.payload.level][action.payload.index] ){
+	// 	currentSpell = spells.spells[action.payload.level][action.payload.index];
+	// }
 
-	spells.currentSpellIndex = action.payload.index;
+	// spells.currentSpellIndex = action.payload.index;
 
-	spells.currentSpell = currentSpell;
-	*/
+	// spells.currentSpell = currentSpell;
+
+	// console.log(spells);
 
 	return spells;
 }

@@ -77,6 +77,8 @@ class Spells extends Component {
 						</Tabs>
 					</Col>
 				</Row>
+
+				<SpellModal handleClose={this.props.toggleSpellModal} show={this.props.spells.spellModal}/>
 			</Container>
 		)
 	};
@@ -86,7 +88,7 @@ const mapStateToProps = state => {
 	return {
 		character: state.character,
 		stats: state.stats.stats,
-		spells: state.spells.spells
+		spells: state.spells
 	};
 }
 

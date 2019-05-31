@@ -17,9 +17,7 @@ import { faSpinner } from '@fortawesome/pro-solid-svg-icons'
 class SpellModal extends Component {
 	constructor(props, context) {
 		super(props, context);
-		
-		//const itemAttr = ['name','stat','hit','numDice','diceValue','bonus','type']
-		
+
 		this.state = {
 			form: {
 				name: {
@@ -248,25 +246,25 @@ class SpellModal extends Component {
 						formElement={formElement}
 						onChange={this.props.updateSpell}
 						options={formElement.state.options}
-						value={this.props.inventory.currentSpell?this.props.inventory.currentSpell[formElement.state.key]:''} />
+						value={this.props.spells.currentSpell?this.props.spells.currentSpell[formElement.state.key]:''} />
 			}else{
 				return <DDInput 
 						key={formElement.id} 
 						formElement={formElement}
 						onChange={this.props.updateSpell}
-						value={this.props.inventory.currentSpell?this.props.inventory.currentSpell[formElement.state.key]:''} />
+						value={this.props.spells.currentSpell?this.props.spells.currentSpell[formElement.state.key]:''} />
 			}
 
 		});
 
 
 		return (
-			<Modal show={this.props.show} onHide={() => this.props.handleClose('spell')} >
-			
+			<Modal show={this.props.show} onHide={() => this.props.handleClose()} >
+
 				<Modal.Header closeButton>
-					<Modal.Title>{ this.props.inventory.currentSpellIndex === -1?'New':'Edit'} Spell</Modal.Title>
+					<Modal.Title>{ this.props.spells.currentSpellIndex === -1?'New':'Edit'} Spell</Modal.Title>
 				</Modal.Header>
-				
+
 				<Form onSubmit={(e) => this.updateSpell(e)}>
 					<Modal.Body>
 					{this.state.error !== ''?
@@ -280,11 +278,11 @@ class SpellModal extends Component {
 
 						{ form }
 					</Modal.Body>
-			
+
 					<Modal.Footer>
 						{this.state.loading?<FontAwesomeIcon icon={faSpinner} spin />:''}
-						{ this.props.inventory.currentSpellIndex === -1?null:<Button variant="danger" onClick={() => this.props.deleteSpell()}>Delete</Button>}
-						<Button variant="secondary" onClick={() => this.props.handleClose('spell')}>Close</Button>
+						{ this.props.spells.currentSpellIndex === -1?null:<Button variant="danger" onClick={() => this.props.deleteSpell()}>Delete</Button>}
+						<Button variant="secondary" onClick={() => this.props.handleClose()}>Close</Button>
 						<Button variant="success" type="submit">Save</Button>
 					</Modal.Footer>
 				</Form>
@@ -294,21 +292,20 @@ class SpellModal extends Component {
 
 }
 
+
 const mapStateToProps = state => {
 	return {
-		// inventory: state.inventory,
-		// equipment: state.equipment,
+		spells: state.spells,
 		// stats: state.stats.stats,
-		// skills: state.skills.skills
 	};
 }
 
 
 const mapDispatchToProps = dispatch => {
 	return {
-		// updateSpell: (key, value) => dispatch({type: actionTypes.INVENTORY_ITEMS, payload: {key, value}}),
-		// saveSpell: (key, value) => dispatch({type: actionTypes.INVENTORY_SAVE_ITEMS, payload: {key, value}}),
-		// deleteSpell: (key, value) => dispatch({type: actionTypes.INVENTORY_DELETE_ITEMS, payload: {key, value}})
+		updateSpell: (key, value) => dispatch({type: actionTypes.SPELLS_SPELL, payload: {key, value}}),
+		saveSpell: (key, value) => dispatch({type: actionTypes.SPELLS_SAVE_SPELL, payload: {key, value}}),
+		deleteSpell: (key, value) => dispatch({type: actionTypes.SPELLS_DELETE_SPELL, payload: {key, value}})
 	};
 }
 

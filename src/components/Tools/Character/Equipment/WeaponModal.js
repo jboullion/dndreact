@@ -111,11 +111,7 @@ class WeaponModal extends Component {
 						{
 							name: 'd20',
 							value: 20
-						},
-						// {
-						// 	name: 'd100',
-						// 	value: 100
-						// },
+						}
 					]
 				},
 				bonusDamage: {
@@ -130,21 +126,7 @@ class WeaponModal extends Component {
 					valid: false,
 					touched: false,
 					message: ''
-				},
-				// damageType: {
-				// 	type: 'text',
-				// 	label: 'Damange Type',
-				// 	key: 'type',
-				// 	validation: {
-				// 		required: false,
-				// 		minLength: 0,
-				// 		maxLength: 2
-				// 	},
-				// 	valid: false,
-				// 	touched: false,
-				// 	message: ''
-				// }
-
+				}
 			},
 			formIsValid: false,
 			loading: false,
@@ -188,8 +170,6 @@ class WeaponModal extends Component {
 				}else{
 					options = formElement.state.options;
 				}
-
-				
 
 				return <DDSelect 
 						key={formElement.id} 

@@ -50,25 +50,27 @@ class SpellLevel extends Component {
 
 
 	render() {
-
+	
 		return (
 			<div>
 				{ this.props.level > 0?this.displaySpellSlots():'' }
 
-				<Spell className="card my-2" 
-						title="Vicious Mocking" 
-						somatic="VSM"
-						desc="" />
+				
+
+				{this.props.spells.spells[this.props.level].map(function(spell, index){
+					return <Spell key={index} spell={spell} />;
+				})}
 			</div>
 		)
 	};
 }
 
 const mapStateToProps = state => {
+	console.log(state.spells);
 	return {
 		//character: state.character,
 		//stats: state.stats.stats,
-		//skills: state.skills.skills
+		spells: state.spells
 	};
 }
 

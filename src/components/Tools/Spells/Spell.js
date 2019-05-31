@@ -12,9 +12,9 @@ import Card from 'react-bootstrap/Card';
 const spell = (props) => {
 	return <Card className="my-2">
 				<Card.Body>
-					<h4 className="card-title">{props.title}</h4>
-					<h6 className="card-subtitle mb-2 text-muted">{props.somatic}</h6>
-					<p className="card-text">{props.desc}</p>
+					<h4 className="card-title">{props.spell.name}</h4>
+					<h6 className="card-subtitle mb-2 text-muted">{props.spell.vsm}</h6>
+					<p className="card-text">{props.spell.desc}</p>
 				</Card.Body>
 			</Card>;
 }
