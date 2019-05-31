@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import AppCSS from './App.module.css';
 
 import Header from './components/Header';
-import Tools from './containers/Tools/Tools';
-import Modals from './containers/Tools/Modals';
+import Tools from './components/Tools/Tools';
+import Modals from './components/Modals';
 
 
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import * as actionTypes from '../../../store/actions/actionTypes'
 
 // import Container from 'react-bootstrap/Container';
 // import Tab from 'react-bootstrap/Tab';
@@ -15,7 +16,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faBed, faLock, faLockOpen } from '@fortawesome/pro-solid-svg-icons' //, faCampfire, faCampground //shortrest and long rest // faEyeSlash, faDeaf conditions
 
-import Spell from '../../../components/Tools/Spells/Spell';
+import Spell from './Spell';
 
 // import { calcStatBonus } from '../../../functions'
 // import * as actionTypes from '../../../store/actions/actionTypes'
@@ -54,8 +55,6 @@ class SpellLevel extends Component {
 			<div>
 				{ this.props.level > 0?this.displaySpellSlots():'' }
 
-				<Button className="my-2">Add Spell</Button>
-
 				<Spell className="card my-2" 
 						title="Vicious Mocking" 
 						somatic="VSM"
@@ -76,6 +75,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
+		//toggleItemModal: (index) => dispatch({type: actionTypes.MODAL_SPELLS, payload: {index}})
 		//updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
 		//updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
 	};

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
-import * as actionTypes from '../../store/actions/actionTypes'
+import * as actionTypes from '../store/actions/actionTypes'
 
-import AccountModal from '../../components/Modals/AccountModal';
-import SigninModal from '../../components/Modals/SigninModal';
+import AccountModal from './Modals/AccountModal';
+import SigninModal from './Modals/SigninModal';
 
 
 class Modals extends Component {

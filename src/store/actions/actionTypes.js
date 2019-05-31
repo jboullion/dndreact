@@ -35,6 +35,11 @@ export const INVENTORY_ITEMS = 'INVENTORY_ITEMS';
 export const INVENTORY_SAVE_ITEMS = 'INVENTORY_SAVE_ITEMS';
 export const INVENTORY_DELETE_ITEMS = 'INVENTORY_DELETE_ITEMS';
 
+export const MODAL_SPELLS = 'MODAL_SPELLS';
+export const SPELLS_SPELL = 'SPELLS_SPELL';
+export const SPELLS_SAVE_SPELL = 'SPELLS_SAVE_SPELL';
+export const SPELLS_DELETE_SPELL = 'SPELLS_DELETE_SPELL';
+
 export const MODAL_TOGGLE = 'MODAL_TOGGLE';
 
 export const localstate = JSON.parse(localStorage.getItem('DND_STATE'));

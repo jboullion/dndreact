@@ -13,8 +13,9 @@ import Button from 'react-bootstrap/Button';
 // import ProgressBar from 'react-bootstrap/ProgressBar';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBed, faLock, faLockOpen } from '@fortawesome/pro-solid-svg-icons' //, faCampfire, faCampground //shortrest and long rest // faEyeSlash, faDeaf conditions
+import { faBed, faLock, faLockOpen, faBookSpells } from '@fortawesome/pro-solid-svg-icons' //, faCampfire, faCampground //shortrest and long rest // faEyeSlash, faDeaf conditions
 
+import SpellModal from './SpellModal';
 import SpellLevel from './SpellLevel';
 
 import { calcStatBonus } from '../../../functions'
@@ -42,8 +43,12 @@ class Spells extends Component {
 
 		return (
 			<Container>
-				<Row className="w-100 my-2">
-					<Col xs={6} md={4}>
+				<Row>
+					<Col xs={12} md={4} className="my-2">
+						<Button variant="info" className="mr-3" onClick={() => this.props.toggleSpellModal(null)}><FontAwesomeIcon icon={faBookSpells} /> Add Spell</Button>
+						<Button variant="success"><FontAwesomeIcon icon={faBed} /> Rest</Button>
+					</Col>
+					<Col xs={6} md={4} className="my-2">
 						<InputGroup>
 							<InputGroup.Prepend>
 								<InputGroup.Text className=" bg-primary text-white">Atk+</InputGroup.Text>
@@ -54,7 +59,7 @@ class Spells extends Component {
 							</InputGroup.Append>
 						</InputGroup>
 					</Col>
-					<Col xs={6} md={4}>
+					<Col xs={6} md={4} className="my-2">
 						<InputGroup>
 							<InputGroup.Prepend>
 								<InputGroup.Text className=" bg-primary text-white">DC</InputGroup.Text>
@@ -62,14 +67,11 @@ class Spells extends Component {
 							<FormControl type="number" defaultValue={spellAttack+8} readOnly />
 						</InputGroup>
 					</Col>
-					<Col xs={4}className="text-right">
-						<Button variant="success"><FontAwesomeIcon icon={faBed} /> Rest</Button>
-					</Col>
+					
 				</Row>
 
 				 <Row>
 					<Col>
-						<legend className="mb-2">Spellbook</legend>
 						<Tabs justify defaultActiveKey="0">
 							{ this.displaySpells() }
 						</Tabs>
@@ -84,15 +86,16 @@ const mapStateToProps = state => {
 	return {
 		character: state.character,
 		stats: state.stats.stats,
-		skills: state.skills.skills
+		spells: state.spells.spells
 	};
 }
 
 
 const mapDispatchToProps = dispatch => {
 	return {
-		updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
-		updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
+		toggleSpellModal: (index) => dispatch({type: actionTypes.MODAL_SPELLS, payload: {index}}),
+		// updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
+		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
 	};
 }
 

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
 //We keep these components in our components folder since they are Pure / functional / stateless components
-import Important from '../../../components/Tools/Character/Important';
-import Info from '../../../components/Tools/Character/Info';
-import Stats from '../../../components/Tools/Character/Stats';
-import Skills from '../../../components/Tools/Character/Skills';
-import Equipment from '../../../components/Tools/Character/Equipment';
-import Inventory from '../../../components/Tools/Character/Inventory';
+import Important from './Important';
+import Info from './Info';
+import Stats from './Stats';
+import Skills from './Skills';
+import Equipment from './Equipment';
+import Inventory from './Inventory';
 
 import Container from 'react-bootstrap/Container';
 import Tab from 'react-bootstrap/Tab';
