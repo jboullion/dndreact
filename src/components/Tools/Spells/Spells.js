@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actionTypes from '../../../store/actions/actionTypes'
 
 import Container from 'react-bootstrap/Container';
 import Tab from 'react-bootstrap/Tab';
@@ -19,7 +20,7 @@ import SpellModal from './SpellModal';
 import SpellLevel from './SpellLevel';
 
 import { calcStatBonus } from '../../../functions'
-import * as actionTypes from '../../../store/actions/actionTypes'
+
 
 // import CharacterCSS from './Character.module.css';
 
@@ -45,7 +46,7 @@ class Spells extends Component {
 			<Container>
 				<Row>
 					<Col xs={12} md={4} className="my-2">
-						<Button variant="info" className="mr-3" onClick={() => this.props.toggleSpellModal(null)}><FontAwesomeIcon icon={faBookSpells} /> Add Spell</Button>
+						<Button variant="info" className="mr-3" onClick={() => this.props.toggleSpellModal(null,null)}><FontAwesomeIcon icon={faBookSpells} /> Add Spell</Button>
 						<Button variant="success"><FontAwesomeIcon icon={faBed} /> Rest</Button>
 					</Col>
 					<Col xs={6} md={4} className="my-2">
@@ -95,7 +96,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		toggleSpellModal: (index) => dispatch({type: actionTypes.MODAL_SPELLS, payload: {index}}),
+		toggleSpellModal: (level, index) => dispatch({type: actionTypes.MODAL_SPELLS, payload: {index, level}}),
 		// updateCharacter: (value, index) => dispatch({type: actionTypes.CHAR_UPDATE, payload: {value, index}}),
 		// updateLockedCharacter: (value, index) => dispatch({type: actionTypes.CHAR_LOCK_UPDATE, payload: {value, index}}),
 	};

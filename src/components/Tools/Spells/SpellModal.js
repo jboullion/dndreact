@@ -23,7 +23,6 @@ class SpellModal extends Component {
 				name: {
 					type: 'text',
 					label: 'Name',
-					placeholder: '',
 					key: 'name',
 					validation: {
 						required: true,
@@ -88,58 +87,58 @@ class SpellModal extends Component {
 						}
 					]
 				},
-				castingTime: {
-					type: 'number',
-					label: 'Casting Time',
-					key: 'cTime',
-					validation: {
-						required: true,
-						minLength: 0,
-						maxLength: 9
-					},
-					valid: false,
-					touched: false,
-					message: ''
-				},
-				castingType: {
-					type: 'select',
-					label: '',
-					key: 'cType',
-					validation: {
-						required: true,
-						minLength: 0,
-						maxLength: 9
-					},
-					valid: false,
-					touched: false,
-					message: '',
-					options: [ 
-						{
-							name: 'Action',
-							value: 'Action'
-						},
-						{
-							name: 'Bonus Action',
-							value: 'Bonus Action'
-						},
-						{
-							name: 'Hour',
-							value: 'Hour'
-						},
-						{
-							name: 'Minute',
-							value: 'Minute'
-						},
-						{
-							name: 'No Action',
-							value: 'No Action'
-						},
-						{
-							name: 'Reaction',
-							value: 'Reaction'
-						}
-					]
-				},
+				// castingTime: {
+				// 	type: 'number',
+				// 	label: 'Casting Time',
+				// 	key: 'cTime',
+				// 	validation: {
+				// 		required: true,
+				// 		minLength: 0,
+				// 		maxLength: 9
+				// 	},
+				// 	valid: false,
+				// 	touched: false,
+				// 	message: ''
+				// },
+				// castingType: {
+				// 	type: 'select',
+				// 	label: '',
+				// 	key: 'cType',
+				// 	validation: {
+				// 		required: true,
+				// 		minLength: 0,
+				// 		maxLength: 9
+				// 	},
+				// 	valid: false,
+				// 	touched: false,
+				// 	message: '',
+				// 	options: [ 
+				// 		{
+				// 			name: 'Action',
+				// 			value: 'Action'
+				// 		},
+				// 		{
+				// 			name: 'Bonus Action',
+				// 			value: 'Bonus Action'
+				// 		},
+				// 		{
+				// 			name: 'Hour',
+				// 			value: 'Hour'
+				// 		},
+				// 		{
+				// 			name: 'Minute',
+				// 			value: 'Minute'
+				// 		},
+				// 		{
+				// 			name: 'No Action',
+				// 			value: 'No Action'
+				// 		},
+				// 		{
+				// 			name: 'Reaction',
+				// 			value: 'Reaction'
+				// 		}
+				// 	]
+				// },
 				numDice: {
 					type: 'number',
 					label: '# Dice',
@@ -221,9 +220,9 @@ class SpellModal extends Component {
 
 	// Handle our form submission to create an item on the server
 	updateSpell = (event) => {
-		// event.preventDefault();
-		// this.props.saveSpell();
-		// this.props.handleClose('item')
+		event.preventDefault();
+		this.props.saveSpell();
+		this.props.handleClose();
 	}
 
 
@@ -262,7 +261,7 @@ class SpellModal extends Component {
 			<Modal show={this.props.show} onHide={() => this.props.handleClose()} >
 
 				<Modal.Header closeButton>
-					<Modal.Title>{ this.props.spells.currentSpellIndex === -1?'New':'Edit'} Spell</Modal.Title>
+					<Modal.Title>{ this.props.spells.currentSpellIndex === null?'New':'Edit'} Spell</Modal.Title>
 				</Modal.Header>
 
 				<Form onSubmit={(e) => this.updateSpell(e)}>
@@ -281,7 +280,7 @@ class SpellModal extends Component {
 
 					<Modal.Footer>
 						{this.state.loading?<FontAwesomeIcon icon={faSpinner} spin />:''}
-						{ this.props.spells.currentSpellIndex === -1?null:<Button variant="danger" onClick={() => this.props.deleteSpell()}>Delete</Button>}
+						{ this.props.spells.currentSpellIndex === null?null:<Button variant="danger" onClick={() => this.props.deleteSpell()}>Delete</Button>}
 						<Button variant="secondary" onClick={() => this.props.handleClose()}>Close</Button>
 						<Button variant="success" type="submit">Save</Button>
 					</Modal.Footer>

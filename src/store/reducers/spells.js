@@ -10,7 +10,11 @@ let defaultSpell = {
 	vsm: 'VSM',
 	description: 'Cool description',
 	range: 0,
-	duration: ''
+	duration: '',
+	level: 0,
+	numDice: 1,
+	diceValue: 6,
+	bonus: 0,
 };
 
 //The default stats if nothing loaded
@@ -19,11 +23,9 @@ if(actionTypes.localstate && actionTypes.localstate.spells){
 }else{
 	defaultSpells = {
 		spellModal: false,
-		currentSpellIndex: [0,0], //we need 2 dimentional index
+		currentSpellIndex: null, //we need 2 dimentional index
 		currentSpell: defaultSpell,
-		spells: [
-			[defaultSpell],[],[defaultSpell],[],[defaultSpell],[],[defaultSpell],[],[defaultSpell],[] // 9 levels of spells
-		]
+		spells: []
 	}
 }
 
@@ -34,11 +36,11 @@ const reducer = (state = defaultSpells, action) => {
 	switch(action.type){
 		case actionTypes.MODAL_SPELLS:
 			return {...openSpellModal(state, action)}
-		// case actionTypes.INVENTORY_SPELL:
+		// case actionTypes.SPELLS_SPELL:
 		// 	return updateObject(state, {currentSpell: updateSpell(state, action)});
-		// case actionTypes.INVENTORY_SAVE_SPELL:
-		// 	return {...saveSpell(state, action)}
-		// case actionTypes.INVENTORY_DELETE_SPELL:
+		case actionTypes.SPELLS_SAVE_SPELL:
+			return {...saveSpell(state, action)}
+		// case actionTypes.SPELLS_DELETE_SPELL:
 		// 	return {...deleteSpell(state, action)}
 		default:
 	}
@@ -58,79 +60,76 @@ export default reducer;
  * We need to setup the weapon we want to work with in our modal
  */
 const openSpellModal = (state, action) => {
-	let currentSpell;
-
 	//copy our state
 	let spells = Object.assign({},state);
 
 	//update the value
 	spells.spellModal = !spells.spellModal;
 
-	// //if our paylod is -1 or exists in our weapons then lets set our currentSpell index
-	// if( action.payload.index === -1){
-	// 	currentSpell = defaultSpell;
-	// }else if(spells.spells[action.payload.level][action.payload.index] ){
-	// 	currentSpell = spells.spells[action.payload.level][action.payload.index];
-	// }
-
-	// spells.currentSpellIndex = action.payload.index;
-
-	// spells.currentSpell = currentSpell;
-
-	// console.log(spells);
+	//if our paylod is -1 or exists in our weapons then lets set our currentSpell index
+	if( action.payload.index === null){
+		console.log('Default Spell');
+		spells.currentSpell = defaultSpell;
+		spells.currentSpellIndex = null;
+	}else if(action.payload.index && action.payload.level && spells.spells[action.payload.level][action.payload.index] ){
+		console.log('Set Spell: '+action.payload.level+', '+action.payload.index);
+		//spells.currentSpell = spells.spells[action.payload.level][action.payload.index];
+		spells.currentSpellIndex = [action.payload.level,action.payload.index];
+	}
 
 	return spells;
 }
 
-/*
-// Update a weapon in the modal while editing
-const updateSpell = (state, action) => {
-	let currentSpell = {
-		...state.currentSpell
-	};
 
-	// Remove leading zeros
-	if(! isNaN(action.payload.value)){
-		action.payload.value = parseFloat(action.payload.value, 10);
-	}
+// // Update a weapon in the modal while editing
+// const updateSpell = (state, action) => {
+// 	let currentSpell = {
+// 		...state.currentSpell
+// 	};
 
-	currentSpell[action.payload.key] = action.payload.value;
+// 	// Remove leading zeros
+// 	if(! isNaN(action.payload.value)){
+// 		action.payload.value = parseFloat(action.payload.value, 10);
+// 	}
 
-	return currentSpell;
-}
+// 	currentSpell[action.payload.key] = action.payload.value;
+
+// 	return currentSpell;
+// }
 
 // Save this weapon from the modal form
 const saveSpell = (state, action) => {
 	//copy our state
-	let inventory = Object.assign({},state);
+	let spells = Object.assign({},state);
 
 	//copy our current weapon
 	let currentSpell = {
 		...state.currentSpell
 	};
 
+	console.log(currentSpell);
 	//copy our weapons
-	if(inventory.currentSpellIndex === -1){
-		inventory.items.push(currentSpell);
-	}else{
-		inventory.items[inventory.currentSpellIndex] = currentSpell;
+	if(spells.currentSpellIndex === null){
+		console.log('currentSpellIndex: null');
+		spells.spells.push(currentSpell);
+	}else if(spells.currentSpellIndex && spells.currentSpellIndex.length){
+		//spells.spells[spells.currentSpellIndex[0]][spells.currentSpellIndex[1]] = currentSpell;
 	}
 
-	return inventory;
+	return spells;
 }
 
-// Delete a weapon from our equipment
-const deleteSpell = (state, action) => {
-	//copy our state
-	let inventory = Object.assign({},state);
+// // Delete a weapon from our equipment
+// const deleteSpell = (state, action) => {
+// 	//copy our state
+// 	let inventory = Object.assign({},state);
 
-	//copy our items
-	if(inventory.currentSpellIndex >= 0){
-		inventory.items.splice(inventory.currentSpellIndex,1);
+// 	//copy our items
+// 	if(inventory.currentSpellIndex >= 0){
+// 		inventory.items.splice(inventory.currentSpellIndex,1);
 
-		inventory.itemModal = false;
-	}
+// 		inventory.itemModal = false;
+// 	}
 
-	return inventory;
-}
-*/
+// 	return inventory;
+// }

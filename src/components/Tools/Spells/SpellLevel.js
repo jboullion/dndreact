@@ -48,25 +48,31 @@ class SpellLevel extends Component {
 		)
 	}
 
+	displaySpellLevels(level){
+		if(this.props.spells.spells){
+			return ( 
+				this.props.spells.spells[level].map(function(spell, index){
+					return <Spell key={index} spell={spell} level={level} index={index} />;
+				})
+			)
+		}
+	}
+
 
 	render() {
-	
+		let level = this.props.level;
+
 		return (
 			<div>
-				{ this.props.level > 0?this.displaySpellSlots():'' }
+				{ level > 0?this.displaySpellSlots():'' }
 
-				
-
-				{this.props.spells.spells[this.props.level].map(function(spell, index){
-					return <Spell key={index} spell={spell} />;
-				})}
+				{ this.displaySpellLevels(level) }
 			</div>
 		)
 	};
 }
 
 const mapStateToProps = state => {
-	console.log(state.spells);
 	return {
 		//character: state.character,
 		//stats: state.stats.stats,
