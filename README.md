@@ -1,5 +1,7 @@
 # D&D Tools
 
+Public Staging Server: http://dndreact.jboullion.com/
+
 A set of D&D tools
 
 Install with `npm install`
