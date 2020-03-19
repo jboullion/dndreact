@@ -23,7 +23,7 @@ if(actionTypes.localstate && actionTypes.localstate.spells){
 }else{
 	defaultSpells = {
 		spellModal: false,
-		currentSpellIndex: null, //we need 2 dimentional index
+		currentSpellIndex: -1, //we need 2 dimentional index
 		currentSpell: defaultSpell,
 		spells: []
 	}
@@ -57,7 +57,7 @@ export default reducer;
  */
 
 /**
- * We need to setup the weapon we want to work with in our modal
+ * We need to setup the spell we want to work with in our modal
  */
 const openSpellModal = (state, action) => {
 	//copy our state
@@ -67,10 +67,10 @@ const openSpellModal = (state, action) => {
 	spells.spellModal = !spells.spellModal;
 
 	//if our paylod is -1 or exists in our weapons then lets set our currentSpell index
-	if( action.payload.index === null){
+	if( action.payload.index === -1){
 		console.log('Default Spell');
 		spells.currentSpell = defaultSpell;
-		spells.currentSpellIndex = null;
+		spells.currentSpellIndex = -1;
 	}else if(action.payload.index && action.payload.level && spells.spells[action.payload.level][action.payload.index] ){
 		console.log('Set Spell: '+action.payload.level+', '+action.payload.index);
 		//spells.currentSpell = spells.spells[action.payload.level][action.payload.index];
@@ -107,12 +107,11 @@ const saveSpell = (state, action) => {
 		...state.currentSpell
 	};
 
-	console.log(currentSpell);
 	//copy our weapons
-	if(spells.currentSpellIndex === null){
-		console.log('currentSpellIndex: null');
+	if(spells.currentSpellIndex === -1){
 		spells.spells.push(currentSpell);
 	}else if(spells.currentSpellIndex && spells.currentSpellIndex.length){
+		// equipment.weapons[equipment.currentWeaponIndex] = currentWeapon;
 		//spells.spells[spells.currentSpellIndex[0]][spells.currentSpellIndex[1]] = currentSpell;
 	}
 
