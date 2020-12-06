@@ -1,6 +1,7 @@
 # D&D Tools
 
 Public Staging Server: http://dndreact.jboullion.com/
+NOTE: Currently only the character sheet is functional.
 
 A set of D&D tools
 
