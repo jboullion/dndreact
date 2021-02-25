@@ -1,6 +1,9 @@
 # D&D Tools
 
+![Character Sheet](https://repository-images.githubusercontent.com/183946185/26068f00-37e3-11eb-86c6-757d5a77cada)
+
 Public Staging Server: http://dndreact.jboullion.com/
+NOTE: Currently only the character sheet is functional.
 
 A set of D&D tools
 
