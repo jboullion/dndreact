@@ -20,10 +20,10 @@ const header = (props) => {
 					</Navbar.Brand>
 					
 					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
-					<Navbar.Collapse id="responsive-navbar-nav" className={'justify-content-end'}>
+					{/* <Navbar.Collapse id="responsive-navbar-nav" className={'justify-content-end'}>
 						<Button className={HeaderCSS.btnSpace} variant="outline-info" onClick={() => props.toggleModal('account')}>Create Account</Button>
 						<Button className={HeaderCSS.btnSpace} variant="outline-success" onClick={() => props.toggleModal('signin')}>Sign In</Button>
-					</Navbar.Collapse>
+					</Navbar.Collapse> */}
 				</Container>
 			</Navbar>;
 }

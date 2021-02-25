@@ -16,7 +16,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faBed, faLock, faLockOpen } from '@fortawesome/pro-solid-svg-icons' //, faCampfire, faCampground //shortrest and long rest // faEyeSlash, faDeaf conditions
 
-import Spell from './Spell';
+//import Spell from './Spell';
 
 // import { calcStatBonus } from '../../../functions'
 // import * as actionTypes from '../../../store/actions/actionTypes'
